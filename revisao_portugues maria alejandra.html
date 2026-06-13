@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão de Português – Enlace Brasil</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f6fa; color: #1a1a2e; min-height: 100vh; padding: 1.5rem; }
+.logo-bar { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.navy { background: #0d3b6e; } .dot.teal { background: #1a9a8a; } .dot.gold { background: #f5c842; }
+.logo-bar span { font-size: 12px; font-weight: 700; color: #0d3b6e; letter-spacing: 1.5px; text-transform: uppercase; }
+.header { text-align: center; margin-bottom: 1.5rem; }
+.header h1 { font-size: 22px; font-weight: 700; color: #0d3b6e; }
+.header p { font-size: 13px; color: #5a6478; margin-top: 4px; }
+
+/* Category tabs */
+.cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.2rem; }
+.cat-tab { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: #5a6478; cursor: pointer; transition: all 0.15s; }
+.cat-tab:hover { border-color: #1a9a8a; color: #1a9a8a; }
+.cat-tab.active { background: #0d3b6e; border-color: #0d3b6e; color: #fff; }
+
+/* Card grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 9px; margin-bottom: 1.5rem; }
+.card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 12px 11px; cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; gap: 4px; }
+.card:hover { border-color: #1a9a8a; background: #f0faf8; }
+.card.active { border: 2px solid #0d3b6e; background: #eaf0fa; }
+.card .ico { font-size: 20px; }
+.card .label { font-size: 12.5px; font-weight: 700; color: #0d3b6e; line-height: 1.3; }
+.card .sub { font-size: 11px; color: #718096; }
+
+/* Panel */
+.panel { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.5rem; min-height: 220px; }
+.panel h3 { font-size: 17px; font-weight: 700; color: #0d3b6e; margin-bottom: 14px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
+.mini-card { background: #f5f6fa; border-radius: 8px; padding: 9px 11px; font-size: 12.5px; line-height: 1.6; }
+.mini-card strong { font-size: 13px; color: #0d3b6e; display: block; margin-bottom: 3px; }
+.example { background: #f0faf8; border-radius: 8px; padding: 10px 14px; margin: 8px 0; font-size: 13px; border-left: 4px solid #1a9a8a; line-height: 1.6; }
+.example b { color: #0d3b6e; }
+.example.gold { background: #faeeda; border-left-color: #f5c842; }
+.example.red { background: #fcebeb; border-left-color: #e24b4a; }
+.example.navy { background: #eaf0fa; border-left-color: #0d3b6e; }
+.tag { display: inline-block; background: #eaf0fa; color: #0d3b6e; border-radius: 20px; padding: 3px 10px; font-size: 11.5px; font-weight: 700; margin: 3px; }
+.tag.teal { background: #e1f5ee; color: #0f6e56; }
+.tag.gold { background: #faeeda; color: #854f0b; }
+.tag.red { background: #fcebeb; color: #a32d2d; }
+.divider { border: none; border-top: 1px solid #e2e8f0; margin: 12px 0; }
+.placeholder { color: #a0aec0; font-size: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px; gap: 10px; }
+.placeholder .big { font-size: 40px; }
+
+/* Ditado */
+.ditado-text { font-size: 14px; line-height: 2; color: #1a1a2e; background: #f5f6fa; border-radius: 10px; padding: 1rem 1.2rem; border-left: 4px solid #0d3b6e; }
+.ditado-text .hl-s { color: #0f6e56; font-weight: 700; }
+.ditado-text .hl-ss { color: #0d3b6e; font-weight: 700; }
+.ditado-text .hl-c { color: #854f0b; font-weight: 700; }
+.reveal-btn { margin-top: 10px; background: #0d3b6e; color: #fff; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.reveal-btn:hover { background: #1a9a8a; }
+.hidden { display: none; }
+
+@media (max-width: 600px) {
+  .cols, .cols-3 { grid-template-columns: 1fr 1fr; }
+  body { padding: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="logo-bar">
+  <div class="dot navy"></div><div class="dot teal"></div><div class="dot gold"></div>
+  <span>Enlace Brasil</span>
+</div>
+<div class="header">
+  <h1>Painel de Revisão — Aula 1</h1>
+  <p>Clique em um tema para revisar o conteúdo</p>
+</div>
+
+<div class="cat-tabs" id="catTabs">
+  <button class="cat-tab active" data-cat="sons">🔤 Sons e Pronúncia</button>
+  <button class="cat-tab" data-cat="comunicacao">💬 Comunicação</button>
+  <button class="cat-tab" data-cat="vocabulario">📚 Vocabulário</button>
+  <button class="cat-tab" data-cat="pratica">✏️ Prática</button>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="panel" id="panel">
+  <div class="placeholder">
+    <div class="big">📖</div>
+    <span>Selecione um tema acima para revisar</span>
+  </div>
+</div>
+
+<script>
+const temas = [
+  // Sons e Pronúncia
+  { id: 'alfabeto', cat: 'sons', label: 'Alfabeto PT vs ES', sub: 'nomes das letras', ico: '🔤' },
+  { id: 'cedilha', cat: 'sons', label: 'Cedilha (Ç)', sub: 'som e regras', ico: '✂️' },
+  { id: 'bv', cat: 'sons', label: 'B vs V', sub: 'pares mínimos', ico: '👄' },
+  { id: 'digrafos', cat: 'sons', label: 'Dígrafos', sub: 'LH, NH, CH, RR, SS', ico: '🔗' },
+  { id: 'qugu', cat: 'sons', label: 'QU e GU', sub: 'regras de pronuncia', ico: '🔡' },
+  { id: 'sc', cat: 'sons', label: 'SC', sub: 'dois sons', ico: '🔀' },
+  { id: 'nasais', cat: 'sons', label: 'Sons nasais', sub: 'dígrafos vocálicos', ico: '👃' },
+  { id: 'sonsfinais', cat: 'sons', label: 'Sons finais', sub: '-l, -r, -s, -m', ico: '🔚' },
+  { id: 'sonsx', cat: 'sons', label: 'Sons do X', sub: '5 sons + trava-língua', ico: '❌' },
+  { id: 'ss_s_c', cat: 'sons', label: 'SS / S / Ç', sub: 'regra de ouro', ico: '🔊' },
+
+  // Comunicação
+  { id: 'apresentacoes', cat: 'comunicacao', label: 'Apresentações', sub: 'saudações e despedidas', ico: '👋' },
+  { id: 'dialogos', cat: 'comunicacao', label: 'Diálogos', sub: 'cumprimentos', ico: '💬' },
+  { id: 'nomes', cat: 'comunicacao', label: 'Nome / apelido', sub: 'nome, sobrenome, apelido', ico: '🪪' },
+  { id: 'emocoes', cat: 'comunicacao', label: 'Expressões', sub: 'admiração, alegria...', ico: '😊' },
+  { id: 'interrogativos', cat: 'comunicacao', label: 'Pronomes interrogativos', sub: 'quem, onde, quando...', ico: '❓' },
+
+  // Vocabulário
+  { id: 'cognatos', cat: 'vocabulario', label: 'Falsos cognatos', sub: 'heterogêneos', ico: '⚠️' },
+  { id: 'dias', cat: 'vocabulario', label: 'Dias da semana', sub: 'e expressões de tempo', ico: '📅' },
+  { id: 'meses', cat: 'vocabulario', label: 'Meses do ano', sub: 'datas e expressões', ico: '🗓️' },
+  { id: 'numeros', cat: 'vocabulario', label: 'Números e preços', sub: '"meia" em português', ico: '🔢' },
+  { id: 'acentuacao', cat: 'vocabulario', label: 'Acentuação', sub: 'regras + reforma 2009', ico: '´' },
+
+  // Prática
+  { id: 'ditado', cat: 'pratica', label: 'Ditado', sub: 'texto completo', ico: '🖊️' },
+  { id: 'lista_palavras', cat: 'pratica', label: 'Lista de palavras', sub: 'Ç, SS, S, Z', ico: '📋' },
+  { id: 'trava', cat: 'pratica', label: 'Trava-língua do X', sub: 'Xavier e a xícara', ico: '👅' },
+  { id: 'marcas', cat: 'pratica', label: 'Marcas em PT', sub: 'sons na prática real', ico: '🏷️' },
+];
+
+const conteudo = {
+  alfabeto: `<h3>🔤 Alfabeto PT vs ES — nomes das letras</h3>
+    <div class="cols">
+      <div>
+        <div class="mini-card"><strong>Diferenças principais</strong>
+          B = <b>bê</b> (ES: be)<br>
+          F = <b>éfe</b> (ES: efe)<br>
+          H = <b>agá</b> (ES: hache)<br>
+          Q = <b>quê</b> (ES: cu)<br>
+          R = <b>érre</b> (ES: erre)<br>
+          S = <b>ésse</b> (ES: ese)<br>
+          V = <b>vê</b> (ES: uve)<br>
+          W = <b>dáblio</b> (ES: doble u)<br>
+          X = <b>xis</b> (ES: equis)<br>
+          Y = <b>ípsilon</b> (ES: i griega)
+        </div>
+      </div>
+      <div>
+        <div class="mini-card"><strong>K, W, Y — uso restrito</strong>
+          Usadas em:<br>
+          • nomes próprios: <b>Washington</b><br>
+          • palavras estrangeiras: <b>Yoga, Ketchup</b>
+        </div>
+        <div class="example navy" style="margin-top:8px">📌 O nome das letras muda.<br>A letra X tem <b>muitos sons</b> — veja o tema "Sons do X".</div>
+      </div>
+    </div>`,
+
+  cedilha: `<h3>✂️ Cedilha — Ç</h3>
+    <div class="example navy">Ç <b>não é uma letra</b> — é um sinal gráfico. Aparece só com a letra C.</div>
+    <div class="cols">
+      <div>
+        <span class="tag teal">Ç = som de /S/</span>
+        <div class="example">coração → co-ra-<b>são</b><br>açúcar → a-<b>sú</b>-car<br>canção → can-<b>são</b></div>
+        <span class="tag">Quando usar Ç</span>
+        <div class="example">Antes de <b>A, O, U</b> para ter som de S<br><br>Escrita → Som<br>Ca/Co/Cu = /K/ → <b>casa</b><br>Ça/Ço/Çu = /S/ → <b>açúcar</b></div>
+      </div>
+      <div>
+        <span class="tag red">Quando NÃO usar Ç</span>
+        <div class="example red">❌ antes de E ou I<br>❌ no início da palavra<br>❌ antes de consoante<br><br>× çebra, çe, çi</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Palavras com Ç</strong>cabeça · coração · braço<br>criança · diferença · esperança<br>almoço · começa · endereço<br>açúcar · lição · atenção · direção</div>
+      </div>
+    </div>`,
+
+  bv: `<h3>👄 B vs V — pares mínimos</h3>
+    <div class="cols">
+      <div>
+        <div class="mini-card"><strong>B — bilabial</strong>
+          Bala → <i>dulce, caramelo</i><br>
+          Bela → <i>bella</i><br>
+          Bobó → <i>comida típica</i>
+        </div>
+      </div>
+      <div>
+        <div class="mini-card"><strong>V — labiodental</strong>
+          Vala → <i>hoyo</i><br>
+          Vela → <i>veladora</i><br>
+          Vovó → <i>abuelita</i>
+        </div>
+      </div>
+    </div>
+    <div class="example">💡 Em PT os sons B e V são distintos — diferente do espanhol mexicano onde os dois sons se misturam.</div>`,
+
+  digrafos: `<h3>🔗 Dígrafos — duas letras, um som</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong>LH → /ʎ/</strong>som suave, não existe em ES<br><b>filho</b> (hijo) · <b>milho</b> (maíz)</div>
+      <div class="mini-card"><strong>NH → /ɲ/</strong>parecido com Ñ<br><b>manhã</b> · <b>ninho</b> · <b>vinho</b> · <b>dinheiro</b></div>
+      <div class="mini-card"><strong>CH → /ʃ/</strong>som de "X" suave<br><b>chave</b> · <b>chuva</b> · <b>chocolate</b></div>
+      <div class="mini-card"><strong>RR → /h/ forte</strong>= J do espanhol<br><b>carro</b> ≠ caro · <b>arara</b></div>
+      <div class="mini-card"><strong>SS → /s/ forte</strong>sempre entre vogais<br><b>massa</b> · <b>passar</b> · <b>nossa</b></div>
+      <div class="mini-card"><strong>QU / GU</strong>antes de E e I<br>Q<b>ue</b>ijo · G<b>ue</b>rra · G<b>ui</b>tarra</div>
+    </div>`,
+
+  qugu: `<h3>🔡 QU e GU — antes de E e I</h3>
+    <div class="cols">
+      <div>
+        <span class="tag">QU + E/I = /K/ (sem U)</span>
+        <div class="example">queijo → <b>KEijo</b> (não: KUEijo)<br>quero → <b>KEro</b><br>quem → <b>KEM</b></div>
+        <div class="example red">❌ ERRO: KU-E-RO<br>✅ CERTO: KE-RO</div>
+      </div>
+      <div>
+        <span class="tag teal">GU + E/I = /G/ (sem U)</span>
+        <div class="example">guerra → <b>GEra</b><br>guitarra → <b>GItarra</b><br>guia → <b>GIa</b></div>
+        <div class="mini-card" style="margin-top:8px"><strong>⚠ O U normalmente não é pronunciado!</strong></div>
+      </div>
+    </div>`,
+
+  sc: `<h3>🔀 SC — dois sons diferentes</h3>
+    <div class="cols">
+      <div>
+        <span class="tag teal">SC + E/I = som de /S/</span>
+        <div class="example">escola → es-<b>co</b>-la<br>nascer → na<b>S</b>-cer</div>
+      </div>
+      <div>
+        <span class="tag">SC + A/O/U = som de /SK/</span>
+        <div class="example">escada → es-<b>KA</b>-da<br>pescoço → pes-<b>KÔ</b>-ço</div>
+      </div>
+    </div>`,
+
+  nasais: `<h3>👃 Sons nasais — dígrafos vocálicos</h3>
+    <div class="example navy">O M e o N <b>não se pronunciam totalmente</b> — o som vai para o nariz.</div>
+    <div class="cols-3">
+      <div class="mini-card"><strong>AM / AN</strong>cama · banana</div>
+      <div class="mini-card"><strong>EM / EN</strong>tempo · dentro</div>
+      <div class="mini-card"><strong>IM / IN</strong>simples · vinho</div>
+      <div class="mini-card"><strong>OM / ON</strong>homem · ponte</div>
+      <div class="mini-card"><strong>UM / UN</strong>um · mundo</div>
+      <div class="mini-card"><strong>Ã / ÃO</strong>manhã · pão · coração</div>
+    </div>`,
+
+  sonsfinais: `<h3>🔚 Sons finais</h3>
+    <div class="cols">
+      <div>
+        <div class="mini-card"><strong>-L final → /w/</strong>Brasil · azul · fácil</div>
+        <div class="mini-card" style="margin-top:8px"><strong>-R final → fraco</strong>falar · comer · cantar</div>
+      </div>
+      <div>
+        <div class="mini-card"><strong>-S final → /s/ ou /z/</strong>/z/ entre vogais: ca<b>z</b>as<br>/s/ final: você<b>s</b></div>
+        <div class="mini-card" style="margin-top:8px"><strong>-M final → nasal</strong>bom · tem · sem → som nasal</div>
+      </div>
+    </div>`,
+
+  sonsx: `<h3>❌ Os sons da letra X</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong>1. X → /SH/ ← mais comum</strong>início de palavra<br><b>xícara</b> · <b>xadrez</b> · <b>xampu</b><br><b>xerox</b> · <b>xarope</b></div>
+      <div class="mini-card"><strong>2. X → /S/</strong>X + consoante<br><b>próximo</b> · <b>máximo</b><br><b>texto</b> · <b>exportar</b></div>
+      <div class="mini-card"><strong>3. X → /KS/</strong>como em espanhol<br><b>táxi</b> · <b>boxe</b> · <b>fixo</b><br><b>sexo</b> · <b>anexo</b></div>
+      <div class="mini-card"><strong>4. X → /Z/</strong>entre vogais<br><b>exame</b> · <b>exemplo</b><br><b>existir</b> · <b>exato</b></div>
+      <div class="mini-card"><strong>5. México → /SH/</strong>caso especial<br>Méshico · meshicano</div>
+      <div class="mini-card"><strong>6. ex- + hífen → /z/</strong>ex-aluno → /ez-alúnu/<br>ex-presidente</div>
+    </div>`,
+
+  ss_s_c: `<h3>🔊 SS / S / Ç — regra de ouro</h3>
+    <div class="example navy" style="font-size:15px;font-weight:700;text-align:center">
+      S entre vogais = <span style="color:#1a9a8a">/Z/</span> &nbsp;|&nbsp; SS entre vogais = <span style="color:#0d3b6e">/S/</span>
+    </div>
+    <div class="cols">
+      <div>
+        <span class="tag red">S entre vogais → /Z/</span>
+        <div class="example">ca<b>z</b>a · me<b>z</b>a · cami<b>z</b>a<br>ami<b>z</b>ade · u<b>z</b>ar</div>
+        <span class="tag">S no início → /S/ forte</span>
+        <div class="example"><b>s</b>apato · <b>s</b>emana · <b>s</b>orriso<br><b>s</b>imples · <b>s</b>orte</div>
+      </div>
+      <div>
+        <span class="tag teal">SS entre vogais → /S/</span>
+        <div class="example">pa<b>ss</b>ar · o<b>ss</b>o · ma<b>ss</b>a<br>profe<b>ss</b>or · po<b>ss</b>ível</div>
+        <div class="example gold">💡 O SS existe para <b>manter o som /S/</b> entre vogais — sem ele viraria /Z/.<br>Compare: <b>casa</b> /z/ vs <b>massa</b> /s/</div>
+      </div>
+    </div>`,
+
+  apresentacoes: `<h3>👋 Apresentações e despedidas</h3>
+    <div class="cols">
+      <div>
+        <div class="mini-card"><strong>Formal</strong>Bom dia! Boa tarde! Boa noite!<br>Como vai o senhor / a senhora?</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Informal</strong>Oi! Olá! E aí? Tudo bem?<br>Tudo bom? Tudo certo?</div>
+      </div>
+      <div>
+        <div class="mini-card"><strong>Respostas</strong>Tudo bem, obrigado/a!<br>Mais ou menos. / Bem e você?</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Despedidas</strong>Tchau! Até logo! Até mais!<br>Até amanhã! A gente se vê!</div>
+      </div>
+    </div>
+    <div class="example"><b>Muito prazer!</b> — <b>O prazer é meu!</b> — <b>Igualmente.</b></div>`,
+
+  dialogos: `<h3>💬 Diálogos e cumprimentos</h3>
+    <div class="example"><b>A:</b> Olá! Tudo bem?<br><b>B:</b> Tudo ótimo! E você?<br><b>A:</b> Bem também, obrigada!</div>
+    <div class="example"><b>A:</b> Bom dia, como o senhor se chama?<br><b>B:</b> Meu nome é Paulo Mendes. E a senhora?<br><b>A:</b> Me chamo Lúcia. Muito prazer!<br><b>B:</b> O prazer é meu!</div>
+    <div><span class="tag">muito prazer</span><span class="tag">igualmente</span><span class="tag teal">por favor</span><span class="tag teal">com licença</span><span class="tag teal">desculpa</span></div>`,
+
+  nomes: `<h3>🪪 Nome, sobrenome e apelido</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong>Nome</strong>primeiro nome<br><span style="color:#1a9a8a">Carlos · Ana · João</span></div>
+      <div class="mini-card"><strong>Sobrenome</strong>= apellido<br><span style="color:#1a9a8a">Silva · Santos · Oliveira</span></div>
+      <div class="mini-card"><strong>Apelido</strong>= apodo / nickname<br><span style="color:#854f0b">Cadu · Bê · Nanda</span></div>
+    </div>
+    <div class="example red">⚠ <b>Apelido</b> em português = <b>apodo</b><br><b>Sobrenome</b> = apellido</div>
+    <div class="example">— Qual é o seu nome completo?<br>— Meu nome é Ana Carolina Silva, mas me chamam de Carol.</div>`,
+
+  emocoes: `<h3>😊 Expressões e emoções</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong style="color:#0f6e56">Admiração</strong>Que legal! Que incrível!<br>Nossa! Caramba!</div>
+      <div class="mini-card"><strong style="color:#0d3b6e">Alegria</strong>Que ótimo! Que bom!<br>Oba! Uhu! Maravilha!</div>
+      <div class="mini-card"><strong style="color:#854f0b">Espanto</strong>Sério? Não acredito!<br>Jura? Meu Deus!</div>
+      <div class="mini-card"><strong style="color:#a32d2d">Desagrado</strong>Que chato! Que pena.<br>Droga! Que saco!</div>
+      <div class="mini-card"><strong style="color:#0f6e56">Alívio</strong>Ainda bem! Ufa!<br>Graças a Deus!</div>
+      <div class="mini-card"><strong style="color:#0d3b6e">Aprovação</strong>Com certeza! Claro!<br>Ótima ideia! Perfeito!</div>
+    </div>`,
+
+  interrogativos: `<h3>❓ Pronomes interrogativos</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong>Quem?</strong>¿Quién? — <i>Quem é você?</i></div>
+      <div class="mini-card"><strong>O que?</strong>¿Qué? — <i>O que você faz?</i></div>
+      <div class="mini-card"><strong>Onde?</strong>¿Dónde? — <i>Onde você mora?</i></div>
+      <div class="mini-card"><strong>Quando?</strong>¿Cuándo? — <i>Quando você chegou?</i></div>
+      <div class="mini-card"><strong>Como?</strong>¿Cómo? — <i>Como você se chama?</i></div>
+      <div class="mini-card"><strong>Por que?</strong>¿Por qué? — <i>Por que você estuda?</i></div>
+      <div class="mini-card"><strong>Quanto/a?</strong>¿Cuánto? — <i>Quanto custa?</i></div>
+      <div class="mini-card"><strong>Qual / Quais?</strong>¿Cuál? — <i>Qual é o seu nome?</i></div>
+      <div class="mini-card"><strong>De onde?</strong>¿De dónde? — <i>De onde você é?</i></div>
+    </div>`,
+
+  cognatos: `<h3>⚠️ Falsos cognatos e heterogêneos</h3>
+    <div class="cols">
+      <div>
+        <span class="tag red">Falsos cognatos</span>
+        <div class="mini-card" style="margin-top:6px;border-left:3px solid #e24b4a">
+          <b>borracha</b> → goma de borrar<br>
+          <b>polvo</b> → pulpo del mar<br>
+          <b>apelido</b> → apodo<br>
+          <b>escritório</b> → oficina<br>
+          <b>borboleta</b> → mariposa<br>
+          <b>esquisito</b> → raro, extraño
+        </div>
+      </div>
+      <div>
+        <span class="tag gold">Heterogêneos</span>
+        <div class="mini-card" style="margin-top:6px;border-left:3px solid #ef9f27">
+          <b>trem</b> → tren<br>
+          <b>ônibus</b> → autobús<br>
+          <b>sorvete</b> → helado<br>
+          <b>geladeira</b> → refrigerador<br>
+          <b>café da manhã</b> → desayuno<br>
+          <b>banheiro</b> → baño
+        </div>
+      </div>
+    </div>`,
+
+  dias: `<h3>📅 Dias da semana</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong>Segunda-feira</strong>lunes</div>
+      <div class="mini-card"><strong>Terça-feira</strong>martes</div>
+      <div class="mini-card"><strong>Quarta-feira</strong>miércoles</div>
+      <div class="mini-card"><strong>Quinta-feira</strong>jueves</div>
+      <div class="mini-card"><strong>Sexta-feira</strong>viernes</div>
+      <div class="mini-card"><strong>Sábado · Domingo</strong>sábado · domingo</div>
+    </div>
+    <div class="example" style="margin-top:8px">Que dia é hoje? — Hoje é <b>terça-feira</b>.<br>Que dia foi ontem? — Foi <b>segunda</b>.</div>`,
+
+  meses: `<h3>🗓️ Meses do ano</h3>
+    <div class="cols-3">
+      <div class="mini-card">Janeiro · Fevereiro<br>Março · Abril</div>
+      <div class="mini-card">Maio · Junho<br>Julho · Agosto</div>
+      <div class="mini-card">Setembro · Outubro<br>Novembro · Dezembro</div>
+    </div>
+    <div class="example" style="margin-top:8px">Qual é a data de hoje? — Hoje é <b>primeiro de junho</b>.<br>Quando você nasceu? — Nasci em <b>março de 2000</b>.<br>⚠ Meses são minúsculos: <b>janeiro</b> (não "Janeiro")</div>`,
+
+  numeros: `<h3>🔢 Números, preços e "meia"</h3>
+    <div class="cols">
+      <div>
+        <div class="example">1–10: um, dois, três, quatro, cinco,<br>seis, sete, oito, nove, dez</div>
+        <div class="example">11–20: onze, doze, treze, catorze,<br>quinze, dezesseis… vinte</div>
+      </div>
+      <div>
+        <div class="example">Dezenas: vinte · trinta · quarenta<br>cinquenta · sessenta · setenta<br>oitenta · noventa · cem/cento</div>
+      </div>
+    </div>
+    <div class="example gold">⚠ <b>"Meia" = 6</b> em números falados<br>Telefone: 5 <b>meia</b> 3 2 … | <b>meia hora</b> | <b>meia dúzia</b></div>`,
+
+  acentuacao: `<h3>´ Acentuação</h3>
+    <div class="cols">
+      <div>
+        <span class="tag">Agudo ´ → vogal aberta</span>
+        <div class="example">pé · café · médico · lá</div>
+        <span class="tag">Circunflexo ^ → vogal fechada</span>
+        <div class="example">você · avô · mês · Português</div>
+      </div>
+      <div>
+        <span class="tag teal">Til ~ → nasalização</span>
+        <div class="example">irmã · pão · coração · irmãos</div>
+        <span class="tag gold">Reforma 2009</span>
+        <div class="example gold">Sem acento: <b>voo · zoo · creem</b><br>Sem trema: <b>linguiça · quilo</b></div>
+      </div>
+    </div>`,
+
+  ditado: `<h3>🖊️ Ditado — Aula 1C</h3>
+    <div class="ditado-text" id="ditadoTexto">
+      A profe<span class="hl-ss">ss</span>ora come<span class="hl-c">ç</span>ou a aula falando<br>
+      <span class="hl-s">sobre</span> a importância da organiza<span class="hl-c">ç</span>ão.<br>
+      Ela di<span class="hl-s">ss</span>e que o <span class="hl-ss">suces</span><span class="hl-ss">so</span> depende de<br>
+      dedica<span class="hl-c">ç</span>ão e e<span class="hl-ss">sfor</span><span class="hl-c">ç</span>o.<br><br>
+      Na ca<span class="hl-s">sa</span> da Ana, a me<span class="hl-s">sa</span> e<span class="hl-s">stava</span> cheia de<br>
+      frutas e <span class="hl-s">suco</span> de ma<span class="hl-c">çã</span>.<br>
+      O irmão dela preci<span class="hl-s">sava</span> fazer um<br>
+      exer<span class="hl-c">cí</span>cio difícil para a próxima <span class="hl-s">semana</span>.<br><br>
+      No <span class="hl-s">sábado</span>, eles fizeram um pa<span class="hl-ss">sseio</span> pelo<br>
+      centro da cidade.<br>
+      Pa<span class="hl-ss">ssaram</span> pela pra<span class="hl-c">ça</span>, pelo comércio e<br>
+      pelo endere<span class="hl-c">ço</span> antigo da família.<br><br>
+      A mãe preparou arro<span class="hl-s">z</span>, feijão e uma<br>
+      delicio<span class="hl-s">sa</span> <span class="hl-ss">sobreme</span><span class="hl-s">sa</span> de maracu<span class="hl-s">já</span>.<br>
+      Foi um momento <span class="hl-s">simples</span>, mas cheio de<br>
+      emo<span class="hl-c">ção</span> e e<span class="hl-ss">speran</span><span class="hl-c">ça</span>.
+    </div>
+    <div style="margin-top:10px;font-size:12px">
+      <span class="tag teal">verde = S entre vogais /z/</span>
+      <span class="tag">azul = SS /s/</span>
+      <span class="tag gold">dourado = Ç</span>
+    </div>`,
+
+  lista_palavras: `<h3>📋 Lista de palavras — Ç, SS, S, Z</h3>
+    <div class="cols-3">
+      <div class="mini-card"><strong style="color:#854f0b">Com Ç</strong>
+        cabeça · coração · braço<br>
+        criança · diferença · esperança<br>
+        almoço · começa · endereço<br>
+        açúcar · lição · atenção<br>
+        direção · informação<br>
+        produção · organização
+      </div>
+      <div class="mini-card"><strong style="color:#0d3b6e">Com SS</strong>
+        passado · pessoa<br>
+        necessário · sucesso<br>
+        professor · possível<br>
+        assunto · processo · acesso<br>
+        interesse · classe<br>
+        mensagem · passeio · missão
+      </div>
+      <div>
+        <div class="mini-card"><strong style="color:#0f6e56">S início → /s/</strong>
+          sapato · semana · sala<br>
+          simples · saúde · segredo<br>
+          sorriso · saber · sorte<br>
+          silêncio · sistema · sociedade
+        </div>
+        <div class="mini-card" style="margin-top:8px"><strong style="color:#a32d2d">S entre vogais → /z/</strong>
+          casa · mesa · camisa<br>
+          nariz · amizade · coisa<br>
+          frase · presente · visita<br>
+          música · usar · precisa
+        </div>
+      </div>
+    </div>`,
+
+  trava: `<h3>👅 Trava-língua do X — Xavier</h3>
+    <div class="example" style="font-size:15px;font-style:italic;line-height:2;background:#eaf0fa;border-left-color:#0d3b6e">
+      "Xavier examinou a xícara no táxi,<br>
+      Explicou o texto máximo,<br>
+      Mexeu no xerox do boxe,<br>
+      E deixou tudo exato!"
+    </div>
+    <div class="cols-3" style="margin-top:10px">
+      <div class="mini-card"><b>Xavier</b> /SH/</div>
+      <div class="mini-card"><b>examinou</b> /Z/</div>
+      <div class="mini-card"><b>xícara</b> /SH/</div>
+      <div class="mini-card"><b>táxi</b> /KS/</div>
+      <div class="mini-card"><b>Explicou</b> /S/</div>
+      <div class="mini-card"><b>texto</b> /S/</div>
+      <div class="mini-card"><b>máximo</b> /S/</div>
+      <div class="mini-card"><b>Mexeu</b> /SH/</div>
+      <div class="mini-card"><b>xerox</b> /SH/</div>
+      <div class="mini-card"><b>boxe</b> /KS/</div>
+      <div class="mini-card"><b>deixou</b> /SH/</div>
+      <div class="mini-card"><b>exato</b> /Z/</div>
+    </div>`,
+
+  marcas: `<h3>🏷️ Marcas em Português — sons na prática</h3>
+    <div class="example navy">Marcas e nomes de produtos são ótimos para treinar sons reais do português brasileiro.</div>
+    <div class="cols">
+      <div>
+        <div class="mini-card"><strong>Xícara / Xis / Xô</strong>Som /SH/ no início</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Nextel / Nexo</strong>Som /KS/</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Texaco / Tex</strong>Som /KS/ e /S/</div>
+      </div>
+      <div>
+        <div class="mini-card"><strong>Exame / Exemplo</strong>Som /Z/ — prefixo "ex"</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Máximo / Próximo</strong>Som /S/ — X antes de consoante</div>
+        <div class="mini-card" style="margin-top:8px"><strong>Brasil / Brasileiro</strong>S entre vogais = /Z/<br>B<b>r</b>asil<b>ei</b>ro</div>
+      </div>
+    </div>`,
+};
+
+const grid = document.getElementById('grid');
+const panel = document.getElementById('panel');
+const catTabsEl = document.getElementById('catTabs');
+let activeCat = 'sons';
+
+function renderGrid(cat) {
+  grid.innerHTML = '';
+  temas.filter(t => t.cat === cat).forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<div class="ico">${t.ico}</div><div class="label">${t.label}</div><div class="sub">${t.sub}</div>`;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      panel.innerHTML = conteudo[t.id] || '<p style="color:#a0aec0;padding:1rem">Em breve.</p>';
+    });
+    grid.appendChild(card);
+  });
+  panel.innerHTML = '<div class="placeholder"><div class="big">📖</div><span>Selecione um tema acima</span></div>';
+}
+
+catTabsEl.querySelectorAll('.cat-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    catTabsEl.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    renderGrid(activeCat);
+  });
+});
+
+renderGrid('sons');
+</script>
+</body>
+</html>
