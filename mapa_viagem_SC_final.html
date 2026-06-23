@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Viagem Santa Catarina 2026/2027</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0a1f2e; display:flex; flex-direction:column; align-items:center; padding:16px; font-family:Georgia,serif; }
+  h1 { color:#FFDF00; font-size:1rem; letter-spacing:2px; text-align:center; margin-bottom:10px; }
+  .wrap { display:flex; gap:14px; max-width:1400px; width:100%; align-items:flex-start; }
+  svg  { flex:1 1 auto; border-radius:14px; box-shadow:0 6px 32px rgba(0,0,0,.7); display:block; cursor:default; }
+
+  /* pins clicáveis */
+  .pin { cursor:pointer; }
+  .pin circle { transition: r .15s, opacity .15s; }
+  .pin:hover circle:first-child { opacity:.85; }
+  .pin:hover circle:first-child + circle { r:16; }
+
+  /* tooltip */
+  #tooltip {
+    position:fixed; display:none; background:#0A3D62; color:white;
+    font-size:.8rem; padding:6px 12px; border-radius:8px;
+    border:1px solid #27AAE1; pointer-events:none; z-index:999;
+    max-width:220px; text-align:center; line-height:1.4;
+  }
+  #tooltip span { display:block; color:#FFDF00; font-size:.7rem; margin-top:2px; }
+
+  /* painel lateral */
+  .panel { flex:0 0 200px; background:#061d30; border-radius:14px; padding:14px; box-shadow:0 6px 32px rgba(0,0,0,.5); border:1px solid #1a4a6a; }
+  .panel h2 { color:#FFDF00; font-size:.85rem; letter-spacing:1px; text-align:center; margin-bottom:12px; border-bottom:1px solid #1a4a6a; padding-bottom:8px; }
+  .place { display:flex; align-items:center; gap:8px; padding:8px 6px; border-bottom:1px solid #0d2a3d; cursor:pointer; border-radius:6px; transition:background .15s; text-decoration:none; }
+  .place:last-child { border-bottom:none; }
+  .place:hover { background:#0d2a3d; }
+  .place-date { background:#27AAE1; color:#0a1f2e; font-size:.7rem; font-weight:bold; padding:2px 7px; border-radius:4px; white-space:nowrap; min-width:44px; text-align:center; }
+  .place-name { color:white; font-size:.82rem; font-weight:bold; }
+  .play-icon { margin-left:auto; color:#F6851F; font-size:.9rem; opacity:.7; }
+  .panel-note { color:#4ab3e8; font-size:.72rem; text-align:center; margin-top:10px; opacity:.8; }
+</style>
+</head>
+<body>
+<h1>🇧🇷 MAPA DA VIAGEM · SANTA CATARINA 2026/2027 · clique nos pins para ver vídeos</h1>
+<div id="tooltip">Carregando...<span>Clique para ver o vídeo</span></div>
+<div class="wrap">
+
+<svg viewBox="0 0 980 1000" xmlns="http://www.w3.org/2000/svg" id="map">
+<rect width="980" height="1000" fill="#0a1f2e"/>
+
+<!-- Oceano Atlântico -->
+<rect x="620" y="0" width="360" height="1000" fill="#0d3a5c"/>
+<text x="800" y="50" text-anchor="middle" fill="#4ab3e8" font-size="17" font-style="italic" opacity=".6">Oceano Atlântico</text>
+<path d="M630 120 Q800 113 970 120" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".4"/>
+<path d="M630 220 Q800 213 970 220" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".35"/>
+<path d="M630 320 Q800 313 970 320" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".4"/>
+<path d="M630 420 Q800 413 970 420" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".35"/>
+<path d="M630 520 Q800 513 970 520" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".4"/>
+<path d="M630 620 Q800 613 970 620" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".35"/>
+<path d="M630 720 Q800 713 970 720" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".4"/>
+<path d="M630 820 Q800 813 970 820" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".35"/>
+<path d="M630 920 Q800 913 970 920" stroke="#1a6a9a" stroke-width="1" fill="none" opacity=".4"/>
+<circle cx="930" cy="70" r="16" fill="#FFDF00" opacity=".55"/>
+<text x="930" y="75" text-anchor="middle" fill="#0a1f2e" font-size="12" font-weight="bold">☀</text>
+<circle cx="45" cy="22" r="1.1" fill="white" opacity=".6"/>
+<circle cx="130" cy="10" r=".9" fill="white" opacity=".5"/>
+<circle cx="240" cy="28" r="1.2" fill="white" opacity=".6"/>
+
+<!-- SC CONTINENTE -->
+<path d="M300 44 Q360 30 440 46 Q514 62 556 94 Q596 122 608 162 Q620 196 610 238 Q596 282 578 328 Q560 374 544 420 Q528 466 512 510 Q496 552 478 590 Q458 626 434 650 Q408 672 378 678 Q346 682 314 670 Q280 656 254 632 Q228 606 210 574 Q194 542 194 506 Q194 470 204 434 Q216 396 232 358 Q248 320 256 282 Q264 244 266 206 Q268 168 266 130 Q264 92 300 44 Z"
+      fill="#1e5c1e" stroke="#2d8a2d" stroke-width="1.8"/>
+<path d="M128 268 L156 226 L184 256 L212 214 L240 244 L268 202 L296 232" stroke="#9B8060" stroke-width="1.8" fill="none" opacity=".5"/>
+<text x="208" y="202" text-anchor="middle" fill="#C4A882" font-size="9.5" font-style="italic" opacity=".7">Serra Geral</text>
+<path d="M440 50 Q530 102 568 168 Q600 224 592 290 Q578 360 554 430 Q530 500 506 566 Q482 630 458 676"
+      stroke="#F6851F" stroke-width="1.8" fill="none" stroke-dasharray="10,6" opacity=".5"/>
+<text x="628" y="245" fill="#F6851F" font-size="9" opacity=".6" transform="rotate(-76,628,245)">BR-101</text>
+
+<!-- ILHA DE FLORIANÓPOLIS -->
+<path d="M658 190 Q698 170 734 182 Q758 194 762 224 Q766 258 758 296 Q750 334 738 370 Q724 408 706 440 Q686 470 664 486 Q640 500 618 486 Q596 472 588 444 Q580 414 582 382 Q584 348 592 314 Q602 278 616 244 Q632 210 658 190 Z"
+      fill="#1e5c1e" stroke="#2d8a2d" stroke-width="2"/>
+<ellipse cx="740" cy="378" rx="12" ry="34" fill="#0d3a5c" opacity=".75" transform="rotate(-8,740,378)"/>
+<text x="660" y="360" text-anchor="middle" fill="white" font-size="9" font-weight="bold" opacity=".55">Ilha de</text>
+<text x="660" y="373" text-anchor="middle" fill="white" font-size="9" font-weight="bold" opacity=".55">Sta. Catarina</text>
+<text x="675" y="182" text-anchor="middle" fill="#a0d8a0" font-size="9" font-weight="bold" opacity=".8">NORTE</text>
+<text x="656" y="504" text-anchor="middle" fill="#a0d8a0" font-size="9" font-weight="bold" opacity=".8">SUL</text>
+<text x="598" y="345" text-anchor="middle" fill="#4ab3e8" font-size="8.5" font-style="italic" opacity=".5">Baía Norte</text>
+<text x="756" y="382" fill="#4ab3e8" font-size="8" font-style="italic" opacity=".7">Lagoa</text>
+
+<!-- DEFS -->
+<defs>
+  <marker id="ao" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L7,3 Z" fill="#F6851F"/>
+  </marker>
+  <marker id="ab" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L7,3 Z" fill="#27AAE1"/>
+  </marker>
+  <marker id="ay" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L7,3 Z" fill="#FFDF00"/>
+  </marker>
+</defs>
+
+<!-- Rota 06/01 -->
+<path d="M700 368 Q692 326 680 284 Q676 268 672 256" stroke="#F6851F" stroke-width="2" fill="none" stroke-dasharray="5,3" opacity=".8" marker-end="url(#ao)"/>
+<path d="M688 242 Q706 228 724 220 Q736 214 752 212" stroke="#F6851F" stroke-width="2" fill="none" stroke-dasharray="5,3" opacity=".8" marker-end="url(#ao)"/>
+<rect x="702" y="194" width="52" height="15" rx="4" fill="#F6851F" opacity=".92"/>
+<text x="728" y="204" text-anchor="middle" fill="white" font-size="8.5" font-weight="bold">15 min →</text>
+<rect x="664" y="302" width="76" height="15" rx="4" fill="#0A3D62" opacity=".88"/>
+<text x="702" y="312" text-anchor="middle" fill="#F6851F" font-size="7.5" font-weight="bold">↑ 30 min a Jurerê</text>
+
+<!-- Voo SP→Balneário -->
+<path d="M252 730 Q380 590 580 310" stroke="#FFDF00" stroke-width="1.2" fill="none" stroke-dasharray="4,4" opacity=".28"/>
+<!-- Rota Balneário→Pomerode/Blumenau -->
+<path d="M548 306 Q468 272 388 248" stroke="#FFDF00" stroke-width="1.4" fill="none" stroke-dasharray="7,4" opacity=".55" marker-end="url(#ay)"/>
+<!-- Rota Balneário→Floripa -->
+<path d="M578 334 Q592 354 606 376" stroke="#27AAE1" stroke-width="1.4" fill="none" stroke-dasharray="7,4" opacity=".6" marker-end="url(#ab)"/>
+
+<!-- ═══ PINS CLICÁVEIS ═══ -->
+
+<!-- SÃO PAULO -->
+<g class="pin" data-name="São Paulo" data-url="https://www.youtube.com/watch?v=5Q0KoJOaJqQ" onclick="openVideo(this)">
+  <circle cx="252" cy="728" r="22" fill="#1a1a2e" stroke="#888" stroke-width="2" opacity=".3"/>
+  <circle cx="252" cy="728" r="18" fill="#1a1a2e" stroke="#888" stroke-width="2"/>
+  <text x="252" y="734" text-anchor="middle" fill="white" font-size="15">✈</text>
+  <text x="252" y="754" text-anchor="middle" fill="white" font-size="11" font-weight="bold">São Paulo</text>
+</g>
+
+<!-- POMERODE -->
+<g class="pin" data-name="Pomerode" data-url="https://www.youtube.com/watch?v=Kl0xpEhb9EM" onclick="openVideo(this)">
+  <circle cx="330" cy="234" r="18" fill="#5C3317" stroke="#A0622A" stroke-width="2" opacity=".3"/>
+  <circle cx="330" cy="234" r="14" fill="#5C3317" stroke="#A0622A" stroke-width="2"/>
+  <text x="330" y="239" text-anchor="middle" fill="white" font-size="12">🇩🇪</text>
+  <text x="330" y="258" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Pomerode</text>
+</g>
+
+<!-- BLUMENAU -->
+<g class="pin" data-name="Blumenau" data-url="https://www.youtube.com/watch?v=O23fAtg_-Xg" onclick="openVideo(this)">
+  <circle cx="418" cy="266" r="18" fill="#5C3317" stroke="#A0622A" stroke-width="2" opacity=".3"/>
+  <circle cx="418" cy="266" r="14" fill="#5C3317" stroke="#A0622A" stroke-width="2"/>
+  <text x="418" y="271" text-anchor="middle" fill="white" font-size="12">🍺</text>
+  <text x="418" y="290" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Blumenau</text>
+</g>
+
+<!-- BETO CARRERO -->
+<g class="pin" data-name="Beto Carrero World" data-url="https://www.youtube.com/watch?v=Y85sAPwAtRk" onclick="openVideo(this)">
+  <circle cx="548" cy="164" r="24" fill="#1A6B3A" stroke="#30b060" stroke-width="2.5" opacity=".3"/>
+  <circle cx="548" cy="164" r="18" fill="#1A6B3A" stroke="#30b060" stroke-width="2.5"/>
+  <text x="548" y="170" text-anchor="middle" fill="white" font-size="16">🎢</text>
+  <text x="548" y="190" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Beto Carrero</text>
+</g>
+
+<!-- BALNEÁRIO CAMBORIÚ BASE 1 -->
+<g class="pin" data-name="Balneário Camboriú" data-url="https://www.youtube.com/watch?v=bepI6KOxQMk" onclick="openVideo(this)">
+  <circle cx="576" cy="298" r="32" fill="#0A3D62" stroke="#27AAE1" stroke-width="3" opacity=".25"/>
+  <circle cx="576" cy="298" r="24" fill="#0A3D62" stroke="#27AAE1" stroke-width="3"/>
+  <text x="576" y="304" text-anchor="middle" fill="white" font-size="20">🏖</text>
+  <rect x="488" y="268" width="176" height="16" rx="4" fill="#FFDF00" opacity=".97"/>
+  <text x="576" y="279" text-anchor="middle" fill="#0A3D62" font-size="8" font-weight="bold">BASE 1 · 29/12–03/01</text>
+  <text x="576" y="332" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Balneário Camboriú</text>
+</g>
+
+<!-- FLORIANÓPOLIS CENTRO -->
+<g class="pin" data-name="Florianópolis – Centro" data-url="https://www.youtube.com/watch?v=84DJrEJ4h1s" onclick="openVideo(this)">
+  <circle cx="626" cy="400" r="22" fill="#0A3D62" stroke="#27AAE1" stroke-width="2.5" opacity=".25"/>
+  <circle cx="626" cy="400" r="16" fill="#0A3D62" stroke="#27AAE1" stroke-width="2.5"/>
+  <text x="626" y="406" text-anchor="middle" fill="white" font-size="14">🏛</text>
+  <text x="540" y="404" text-anchor="end" fill="white" font-size="11" font-weight="bold">Florianópolis</text>
+  <line x1="544" y1="402" x2="610" y2="402" stroke="#27AAE1" stroke-width="0.7" stroke-dasharray="3,2" opacity=".45"/>
+</g>
+
+<!-- JURERÊ INTERNACIONAL -->
+<g class="pin" data-name="Jurerê Internacional" data-url="https://www.youtube.com/watch?v=yc0ibC0oDnE" onclick="openVideo(this)">
+  <circle cx="668" cy="212" r="20" fill="#F6851F" stroke="#ffaa44" stroke-width="2.5" opacity=".25"/>
+  <circle cx="668" cy="212" r="14" fill="#F6851F" stroke="#ffaa44" stroke-width="2.5"/>
+  <text x="668" y="217" text-anchor="middle" fill="white" font-size="12">🏖</text>
+  <text x="548" y="215" text-anchor="end" fill="white" font-size="11" font-weight="bold">Jurerê Internacional</text>
+  <line x1="552" y1="213" x2="654" y2="213" stroke="#F6851F" stroke-width="0.7" stroke-dasharray="3,2" opacity=".45"/>
+</g>
+
+<!-- AEROPORTO FLN -->
+<g class="pin" data-name="Aeroporto FLN" data-url="https://www.youtube.com/watch?v=FuvNZpGMxbk" onclick="openVideo(this)">
+  <circle cx="770" cy="210" r="20" fill="#222" stroke="#aaa" stroke-width="2.5" opacity=".25"/>
+  <circle cx="770" cy="210" r="14" fill="#222" stroke="#aaa" stroke-width="2.5"/>
+  <text x="770" y="216" text-anchor="middle" fill="white" font-size="12">✈</text>
+  <text x="788" y="214" fill="white" font-size="11" font-weight="bold">Aeroporto FLN</text>
+</g>
+
+<!-- BASE 2 LAGOA -->
+<g class="pin" data-name="Lagoa da Conceição" data-url="https://www.youtube.com/watch?v=Kbdegx1nNwE" onclick="openVideo(this)">
+  <circle cx="700" cy="368" r="24" fill="#0C7B93" stroke="#4dd4f0" stroke-width="2.5" opacity=".25"/>
+  <circle cx="700" cy="368" r="17" fill="#0C7B93" stroke="#4dd4f0" stroke-width="2.5"/>
+  <text x="700" y="374" text-anchor="middle" fill="white" font-size="14">🏞</text>
+  <rect x="646" y="336" width="108" height="16" rx="4" fill="#FFDF00" opacity=".97"/>
+  <text x="700" y="347" text-anchor="middle" fill="#0A3D62" font-size="8" font-weight="bold">BASE 2 · 03–06/01</text>
+  <text x="788" y="372" fill="white" font-size="11" font-weight="bold">Lagoa da Conceição</text>
+  <line x1="718" y1="370" x2="786" y2="370" stroke="#4dd4f0" stroke-width="0.7" stroke-dasharray="3,2" opacity=".45"/>
+</g>
+
+<!-- BUGGY JOAQUINA -->
+<g class="pin" data-name="Buggy – Dunas da Joaquina" data-url="https://www.youtube.com/watch?v=y5mCVwR7CKc" onclick="openVideo(this)">
+  <circle cx="686" cy="440" r="18" fill="#F6851F" stroke="#ffaa44" stroke-width="2" opacity=".25"/>
+  <circle cx="686" cy="440" r="13" fill="#F6851F" stroke="#ffaa44" stroke-width="2"/>
+  <text x="686" y="445" text-anchor="middle" fill="white" font-size="11">🏎</text>
+  <text x="788" y="444" fill="white" font-size="11" font-weight="bold">Buggy – Joaquina</text>
+  <line x1="699" y1="442" x2="786" y2="442" stroke="#F6851F" stroke-width="0.7" stroke-dasharray="3,2" opacity=".45"/>
+</g>
+
+<!-- CAMPECHE -->
+<g class="pin" data-name="Praia do Campeche" data-url="https://www.youtube.com/watch?v=4qVQIPUtnGU" onclick="openVideo(this)">
+  <circle cx="672" cy="506" r="18" fill="#1A6B3A" stroke="#30b060" stroke-width="2" opacity=".25"/>
+  <circle cx="672" cy="506" r="13" fill="#1A6B3A" stroke="#30b060" stroke-width="2"/>
+  <text x="672" y="511" text-anchor="middle" fill="white" font-size="11">🌴</text>
+  <text x="788" y="510" fill="white" font-size="11" font-weight="bold">Praia do Campeche</text>
+  <line x1="685" y1="508" x2="786" y2="508" stroke="#30b060" stroke-width="0.7" stroke-dasharray="3,2" opacity=".45"/>
+</g>
+
+<!-- RIBEIRÃO DA ILHA -->
+<g class="pin" data-name="Ribeirão da Ilha" data-url="https://www.youtube.com/watch?v=4HZfbcNuZRc" onclick="openVideo(this)">
+  <circle cx="652" cy="572" r="18" fill="#5C3317" stroke="#A0622A" stroke-width="2" opacity=".25"/>
+  <circle cx="652" cy="572" r="13" fill="#5C3317" stroke="#A0622A" stroke-width="2"/>
+  <text x="652" y="577" text-anchor="middle" fill="white" font-size="11">🦪</text>
+  <text x="788" y="576" fill="white" font-size="11" font-weight="bold">Ribeirão da Ilha</text>
+  <line x1="665" y1="574" x2="786" y2="574" stroke="#A0622A" stroke-width="0.7" stroke-dasharray="3,2" opacity=".45"/>
+</g>
+
+<!-- BÚSSOLA -->
+<g transform="translate(72,880)">
+  <circle r="30" fill="#0A2A45" stroke="#27AAE1" stroke-width="1.5" opacity=".9"/>
+  <path d="M0,-24 L-5,-8 L0,-12 L5,-8 Z" fill="#FFDF00"/>
+  <path d="M0,-24 L5,-8 L0,-12 L-5,-8 Z" fill="#F6851F" opacity=".7"/>
+  <path d="M0,24 L-4,8 L0,12 L4,8 Z" fill="white" opacity=".4"/>
+  <circle r="3" fill="#27AAE1"/>
+  <text x="0"   y="-29" text-anchor="middle" fill="#FFDF00" font-size="9" font-weight="bold">N</text>
+  <text x="0"   y="38"  text-anchor="middle" fill="white"   font-size="7.5" opacity=".6">S</text>
+  <text x="-35" y="3"   text-anchor="middle" fill="white"   font-size="7.5" opacity=".6">O</text>
+  <text x="35"  y="3"   text-anchor="middle" fill="white"   font-size="7.5" opacity=".6">L</text>
+</g>
+<rect x="118" y="874" width="55" height="4" rx="1" fill="white" opacity=".5"/>
+<rect x="173" y="874" width="55" height="4" rx="1" fill="#27AAE1" opacity=".5"/>
+<text x="118" y="890" fill="white" font-size="8.5" opacity=".5">0</text>
+<text x="168" y="890" fill="white" font-size="8.5" opacity=".5">50km</text>
+<text x="222" y="890" fill="white" font-size="8.5" opacity=".5">100km</text>
+<text x="490" y="970" text-anchor="middle" fill="#4ab3e8" font-size="9" opacity=".6">Clique nos pins 📍 para ver vídeos de cada lugar</text>
+<rect x="0" y="988" width="980" height="12" fill="#061d30" opacity=".8"/>
+<text x="490" y="997" text-anchor="middle" fill="#4ab3e8" font-size="8" opacity=".7">Familia Vázquez Jacomelli · 2026/2027 🇧🇷</text>
+</svg>
+
+<!-- PAINEL LATERAL — data + nome + link vídeo -->
+<div class="panel">
+  <h2>VISITAS</h2>
+
+  <a class="place" href="https://www.youtube.com/watch?v=5Q0KoJOaJqQ" target="_blank">
+    <span class="place-date" style="background:#555;color:white">29/12</span>
+    <span class="place-name">São Paulo</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=bepI6KOxQMk" target="_blank">
+    <span class="place-date" style="background:#0A3D62">29/12</span>
+    <span class="place-name">Balneário Camboriú</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=Y85sAPwAtRk" target="_blank">
+    <span class="place-date" style="background:#1A6B3A">30/12</span>
+    <span class="place-name">Beto Carrero World</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=RzXQWVWZWA4" target="_blank">
+    <span class="place-date" style="background:#FFDF00;color:#0a1f2e">31/12</span>
+    <span class="place-name">Réveillon 🎆</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/shorts/CwBM_Lo1pH8" target="_blank">
+    <span class="place-date" style="background:#0C7B93">01/01</span>
+    <span class="place-name">Morro do Careca</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=Kl0xpEhb9EM" target="_blank">
+    <span class="place-date" style="background:#A0622A">02/01</span>
+    <span class="place-name">Pomerode</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=O23fAtg_-Xg" target="_blank">
+    <span class="place-date" style="background:#A0622A">02/01</span>
+    <span class="place-name">Blumenau</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=84DJrEJ4h1s" target="_blank">
+    <span class="place-date">03/01</span>
+    <span class="place-name">Florianópolis Centro</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=Kbdegx1nNwE" target="_blank">
+    <span class="place-date" style="background:#0C7B93">04/01</span>
+    <span class="place-name">Lagoa da Conceição</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=y5mCVwR7CKc" target="_blank">
+    <span class="place-date" style="background:#F6851F">04/01</span>
+    <span class="place-name">Buggy – Joaquina</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=4qVQIPUtnGU" target="_blank">
+    <span class="place-date" style="background:#1A6B3A">04/01</span>
+    <span class="place-name">Praia do Campeche</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=4HZfbcNuZRc" target="_blank">
+    <span class="place-date" style="background:#A0622A">05/01</span>
+    <span class="place-name">Ribeirão da Ilha</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=yc0ibC0oDnE" target="_blank">
+    <span class="place-date" style="background:#F6851F">06/01</span>
+    <span class="place-name">Jurerê Internacional</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=FuvNZpGMxbk" target="_blank">
+    <span class="place-date" style="background:#222;color:#aaa">06/01</span>
+    <span class="place-name">Aeroporto FLN ✈</span>
+    <span class="play-icon">▶</span>
+  </a>
+  <a class="place" href="https://www.youtube.com/watch?v=5Q0KoJOaJqQ" target="_blank">
+    <span class="place-date" style="background:#555;color:white">07/01</span>
+    <span class="place-name">Regresso ao México</span>
+    <span class="play-icon">▶</span>
+  </a>
+
+  <p class="panel-note">▶ Clique para ver vídeo do lugar</p>
+</div>
+
+</div>
+
+<script>
+  const tip = document.getElementById('tooltip');
+
+  function openVideo(el) {
+    const url = el.getAttribute('data-url');
+    if (url) window.open(url, '_blank');
+  }
+
+  document.querySelectorAll('.pin').forEach(pin => {
+    pin.addEventListener('mousemove', e => {
+      tip.style.display = 'block';
+      tip.style.left = (e.clientX + 14) + 'px';
+      tip.style.top  = (e.clientY - 36) + 'px';
+      tip.innerHTML = pin.getAttribute('data-name') + '<span>▶ Clique para ver vídeo</span>';
+    });
+    pin.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  });
+</script>
+</body>
+</html>
