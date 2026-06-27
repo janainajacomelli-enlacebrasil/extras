@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 9 — Exercícios Interativos</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f4f8; color: #1A2340; }
+
+  header {
+    background: #002776;
+    color: white;
+    padding: 20px 32px;
+    border-bottom: 5px solid #FFDF00;
+  }
+  header .sub { color: #FFDF00; font-size: 13px; margin-bottom: 4px; letter-spacing: 2px; }
+  header h1 { font-size: 24px; }
+  header p { color: #AACCFF; font-size: 13px; margin-top: 4px; }
+
+  .progress-bar {
+    background: #002776;
+    padding: 10px 32px;
+    border-bottom: 3px solid #009C3B;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .progress-bar span { color: #AACCFF; font-size: 12px; }
+  .bar { flex: 1; height: 8px; background: #1A3A6A; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; background: #009C3B; border-radius: 4px; transition: width 0.4s; }
+  #score-display { color: #FFDF00; font-weight: bold; font-size: 14px; min-width: 80px; text-align: right; }
+
+  nav {
+    display: flex; gap: 8px; padding: 16px 32px; flex-wrap: wrap;
+    background: white; border-bottom: 1px solid #E0E6ED;
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav button {
+    padding: 6px 14px; border: 2px solid #E0E6ED; border-radius: 20px;
+    cursor: pointer; font-size: 12px; font-weight: bold;
+    background: white; color: #4A5568; transition: all 0.2s;
+  }
+  nav button:hover { border-color: #002776; color: #002776; }
+  nav button.active { background: #002776; color: white; border-color: #002776; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header {
+    border-radius: 12px; padding: 18px 24px; margin-bottom: 20px;
+    color: white;
+  }
+  .section-header h2 { font-size: 20px; margin-bottom: 4px; }
+  .section-header p { font-size: 13px; opacity: 0.9; }
+
+  .exercise {
+    background: white; border-radius: 12px; padding: 20px 24px;
+    margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 5px solid #E0E6ED; transition: border-color 0.3s;
+  }
+  .exercise.correct { border-left-color: #009C3B; }
+  .exercise.wrong { border-left-color: #C62828; }
+
+  .ex-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .ex-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: bold; color: white; flex-shrink: 0;
+  }
+  .ex-type { font-size: 11px; font-weight: bold; padding: 3px 10px; border-radius: 12px; color: white; }
+  .ex-question { font-size: 15px; font-weight: bold; color: #1A2340; line-height: 1.5; }
+  .ex-question em { font-style: italic; color: #4A5568; }
+
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .option {
+    padding: 10px 16px; border: 2px solid #E0E6ED; border-radius: 8px;
+    cursor: pointer; font-size: 14px; transition: all 0.2s; background: #FAFAFA;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .option:hover:not(.disabled) { border-color: #002776; background: #EEF2FF; }
+  .option.correct-ans { background: #E8F5E9; border-color: #009C3B; color: #1B5E20; font-weight: bold; }
+  .option.wrong-ans { background: #FFEBEE; border-color: #C62828; color: #B71C1C; }
+  .option.disabled { cursor: default; }
+  .option .icon { font-size: 16px; }
+
+  .fill-in { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .fill-in input {
+    padding: 8px 14px; border: 2px solid #E0E6ED; border-radius: 8px;
+    font-size: 14px; min-width: 220px; outline: none; transition: border-color 0.2s;
+  }
+  .fill-in input:focus { border-color: #002776; }
+  .fill-in input.correct-ans { border-color: #009C3B; background: #E8F5E9; }
+  .fill-in input.wrong-ans { border-color: #C62828; background: #FFEBEE; }
+  .check-btn {
+    padding: 8px 18px; background: #002776; color: white; border: none;
+    border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;
+    transition: background 0.2s;
+  }
+  .check-btn:hover { background: #003A9E; }
+
+  .feedback {
+    margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+    font-size: 13px; display: none; line-height: 1.5;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
+  .feedback.wrong { background: #FFEBEE; color: #B71C1C; border: 1px solid #EF9A9A; }
+  .feedback strong { font-size: 14px; }
+
+  .section-score {
+    text-align: center; padding: 16px; background: white;
+    border-radius: 12px; margin-top: 8px; font-size: 14px; color: #4A5568;
+  }
+  .section-score span { font-weight: bold; color: #002776; font-size: 18px; }
+
+  footer {
+    text-align: center; padding: 20px; color: #AAAAAA; font-size: 12px;
+    border-top: 1px solid #E0E6ED; margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sub">UNAM FES ACATLÁN · CUARTO NIVEL · 27/06/2026</div>
+  <h1>🎓 Aula 9 — Exercícios Interativos</h1>
+  <p>Voz Ativa/Passiva · Particípios · SE · Tempos Compostos · Reflexivos · Pretérito Perfeito</p>
+</header>
+
+<div class="progress-bar">
+  <span>Progresso:</span>
+  <div class="bar"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+  <div id="score-display">0 / 0</div>
+</div>
+
+<nav id="nav">
+  <button class="active" onclick="showSection(0)">🔵 Voz Passiva</button>
+  <button onclick="showSection(1)">📖 Particípios</button>
+  <button onclick="showSection(2)">⚙️ Partícula SE</button>
+  <button onclick="showSection(3)">⏳ Tempos Compostos</button>
+  <button onclick="showSection(4)">🔄 Reflexivos</button>
+  <button onclick="showSection(5)">🕐 Pretérito Perfeito</button>
+</nav>
+
+<div class="container">
+
+<!-- ══ SEÇÃO 1: VOZ PASSIVA ══ -->
+<div class="section active" id="s0">
+  <div class="section-header" style="background:#C62828">
+    <h2>🔵🔴 Voz Ativa × Voz Passiva</h2>
+    <p>Transforme, identifique e complete!</p>
+  </div>
+
+  <!-- Ex 1 MC -->
+  <div class="exercise" id="e0-0">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">1</div>
+      <span class="ex-type" style="background:#C62828">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual é a voz passiva correta de: <em>"O chef preparou o jantar."</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e0-0',false)"><span class="icon">○</span> O chef foi preparado pelo jantar.</div>
+      <div class="option" onclick="checkMC(this,'e0-0',true)"><span class="icon">○</span> O jantar foi preparado pelo chef.</div>
+      <div class="option" onclick="checkMC(this,'e0-0',false)"><span class="icon">○</span> O jantar preparou o chef.</div>
+    </div>
+    <div class="feedback" id="fb-e0-0-ok" class="correct">✅ <strong>Correto!</strong> O sujeito paciente (o jantar) + SER conjugado (foi) + particípio (preparado) + por + agente (pelo chef).</div>
+    <div class="feedback" id="fb-e0-0-err" class="wrong">❌ <strong>Tente novamente!</strong> Lembre: na voz passiva, o objeto da frase ativa vira o sujeito. Quem sofre a ação? O jantar!</div>
+  </div>
+
+  <!-- Ex 2 MC -->
+  <div class="exercise" id="e0-1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">2</div>
+      <span class="ex-type" style="background:#C62828">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual é a voz ATIVA de: <em>"A gramática foi explicada pela professora."</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e0-1',false)"><span class="icon">○</span> A gramática explicou a professora.</div>
+      <div class="option" onclick="checkMC(this,'e0-1',false)"><span class="icon">○</span> A professora foi explicada pela gramática.</div>
+      <div class="option" onclick="checkMC(this,'e0-1',true)"><span class="icon">○</span> A professora explicou a gramática.</div>
+    </div>
+    <div class="feedback" id="fb-e0-1-ok" class="correct">✅ <strong>Correto!</strong> O agente (pela professora) vira sujeito, o verbo volta para a forma ativa (explicou), e o sujeito paciente vira objeto.</div>
+    <div class="feedback" id="fb-e0-1-err" class="wrong">❌ <strong>Não é essa!</strong> O agente da voz passiva (pela professora) se torna o sujeito da voz ativa. Quem pratica a ação? A professora!</div>
+  </div>
+
+  <!-- Ex 3 Fill -->
+  <div class="exercise" id="e0-2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">3</div>
+      <span class="ex-type" style="background:#C62828">Complete</span>
+    </div>
+    <div class="ex-question">Transforme para voz passiva:<br><em>"Os cientistas descobriram a vacina."</em></div>
+    <div class="fill-in">
+      <input type="text" id="in-e0-2" placeholder="A vacina foi...">
+      <button class="check-btn" onclick="checkFill('e0-2','a vacina foi descoberta pelos cientistas')">Verificar</button>
+    </div>
+    <div class="feedback" id="fb-e0-2-ok" class="correct">✅ <strong>Correto!</strong> <strong>A vacina foi descoberta pelos cientistas.</strong> — SER (foi) + particípio (descoberta, feminino!) + por + agente.</div>
+    <div class="feedback" id="fb-e0-2-err" class="wrong">❌ <strong>Quase!</strong> A resposta é: <strong>"A vacina foi descoberta pelos cientistas."</strong> Lembre que o particípio concorda com o sujeito feminino: descobert<strong>a</strong>!</div>
+  </div>
+
+  <!-- Ex 4 MC -->
+  <div class="exercise" id="e0-3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">4</div>
+      <span class="ex-type" style="background:#C62828">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual o particípio correto de <em>"fazer"</em> na voz passiva?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e0-3',false)"><span class="icon">○</span> fazido</div>
+      <div class="option" onclick="checkMC(this,'e0-3',true)"><span class="icon">○</span> feito</div>
+      <div class="option" onclick="checkMC(this,'e0-3',false)"><span class="icon">○</span> fazendo</div>
+    </div>
+    <div class="feedback" id="fb-e0-3-ok" class="correct">✅ <strong>Correto!</strong> "Feito" é o particípio irregular de "fazer". Ex: "O bolo foi <strong>feito</strong> pela Ana."</div>
+    <div class="feedback" id="fb-e0-3-err" class="wrong">❌ <strong>Atenção!</strong> "Fazer" tem particípio irregular: <strong>feito</strong>! Não "fazido". Outros irregulares: dito, visto, aberto, posto, escrito...</div>
+  </div>
+
+  <div class="section-score">Acertos nesta seção: <span id="score-s0">0/4</span></div>
+</div>
+
+<!-- ══ SEÇÃO 2: PARTICÍPIOS ══ -->
+<div class="section" id="s1">
+  <div class="section-header" style="background:#E65100">
+    <h2>📖 Particípios</h2>
+    <p>Regulares e irregulares — identifique a forma correta!</p>
+  </div>
+
+  <div class="exercise" id="e1-0">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#E65100">1</div>
+      <span class="ex-type" style="background:#E65100">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual é o particípio irregular de <em>"abrir"</em>?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e1-0',false)"><span class="icon">○</span> abrido</div>
+      <div class="option" onclick="checkMC(this,'e1-0',true)"><span class="icon">○</span> aberto</div>
+      <div class="option" onclick="checkMC(this,'e1-0',false)"><span class="icon">○</span> abrendo</div>
+    </div>
+    <div class="feedback" id="fb-e1-0-ok" class="correct">✅ <strong>Correto!</strong> "Aberto" — ex: "A janela foi <strong>aberta</strong>." / "Tenho <strong>aberto</strong> a loja às 8h."</div>
+    <div class="feedback" id="fb-e1-0-err" class="wrong">❌ <strong>Não!</strong> O particípio irregular de "abrir" é <strong>aberto</strong>. Família: coberto, descoberto, encoberto.</div>
+  </div>
+
+  <div class="exercise" id="e1-1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#E65100">2</div>
+      <span class="ex-type" style="background:#E65100">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Complete com o particípio correto de <em>"escrever"</em>:<br><em>"Ultimamente ela _____ muito para o trabalho."</em> (Pretérito Perfeito Composto)</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e1-1',false)"><span class="icon">○</span> tem escrevido</div>
+      <div class="option" onclick="checkMC(this,'e1-1',true)"><span class="icon">○</span> tem escrito</div>
+      <div class="option" onclick="checkMC(this,'e1-1',false)"><span class="icon">○</span> escreveu</div>
+    </div>
+    <div class="feedback" id="fb-e1-1-ok" class="correct">✅ <strong>Correto!</strong> <strong>Tem escrito</strong> — "ultimamente" indica ação contínua/repetida → Pret. Perf. Composto. E "escrever" tem particípio irregular: <strong>escrito</strong>!</div>
+    <div class="feedback" id="fb-e1-1-err" class="wrong">❌ <strong>Atenção!</strong> "Ultimamente" pede o Composto (ação contínua). E "escrever" tem particípio <strong>irregular: escrito</strong>. "Escrevido" não existe! → <strong>tem escrito</strong></div>
+  </div>
+
+  <div class="exercise" id="e1-2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#E65100">3</div>
+      <span class="ex-type" style="background:#E65100">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual é o particípio de <em>"dizer"</em>?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e1-2',false)"><span class="icon">○</span> dizido</div>
+      <div class="option" onclick="checkMC(this,'e1-2',false)"><span class="icon">○</span> dizendo</div>
+      <div class="option" onclick="checkMC(this,'e1-2',true)"><span class="icon">○</span> dito</div>
+    </div>
+    <div class="feedback" id="fb-e1-2-ok" class="correct">✅ <strong>Correto!</strong> "Dito" — ex: "O que foi <strong>dito</strong> não pode ser desfeito." / "Tenho <strong>dito</strong> a verdade sempre."</div>
+    <div class="feedback" id="fb-e1-2-err" class="wrong">❌ O particípio de "dizer" é <strong>dito</strong> — irregular! Outros irregulares semelhantes: feito (fazer), visto (ver), posto (pôr).</div>
+  </div>
+
+  <div class="exercise" id="e1-3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#E65100">4</div>
+      <span class="ex-type" style="background:#E65100">Complete</span>
+    </div>
+    <div class="ex-question">Complete com o particípio correto de <em>"ver"</em>:<br><em>"Quando cheguei ao museu, nunca _____ algo tão bonito." (tinha + ver)</em></div>
+    <div class="fill-in">
+      <input type="text" id="in-e1-3" placeholder="tinha...">
+      <button class="check-btn" onclick="checkFill('e1-3','tinha visto')">Verificar</button>
+    </div>
+    <div class="feedback" id="fb-e1-3-ok" class="correct">✅ <strong>Correto!</strong> <strong>Tinha visto</strong> — Mais-que-perfeito Composto (tinha + particípio). "Ver" tem particípio irregular: <strong>visto</strong>!</div>
+    <div class="feedback" id="fb-e1-3-err" class="wrong">❌ A resposta é <strong>"tinha visto"</strong> — Mais-que-perfeito Composto (tinha + particípio). O particípio de "ver" é <strong>visto</strong> — irregular!</div>
+  </div>
+
+  <div class="section-score">Acertos nesta seção: <span id="score-s1">0/4</span></div>
+</div>
+
+<!-- ══ SEÇÃO 3: PARTÍCULA SE ══ -->
+<div class="section" id="s2">
+  <div class="section-header" style="background:#880E4F">
+    <h2>⚙️ Partícula SE</h2>
+    <p>Apassivadora × Indeterminadora — identifique e use corretamente!</p>
+  </div>
+
+  <div class="exercise" id="e2-0">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#880E4F">1</div>
+      <span class="ex-type" style="background:#880E4F">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual é o uso correto do SE em: <em>"Come-se muito bem neste restaurante."</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e2-0',false)"><span class="icon">○</span> SE apassivadora — equivale a "a comida é comida"</div>
+      <div class="option" onclick="checkMC(this,'e2-0',true)"><span class="icon">○</span> SE indeterminadora — sujeito = "a gente / as pessoas"</div>
+      <div class="option" onclick="checkMC(this,'e2-0',false)"><span class="icon">○</span> SE reflexivo — o restaurante come a si mesmo</div>
+    </div>
+    <div class="feedback" id="fb-e2-0-ok" class="correct">✅ <strong>Correto!</strong> SE indeterminador — não há sujeito identificado. Equivale a "La gente come muy bien aquí." O verbo fica sempre no singular!</div>
+    <div class="feedback" id="fb-e2-0-err" class="wrong">❌ <strong>Atenção!</strong> Aqui o SE é <strong>indeterminador</strong> — o sujeito é indefinido ("as pessoas / a gente"). Não há objeto paciente identificável.</div>
+  </div>
+
+  <div class="exercise" id="e2-1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#880E4F">2</div>
+      <span class="ex-type" style="background:#880E4F">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual forma está CORRETA em português?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e2-1',false)"><span class="icon">○</span> Vende-se apartamentos nesta rua.</div>
+      <div class="option" onclick="checkMC(this,'e2-1',true)"><span class="icon">○</span> Vendem-se apartamentos nesta rua.</div>
+      <div class="option" onclick="checkMC(this,'e2-1',false)"><span class="icon">○</span> Se vende apartamentos nesta rua.</div>
+    </div>
+    <div class="feedback" id="fb-e2-1-ok" class="correct">✅ <strong>Correto!</strong> <strong>Vendem-se</strong> — SE apassivadora: o verbo CONCORDA com o sujeito plural "apartamentos". Diferente do espanhol onde o verbo fica no singular!</div>
+    <div class="feedback" id="fb-e2-1-err" class="wrong">❌ Em português, na SE apassivadora o verbo <strong>concorda com o sujeito</strong>. "Apartamentos" é plural → <strong>Vendem-se</strong>!</div>
+  </div>
+
+  <div class="exercise" id="e2-2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#880E4F">3</div>
+      <span class="ex-type" style="background:#880E4F">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Em <em>"Fala-se português no Brasil"</em>, o SE é:</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e2-2',true)"><span class="icon">○</span> Indeterminador — sujeito indefinido, verbo no singular</div>
+      <div class="option" onclick="checkMC(this,'e2-2',false)"><span class="icon">○</span> Apassivadora — o português é falado</div>
+      <div class="option" onclick="checkMC(this,'e2-2',false)"><span class="icon">○</span> Reflexivo — o Brasil fala a si mesmo</div>
+    </div>
+    <div class="feedback" id="fb-e2-2-ok" class="correct">✅ <strong>Correto!</strong> SE indeterminador — equivale a "As pessoas falam português no Brasil." / "Se habla portugués en Brasil." O verbo fica no singular!</div>
+    <div class="feedback" id="fb-e2-2-err" class="wrong">❌ Aqui o SE é <strong>indeterminador</strong>! O sujeito é "as pessoas / a gente". Compare: "Falam-se idiomas aqui" (apassivadora) × "Fala-se muito aqui" (indeterminadora).</div>
+  </div>
+
+  <div class="exercise" id="e2-3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#880E4F">4</div>
+      <span class="ex-type" style="background:#880E4F">Complete</span>
+    </div>
+    <div class="ex-question">Use SE apassivadora corretamente:<br><em>"_____ (alugar) quartos neste prédio."</em></div>
+    <div class="fill-in">
+      <input type="text" id="in-e2-3" placeholder="Aluga-se ou Alugam-se?">
+      <button class="check-btn" onclick="checkFill('e2-3','alugam-se quartos neste prédio')">Verificar</button>
+    </div>
+    <div class="feedback" id="fb-e2-3-ok" class="correct">✅ <strong>Correto!</strong> <strong>Alugam-se quartos</strong> — "quartos" é plural, então o verbo vai para o plural também!</div>
+    <div class="feedback" id="fb-e2-3-err" class="wrong">❌ A resposta é <strong>"Alugam-se quartos"</strong>. "Quartos" (plural) → verbo no plural: alugam-se!</div>
+  </div>
+
+  <div class="section-score">Acertos nesta seção: <span id="score-s2">0/4</span></div>
+</div>
+
+<!-- ══ SEÇÃO 4: TEMPOS COMPOSTOS ══ -->
+<div class="section" id="s3">
+  <div class="section-header" style="background:#00897B">
+    <h2>⏳ Tempos Compostos</h2>
+    <p>Indicativo e Subjuntivo — TER/HAVER + particípio</p>
+  </div>
+
+  <div class="exercise" id="e3-0">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">1</div>
+      <span class="ex-type" style="background:#00897B">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Complete: <em>"Ultimamente, ela _____ muito. (trabalhar)"</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e3-0',false)"><span class="icon">○</span> trabalhou</div>
+      <div class="option" onclick="checkMC(this,'e3-0',true)"><span class="icon">○</span> tem trabalhado</div>
+      <div class="option" onclick="checkMC(this,'e3-0',false)"><span class="icon">○</span> tinha trabalhado</div>
+    </div>
+    <div class="feedback" id="fb-e3-0-ok" class="correct">✅ <strong>Correto!</strong> "Ultimamente" sinaliza ação contínua até o presente → Pretérito Perfeito Composto: <strong>tem trabalhado</strong>!</div>
+    <div class="feedback" id="fb-e3-0-err" class="wrong">❌ "Ultimamente" indica ação repetida até o presente → use o Pretérito Perfeito Composto: <strong>tem trabalhado</strong>!</div>
+  </div>
+
+  <div class="exercise" id="e3-1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">2</div>
+      <span class="ex-type" style="background:#00897B">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual tempo verbal é: <em>"Quando cheguei, ele já tinha saído."</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e3-1',false)"><span class="icon">○</span> Pretérito Perfeito Composto</div>
+      <div class="option" onclick="checkMC(this,'e3-1',true)"><span class="icon">○</span> Mais-que-perfeito Composto</div>
+      <div class="option" onclick="checkMC(this,'e3-1',false)"><span class="icon">○</span> Futuro Composto</div>
+    </div>
+    <div class="feedback" id="fb-e3-1-ok" class="correct">✅ <strong>Correto!</strong> Mais-que-perfeito Composto — <strong>tinha + particípio</strong>. Indica ação anterior a outra ação passada. "Cheguei" (passado) e "tinha saído" (ainda mais passado)!</div>
+    <div class="feedback" id="fb-e3-1-err" class="wrong">❌ É o <strong>Mais-que-perfeito Composto</strong> (tinha + particípio). Indica ação que aconteceu ANTES de outra ação passada.</div>
+  </div>
+
+  <div class="exercise" id="e3-2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">3</div>
+      <span class="ex-type" style="background:#00897B">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Complete com o Subjuntivo Composto correto:<br><em>"Espero que você _____ os exercícios." (fazer)</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e3-2',false)"><span class="icon">○</span> tivesse feito</div>
+      <div class="option" onclick="checkMC(this,'e3-2',true)"><span class="icon">○</span> tenha feito</div>
+      <div class="option" onclick="checkMC(this,'e3-2',false)"><span class="icon">○</span> tiver feito</div>
+    </div>
+    <div class="feedback" id="fb-e3-2-ok" class="correct">✅ <strong>Correto!</strong> "Espero que" + Pretérito Perfeito do Subjuntivo → <strong>tenha feito</strong>. (tenha + particípio irregular "feito")</div>
+    <div class="feedback" id="fb-e3-2-err" class="wrong">❌ "Espero que" pede o Pret. Perfeito do Subjuntivo: <strong>tenha + particípio</strong> → <strong>tenha feito</strong>. ("tivesse" = MQP Subj.; "tiver" = Futuro Subj.)</div>
+  </div>
+
+  <div class="exercise" id="e3-3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">4</div>
+      <span class="ex-type" style="background:#00897B">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Complete: <em>"Quando você _____ (terminar), me avise."</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e3-3',false)"><span class="icon">○</span> tivesse terminado</div>
+      <div class="option" onclick="checkMC(this,'e3-3',false)"><span class="icon">○</span> tenha terminado</div>
+      <div class="option" onclick="checkMC(this,'e3-3',true)"><span class="icon">○</span> tiver terminado</div>
+    </div>
+    <div class="feedback" id="fb-e3-3-ok" class="correct">✅ <strong>Correto!</strong> "Quando" + ação futura → Futuro do Subjuntivo Composto: <strong>tiver terminado</strong>. Indica condição futura anterior a outra ação futura!</div>
+    <div class="feedback" id="fb-e3-3-err" class="wrong">❌ "Quando" + futuro pede o Futuro do Subjuntivo Composto: <strong>tiver + particípio</strong> → <strong>tiver terminado</strong>!</div>
+  </div>
+
+  <div class="section-score">Acertos nesta seção: <span id="score-s3">0/4</span></div>
+</div>
+
+<!-- ══ SEÇÃO 5: REFLEXIVOS ══ -->
+<div class="section" id="s4">
+  <div class="section-header" style="background:#5E35B1">
+    <h2>🔄 Verbos Reflexivos</h2>
+    <p>Me / te / se / nos — o sujeito pratica e sofre a ação!</p>
+  </div>
+
+  <div class="exercise" id="e4-0">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">1</div>
+      <span class="ex-type" style="background:#5E35B1">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Complete: <em>"Eu _____ às 6h toda manhã." (levantar-se)</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e4-0',false)"><span class="icon">○</span> se levanto</div>
+      <div class="option" onclick="checkMC(this,'e4-0',true)"><span class="icon">○</span> me levanto</div>
+      <div class="option" onclick="checkMC(this,'e4-0',false)"><span class="icon">○</span> nos levantamos</div>
+    </div>
+    <div class="feedback" id="fb-e4-0-ok" class="correct">✅ <strong>Correto!</strong> Sujeito "EU" → pronome reflexivo <strong>me</strong>. "Eu <strong>me</strong> levanto às 6h." — Em PT brasileiro, o pronome geralmente vem antes do verbo (próclise)!</div>
+    <div class="feedback" id="fb-e4-0-err" class="wrong">❌ Sujeito "EU" → pronome reflexivo <strong>me</strong>. "Eu <strong>me</strong> levanto." Tabela: eu=me, tu/você=te/se, ele/ela=se, nós=nos, vocês/eles=se.</div>
+  </div>
+
+  <div class="exercise" id="e4-1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">2</div>
+      <span class="ex-type" style="background:#5E35B1">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual frase está CORRETA?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e4-1',false)"><span class="icon">○</span> Ela se sente-se muito bem hoje.</div>
+      <div class="option" onclick="checkMC(this,'e4-1',true)"><span class="icon">○</span> Ela se sente muito bem hoje.</div>
+      <div class="option" onclick="checkMC(this,'e4-1',false)"><span class="icon">○</span> Ela sente muito bem hoje.</div>
+    </div>
+    <div class="feedback" id="fb-e4-1-ok" class="correct">✅ <strong>Correto!</strong> "Ela <strong>se sente</strong> muito bem." — pronome reflexivo "se" antes do verbo. Não se usa o pronome duas vezes!</div>
+    <div class="feedback" id="fb-e4-1-err" class="wrong">❌ A correta é "Ela <strong>se sente</strong> muito bem." — pronome reflexivo "se" uma única vez, geralmente antes do verbo no Brasil.</div>
+  </div>
+
+  <div class="exercise" id="e4-2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">3</div>
+      <span class="ex-type" style="background:#5E35B1">Complete</span>
+    </div>
+    <div class="ex-question">Complete com o pronome reflexivo correto:<br><em>"Nós _____ encontramos no café às 10h."</em></div>
+    <div class="fill-in">
+      <input type="text" id="in-e4-2" placeholder="pronome...">
+      <button class="check-btn" onclick="checkFill('e4-2','nos')">Verificar</button>
+    </div>
+    <div class="feedback" id="fb-e4-2-ok" class="correct">✅ <strong>Correto!</strong> "Nós <strong>nos</strong> encontramos" — sujeito "nós" → pronome reflexivo <strong>nos</strong>!</div>
+    <div class="feedback" id="fb-e4-2-err" class="wrong">❌ A resposta é <strong>nos</strong>. Sujeito "nós" → pronome reflexivo "nos". "Nós <strong>nos</strong> encontramos no café."</div>
+  </div>
+
+  <div class="exercise" id="e4-3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">4</div>
+      <span class="ex-type" style="background:#5E35B1">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Como se diz <em>"Me llamo Ana"</em> em português?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e4-3',false)"><span class="icon">○</span> Eu chamo Ana.</div>
+      <div class="option" onclick="checkMC(this,'e4-3',true)"><span class="icon">○</span> Eu me chamo Ana.</div>
+      <div class="option" onclick="checkMC(this,'e4-3',false)"><span class="icon">○</span> Me chamo-me Ana.</div>
+    </div>
+    <div class="feedback" id="fb-e4-3-ok" class="correct">✅ <strong>Correto!</strong> "Eu <strong>me chamo</strong> Ana." — chamar-se é um verbo reflexivo! Pronome "me" para o sujeito "eu".</div>
+    <div class="feedback" id="fb-e4-3-err" class="wrong">❌ "Me llamo" em português é <strong>"Eu me chamo"</strong>. "Chamar-se" é reflexivo: eu me chamo, você se chama, ele se chama...</div>
+  </div>
+
+  <div class="section-score">Acertos nesta seção: <span id="score-s4">0/4</span></div>
+</div>
+
+<!-- ══ SEÇÃO 6: PRETÉRITO ══ -->
+<div class="section" id="s5">
+  <div class="section-header" style="background:#2E7D32">
+    <h2>🕐 Pretérito Perfeito</h2>
+    <p>Simples × Composto — quando usar cada um?</p>
+  </div>
+
+  <div class="exercise" id="e5-0">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#2E7D32">1</div>
+      <span class="ex-type" style="background:#2E7D32">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual forma é correta para: <em>"Ontem eu _____ muito." (estudar)</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e5-0',true)"><span class="icon">○</span> estudei</div>
+      <div class="option" onclick="checkMC(this,'e5-0',false)"><span class="icon">○</span> tenho estudado</div>
+      <div class="option" onclick="checkMC(this,'e5-0',false)"><span class="icon">○</span> tinha estudado</div>
+    </div>
+    <div class="feedback" id="fb-e5-0-ok" class="correct">✅ <strong>Correto!</strong> "Ontem" indica momento específico no passado → Pretérito Perfeito Simples: <strong>estudei</strong>!</div>
+    <div class="feedback" id="fb-e5-0-err" class="wrong">❌ "Ontem" = momento específico no passado → Pretérito Perfeito <strong>Simples</strong>: <strong>estudei</strong>. O composto (tenho estudado) é para ações contínuas/repetidas!</div>
+  </div>
+
+  <div class="exercise" id="e5-1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#2E7D32">2</div>
+      <span class="ex-type" style="background:#2E7D32">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual forma é correta para: <em>"Este mês, ela _____ muito. (trabalhar)"</em></div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e5-1',false)"><span class="icon">○</span> trabalhou</div>
+      <div class="option" onclick="checkMC(this,'e5-1',true)"><span class="icon">○</span> tem trabalhado</div>
+      <div class="option" onclick="checkMC(this,'e5-1',false)"><span class="icon">○</span> trabalhava</div>
+    </div>
+    <div class="feedback" id="fb-e5-1-ok" class="correct">✅ <strong>Correto!</strong> "Este mês" indica período indefinido até o presente → Pretérito Perfeito Composto: <strong>tem trabalhado</strong>!</div>
+    <div class="feedback" id="fb-e5-1-err" class="wrong">❌ "Este mês" (período que ainda continua) → use o Composto: <strong>tem trabalhado</strong>. Compare: "Ontem ela trabalhou muito" (simples, momento específico).</div>
+  </div>
+
+  <div class="exercise" id="e5-2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#2E7D32">3</div>
+      <span class="ex-type" style="background:#2E7D32">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Como se traduz <em>"yo he hablado"</em> para o português?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e5-2',false)"><span class="icon">○</span> eu falei (simples, momento específico)</div>
+      <div class="option" onclick="checkMC(this,'e5-2',true)"><span class="icon">○</span> eu tenho falado (composto, ação contínua/repetida)</div>
+      <div class="option" onclick="checkMC(this,'e5-2',false)"><span class="icon">○</span> eu estava falando</div>
+    </div>
+    <div class="feedback" id="fb-e5-2-ok" class="correct">✅ <strong>Correto!</strong> O Pret. Perfeito Composto em PT = <strong>tenho falado</strong>. ⚠️ Mas atenção: o uso é diferente do espanhol! Em ES "he hablado" pode ser usado para momentos específicos; em PT o composto é só para ações contínuas/repetidas.</div>
+    <div class="feedback" id="fb-e5-2-err" class="wrong">❌ "Yo he hablado" → <strong>"eu tenho falado"</strong> (composto, ação repetida). Mas cuidado: o uso é diferente! Em PT, "eu falei" é mais comum para momentos específicos.</div>
+  </div>
+
+  <div class="exercise" id="e5-3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#2E7D32">4</div>
+      <span class="ex-type" style="background:#2E7D32">Múltipla escolha</span>
+    </div>
+    <div class="ex-question">Qual frase usa o tempo ERRADO?</div>
+    <div class="options">
+      <div class="option" onclick="checkMC(this,'e5-3',false)"><span class="icon">○</span> "Ultimamente tenho dormido mal."</div>
+      <div class="option" onclick="checkMC(this,'e5-3',true)"><span class="icon">○</span> "Na semana passada tenho viajado para o Rio."</div>
+      <div class="option" onclick="checkMC(this,'e5-3',false)"><span class="icon">○</span> "Ontem eu viajei para o Rio."</div>
+    </div>
+    <div class="feedback" id="fb-e5-3-ok" class="correct">✅ <strong>Correto!</strong> "Na semana passada <strong>viajei</strong> para o Rio" — momento específico no passado → simples! "Tenho viajado" seria errado porque "semana passada" é um momento definido e concluído.</div>
+    <div class="feedback" id="fb-e5-3-err" class="wrong">❌ A frase ERRADA é <strong>"Na semana passada tenho viajado"</strong>. "Semana passada" é momento específico → use o simples: <strong>"viajei"</strong>. O composto é para períodos indefinidos/contínuos.</div>
+  </div>
+
+  <div class="section-score">Acertos nesta seção: <span id="score-s5">0/4</span></div>
+</div>
+
+</div><!-- container -->
+
+<footer>
+  Profa. Janaina Jacomelli · UNAM FES Acatlán · Cuarto Nivel · 27/06/2026
+</footer>
+
+<script>
+const TOTAL = 24;
+let correct = 0;
+let answered = 0;
+const sectionScores = [0,0,0,0,0,0];
+const sectionAnswered = [0,0,0,0,0,0];
+const sectionTotal = [4,4,4,4,4,4];
+
+function getSection(exId) {
+  return parseInt(exId.split('-')[0].replace('e',''));
+}
+
+function updateProgress() {
+  const pct = Math.round((answered / TOTAL) * 100);
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('score-display').textContent = correct + ' / ' + answered;
+}
+
+function updateSectionScore(sec) {
+  document.getElementById('score-s'+sec).textContent = sectionScores[sec] + '/' + sectionTotal[sec];
+}
+
+function checkMC(el, exId, isCorrect) {
+  const ex = document.getElementById(exId);
+  if (ex.querySelector('.disabled')) return;
+
+  const sec = getSection(exId);
+  answered++;
+  sectionAnswered[sec]++;
+
+  ex.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+
+  if (isCorrect) {
+    el.classList.add('correct-ans');
+    el.querySelector('.icon').textContent = '✓';
+    ex.classList.add('correct');
+    correct++;
+    sectionScores[sec]++;
+    const fb = document.getElementById('fb-'+exId+'-ok');
+    if(fb){ fb.classList.add('show','correct'); }
+  } else {
+    el.classList.add('wrong-ans');
+    el.querySelector('.icon').textContent = '✗';
+    ex.classList.add('wrong');
+    const fb = document.getElementById('fb-'+exId+'-err');
+    if(fb){ fb.classList.add('show','wrong'); }
+    // Highlight correct
+    ex.querySelectorAll('.option').forEach(o => {
+      if(o.getAttribute('onclick') && o.getAttribute('onclick').includes('true')) {
+        o.classList.add('correct-ans');
+        o.querySelector('.icon').textContent = '✓';
+      }
+    });
+  }
+  updateProgress();
+  updateSectionScore(sec);
+}
+
+function checkFill(exId, expectedRaw) {
+  const ex = document.getElementById(exId);
+  const input = document.getElementById('in-'+exId);
+  if (input.disabled) return;
+
+  const expected = expectedRaw.toLowerCase().trim();
+  const userVal = input.value.toLowerCase().trim()
+    .replace(/[áàã]/g,'a').replace(/[éê]/g,'e')
+    .replace(/[íî]/g,'i').replace(/[óõô]/g,'o')
+    .replace(/[ú]/g,'u').replace(/ç/g,'c');
+  const expNorm = expected
+    .replace(/[áàã]/g,'a').replace(/[éê]/g,'e')
+    .replace(/[íî]/g,'i').replace(/[óõô]/g,'o')
+    .replace(/[ú]/g,'u').replace(/ç/g,'c');
+
+  const sec = getSection(exId);
+  answered++;
+  sectionAnswered[sec]++;
+  input.disabled = true;
+
+  const isCorrect = userVal === expNorm ||
+    expNorm.includes(userVal) && userVal.length > 3;
+
+  if (isCorrect) {
+    input.classList.add('correct-ans');
+    ex.classList.add('correct');
+    correct++;
+    sectionScores[sec]++;
+    const fb = document.getElementById('fb-'+exId+'-ok');
+    if(fb){ fb.classList.add('show','correct'); }
+  } else {
+    input.classList.add('wrong-ans');
+    ex.classList.add('wrong');
+    const fb = document.getElementById('fb-'+exId+'-err');
+    if(fb){ fb.classList.add('show','wrong'); }
+  }
+  updateProgress();
+  updateSectionScore(sec);
+}
+
+function showSection(idx) {
+  document.querySelectorAll('.section').forEach((s,i) => {
+    s.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('#nav button').forEach((b,i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
