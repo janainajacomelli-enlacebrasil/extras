@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prova Final — Aulas 7, 8 e 9</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f0f4f8; color: #1A2340; }
+
+header {
+  background: #002776;
+  color: white;
+  padding: 20px 32px;
+  border-bottom: 5px solid #FFDF00;
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+.header-sub { color: #FFDF00; font-size: 12px; letter-spacing: 2px; margin-bottom: 4px; }
+header h1 { font-size: 22px; }
+header p { color: #AACCFF; font-size: 12px; margin-top: 4px; }
+.score-badge { background: #009C3B; color: white; padding: 8px 16px; border-radius: 8px; text-align: center; min-width: 110px; }
+.score-badge .pts { font-size: 28px; font-weight: bold; }
+.score-badge .label { font-size: 11px; }
+
+.aviso {
+  background: #FFF8E1; border-left: 5px solid #F9A825;
+  padding: 14px 24px; margin: 0;
+  font-size: 13px; color: #5D4037;
+}
+.aviso strong { color: #E65100; }
+
+nav {
+  display: flex; gap: 6px; padding: 12px 24px; flex-wrap: wrap;
+  background: white; border-bottom: 1px solid #E0E6ED;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+nav button {
+  padding: 6px 12px; border: 2px solid #E0E6ED; border-radius: 20px;
+  cursor: pointer; font-size: 12px; font-weight: bold;
+  background: white; color: #4A5568; transition: all 0.2s;
+}
+nav button:hover { border-color: #002776; color: #002776; }
+nav button.active { background: #002776; color: white; border-color: #002776; }
+nav button.done { border-color: #009C3B; color: #009C3B; }
+nav button.done.active { background: #009C3B; color: white; }
+
+.container { max-width: 860px; margin: 0 auto; padding: 24px 16px 40px; }
+
+.section { display: none; }
+.section.active { display: block; }
+
+.section-header {
+  border-radius: 12px; padding: 16px 22px; margin-bottom: 20px; color: white;
+}
+.section-header h2 { font-size: 19px; margin-bottom: 3px; }
+.section-header .meta { font-size: 12px; opacity: 0.85; display: flex; gap: 16px; flex-wrap: wrap; }
+.section-header .pts-badge { background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 12px; font-weight: bold; }
+
+.exercise {
+  background: white; border-radius: 10px; padding: 18px 22px;
+  margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  border-left: 4px solid #E0E6ED; transition: border-color 0.3s;
+}
+.exercise.answered-correct { border-left-color: #009C3B; }
+.exercise.answered-wrong { border-left-color: #C62828; }
+
+.ex-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ex-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: bold; color: white; flex-shrink: 0;
+}
+.ex-pts { font-size: 11px; color: #888; margin-left: auto; }
+.ex-question { font-size: 14px; color: #1A2340; line-height: 1.5; }
+.ex-question em { font-style: italic; color: #4A5568; }
+.ex-question strong { color: #002776; }
+
+.options { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+.option {
+  padding: 9px 14px; border: 2px solid #E0E6ED; border-radius: 8px;
+  cursor: pointer; font-size: 13.5px; transition: all 0.2s; background: #FAFAFA;
+  display: flex; align-items: center; gap: 8px;
+}
+.option:hover:not(.disabled) { border-color: #002776; background: #EEF2FF; }
+.option.correct-ans { background: #E8F5E9; border-color: #009C3B; color: #1B5E20; font-weight: bold; }
+.option.wrong-ans { background: #FFEBEE; border-color: #C62828; color: #B71C1C; }
+.option.disabled { cursor: default; }
+.option .icon { font-size: 14px; min-width: 16px; }
+
+.feedback {
+  margin-top: 10px; padding: 9px 13px; border-radius: 7px;
+  font-size: 12.5px; display: none; line-height: 1.5;
+}
+.feedback.show { display: block; }
+.feedback.correct { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
+.feedback.wrong { background: #FFEBEE; color: #B71C1C; border: 1px solid #EF9A9A; }
+
+.text-area-wrapper { margin-top: 12px; }
+.text-area-wrapper textarea {
+  width: 100%; padding: 10px 14px; border: 2px solid #E0E6ED;
+  border-radius: 8px; font-size: 13.5px; font-family: Arial, sans-serif;
+  resize: vertical; min-height: 140px; outline: none; transition: border-color 0.2s;
+}
+.text-area-wrapper textarea:focus { border-color: #002776; }
+.word-count { font-size: 11px; color: #888; margin-top: 4px; text-align: right; }
+
+.video-box {
+  background: #000; border-radius: 10px; padding: 16px 20px;
+  margin-bottom: 14px; text-align: center;
+}
+.video-box p { color: #AACCFF; font-size: 13px; margin-bottom: 10px; }
+.video-btn {
+  display: inline-block; background: #FF0000; color: white;
+  padding: 10px 24px; border-radius: 8px; text-decoration: none;
+  font-weight: bold; font-size: 13px; margin: 4px;
+}
+.video-url { font-size: 11px; color: #5599CC; margin-top: 8px; font-style: italic; }
+
+.section-progress {
+  text-align: center; padding: 14px; background: white;
+  border-radius: 10px; margin-top: 6px; font-size: 13px; color: #4A5568;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.section-progress span { font-weight: bold; color: #002776; font-size: 17px; }
+
+.nav-btns { display: flex; justify-content: space-between; margin-top: 18px; gap: 10px; }
+.nav-btn {
+  padding: 10px 22px; border: none; border-radius: 8px;
+  cursor: pointer; font-size: 13px; font-weight: bold; transition: all 0.2s;
+}
+.nav-btn.prev { background: #E0E6ED; color: #4A5568; }
+.nav-btn.prev:hover { background: #CBD5E0; }
+.nav-btn.next { background: #002776; color: white; }
+.nav-btn.next:hover { background: #003A9E; }
+.nav-btn.submit { background: #009C3B; color: white; }
+.nav-btn.submit:hover { background: #007A2E; }
+
+/* Resultado final */
+#result-panel {
+  display: none; background: white; border-radius: 14px;
+  padding: 32px; text-align: center; margin-top: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+#result-panel h2 { color: #002776; font-size: 24px; margin-bottom: 8px; }
+#result-panel .total-score { font-size: 52px; font-weight: bold; color: #009C3B; margin: 12px 0; }
+#result-panel .total-label { font-size: 14px; color: #666; margin-bottom: 20px; }
+.score-breakdown { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; }
+.score-item { background: #F7F9FC; border-radius: 8px; padding: 12px; border-left: 4px solid #002776; text-align: left; }
+.score-item .label { font-size: 12px; color: #666; }
+.score-item .value { font-size: 18px; font-weight: bold; color: #002776; }
+.oralidade-box {
+  background: #FFF8E1; border: 2px solid #F9A825; border-radius: 10px;
+  padding: 14px 18px; margin: 16px 0; text-align: left;
+}
+.oralidade-box h3 { color: #E65100; font-size: 14px; margin-bottom: 6px; }
+.oralidade-box p { font-size: 13px; color: #5D4037; line-height: 1.6; }
+
+/* Nome do aluno */
+.nome-box {
+  background: white; border-radius: 10px; padding: 18px 22px;
+  margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.nome-box label { font-size: 13px; font-weight: bold; color: #002776; display: block; margin-bottom: 6px; }
+.nome-box input {
+  width: 100%; padding: 10px 14px; border: 2px solid #E0E6ED;
+  border-radius: 8px; font-size: 14px; outline: none;
+}
+.nome-box input:focus { border-color: #002776; }
+
+footer { text-align: center; padding: 20px; color: #AAAAAA; font-size: 11px; border-top: 1px solid #E0E6ED; margin-top: 32px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <div class="header-sub">UNAM FES ACATLÁN · CUARTO NIVEL · 2026</div>
+      <h1>📝 Prova Final — Aulas 7, 8 e 9</h1>
+      <p>Festa Junina · Dia dos Namorados · Subjuntivo · SE · Voz Passiva · Tempos Compostos</p>
+    </div>
+    <div class="score-badge">
+      <div class="pts" id="header-score">0</div>
+      <div class="label">de 35 pts*</div>
+    </div>
+  </div>
+</header>
+
+<div class="aviso">
+  ⚠️ <strong>Oralidade (10 pts):</strong> grave um vídeo de 2–3 minutos falando sobre uma festa ou celebração importante para você — compare com alguma tradição brasileira que aprendeu nas aulas. Envie para a professora pelo WhatsApp <strong>56 3424-7232</strong> até <strong>segunda-feira às 20h</strong>. A nota final será calculada após o recebimento do vídeo.
+</div>
+
+<nav id="nav">
+  <button class="active" onclick="goTo(0)">📋 Dados</button>
+  <button onclick="goTo(1)">📐 Gramática</button>
+  <button onclick="goTo(2)">🎧 Auditiva</button>
+  <button onclick="goTo(3)">📖 Leitura</button>
+  <button onclick="goTo(4)">✍️ Escrita</button>
+  <button onclick="goTo(5)">📊 Resultado</button>
+</nav>
+
+<div class="container">
+
+<!-- ══ DADOS ══ -->
+<div class="section active" id="s0">
+  <div class="section-header" style="background:#002776">
+    <h2>📋 Identificação</h2>
+    <div class="meta"><span>Preencha antes de começar</span></div>
+  </div>
+  <div class="nome-box">
+    <label>Nome completo:</label>
+    <input type="text" id="student-name" placeholder="Seu nome aqui...">
+  </div>
+  <div class="nome-box">
+    <label>Data:</label>
+    <input type="text" id="student-date" placeholder="Ex: 27/06/2026">
+  </div>
+  <div style="background:#E8F5E9;border-radius:10px;padding:16px 20px;margin-top:8px;border-left:4px solid #009C3B">
+    <p style="font-size:13px;color:#1B5E20;line-height:1.6">
+      <strong>📌 Instruções:</strong><br>
+      • Esta prova vale <strong>60 pts</strong> no total (50 pts automáticos + 10 pts de oralidade)<br>
+      • Gramática (20 pts) · C. Auditiva (10 pts) · C. Leitura (10 pts) · E. Escrita (10 pts)<br>
+      • Nas questões de múltipla escolha, clique na sua resposta para ver o resultado<br>
+      • Complete todas as seções antes de enviar<br>
+      • Ao terminar, clique em <strong>"Enviar resultado"</strong> para que a professora receba sua nota
+    </p>
+  </div>
+  <div class="nav-btns">
+    <div></div>
+    <button class="nav-btn next" onclick="goTo(1)">Começar a prova →</button>
+  </div>
+</div>
+
+<!-- ══ GRAMÁTICA ══ -->
+<div class="section" id="s1">
+  <div class="section-header" style="background:#C62828">
+    <h2>📐 I. Gramática</h2>
+    <div class="meta">
+      <span>Aulas 7, 8 e 9</span>
+      <span class="pts-badge">20 pts</span>
+    </div>
+  </div>
+
+  <!-- G1 Vocabulário Festa Junina -->
+  <div class="exercise" id="g1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">1</div>
+      <div class="ex-question">Qual é o significado correto de <em>"a fogueira"</em> em espanhol?</div>
+      <span class="ex-pts">1 pt</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g1',false)"><span class="icon">○</span> el fuego artificial</div>
+      <div class="option" onclick="mc(this,'g1',true)"><span class="icon">○</span> la fogata / la hoguera</div>
+      <div class="option" onclick="mc(this,'g1',false)"><span class="icon">○</span> el cohete</div>
+    </div>
+    <div class="feedback show correct" id="fb-g1-ok">✅ <strong>Correto!</strong> "A fogueira" = la fogata / la hoguera — símbolo da Festa Junina!</div>
+    <div class="feedback" id="fb-g1-err">❌ A resposta correta é <strong>la fogata / la hoguera</strong>. A fogueira é o elemento central das festas juninas!</div>
+  </div>
+
+  <!-- G2 Dia dos Namorados -->
+  <div class="exercise" id="g2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">2</div>
+      <div class="ex-question">O Dia dos Namorados no Brasil é comemorado em:</div>
+      <span class="ex-pts">1 pt</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g2',false)"><span class="icon">○</span> 14 de fevereiro</div>
+      <div class="option" onclick="mc(this,'g2',true)"><span class="icon">○</span> 12 de junho — véspera de Santo Antônio</div>
+      <div class="option" onclick="mc(this,'g2',false)"><span class="icon">○</span> 13 de junho — Dia de Santo Antônio</div>
+    </div>
+    <div class="feedback" id="fb-g2-ok">✅ <strong>Correto!</strong> 12 de junho — criado em 1948 pela Standart Propaganda, véspera do Dia de Santo Antônio, o "santo casamenteiro"!</div>
+    <div class="feedback" id="fb-g2-err">❌ No Brasil é <strong>12 de junho</strong> — véspera do Dia de Santo Antônio (13/junho). O 14 de fevereiro é Valentine's Day, celebrado no resto do mundo!</div>
+  </div>
+
+  <!-- G3 Futuro Subjuntivo -->
+  <div class="exercise" id="g3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">3</div>
+      <div class="ex-question">Complete com o Futuro do Subjuntivo correto:<br><em>"Quando você _____ ao Brasil, vai adorar o carnaval." (ir)</em></div>
+      <span class="ex-pts">1 pt</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g3',false)"><span class="icon">○</span> vai</div>
+      <div class="option" onclick="mc(this,'g3',true)"><span class="icon">○</span> for</div>
+      <div class="option" onclick="mc(this,'g3',false)"><span class="icon">○</span> fosse</div>
+    </div>
+    <div class="feedback" id="fb-g3-ok">✅ <strong>Correto!</strong> "Quando" + ação futura → Futuro do Subjuntivo: <strong>for</strong>!</div>
+    <div class="feedback" id="fb-g3-err">❌ "Quando" + ação futura pede o Futuro do Subjuntivo: <strong>for</strong>. "Fosse" = Imperfeito do Subjuntivo; "vai" = Indicativo.</div>
+  </div>
+
+  <!-- G4 Conjunção -->
+  <div class="exercise" id="g4">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">4</div>
+      <div class="ex-question">Qual conjunção completa corretamente:<br><em>"Vou à festa junina _____ chova muito."</em></div>
+      <span class="ex-pts">1 pt</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g4',false)"><span class="icon">○</span> quando</div>
+      <div class="option" onclick="mc(this,'g4',false)"><span class="icon">○</span> porque</div>
+      <div class="option" onclick="mc(this,'g4',true)"><span class="icon">○</span> mesmo que</div>
+    </div>
+    <div class="feedback" id="fb-g4-ok">✅ <strong>Correto!</strong> "Mesmo que" = conjunção concessiva (aunque). Indica que a ação acontece independentemente da condição!</div>
+    <div class="feedback" id="fb-g4-err">❌ A conjunção correta é <strong>"mesmo que"</strong> (aunque) — concessiva. "Quando" = temporal; "porque" = causal.</div>
+  </div>
+
+  <!-- G5 Locuções prepositivas -->
+  <div class="exercise" id="g5">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">5</div>
+      <div class="ex-question">Qual locução prepositiva está correta:<br><em>"Ela chegou _____ de nós." (antes)</em></div>
+      <span class="ex-pts">1 pt</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g5',false)"><span class="icon">○</span> antes que</div>
+      <div class="option" onclick="mc(this,'g5',true)"><span class="icon">○</span> antes de</div>
+      <div class="option" onclick="mc(this,'g5',false)"><span class="icon">○</span> antes para</div>
+    </div>
+    <div class="feedback" id="fb-g5-ok">✅ <strong>Correto!</strong> "Antes de" é uma locução prepositiva: antes de + substantivo/pronome.</div>
+    <div class="feedback" id="fb-g5-err">❌ A locução prepositiva correta é <strong>"antes de"</strong>. "Antes que" é conjunção temporal e precisa de verbo depois.</div>
+  </div>
+
+  <!-- G6 Voz Passiva -->
+  <div class="exercise" id="g6">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">6</div>
+      <div class="ex-question">Qual é a voz passiva de: <em>"A professora explicou a matéria."</em></div>
+      <span class="ex-pts">3 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g6',false)"><span class="icon">○</span> A matéria explicou a professora.</div>
+      <div class="option" onclick="mc(this,'g6',true)"><span class="icon">○</span> A matéria foi explicada pela professora.</div>
+      <div class="option" onclick="mc(this,'g6',false)"><span class="icon">○</span> A matéria foi explicada da professora.</div>
+    </div>
+    <div class="feedback" id="fb-g6-ok">✅ <strong>Correto!</strong> SER conjugado (foi) + particípio (explicada, feminino!) + POR + agente (pela professora).</div>
+    <div class="feedback" id="fb-g6-err">❌ Voz passiva: SUJEITO PACIENTE + SER + PARTICÍPIO + POR + AGENTE → <strong>"A matéria foi explicada pela professora."</strong></div>
+  </div>
+
+  <!-- G7 Partícula SE -->
+  <div class="exercise" id="g7">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">7</div>
+      <div class="ex-question">Qual frase usa o SE corretamente?</div>
+      <span class="ex-pts">3 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g7',false)"><span class="icon">○</span> Vende-se apartamentos nesta rua.</div>
+      <div class="option" onclick="mc(this,'g7',true)"><span class="icon">○</span> Vendem-se apartamentos nesta rua.</div>
+      <div class="option" onclick="mc(this,'g7',false)"><span class="icon">○</span> Se vende apartamentos nesta rua.</div>
+    </div>
+    <div class="feedback" id="fb-g7-ok">✅ <strong>Correto!</strong> SE apassivadora: o verbo CONCORDA com o sujeito. "Apartamentos" (plural) → <strong>Vendem</strong>-se!</div>
+    <div class="feedback" id="fb-g7-err">❌ SE apassivadora: o verbo concorda com o sujeito paciente. "Apartamentos" é plural → <strong>Vendem-se</strong> apartamentos!</div>
+  </div>
+
+  <!-- G8 Substantivo coletivo -->
+  <div class="exercise" id="g8">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">8</div>
+      <div class="ex-question">Qual é o substantivo coletivo de <em>"estrelas"</em>?</div>
+      <span class="ex-pts">1 pt</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g8',false)"><span class="icon">○</span> constelação</div>
+      <div class="option" onclick="mc(this,'g8',false)"><span class="icon">○</span> galáxia</div>
+      <div class="option" onclick="mc(this,'g8',true)"><span class="icon">○</span> constelação OU galáxia ✅ — ambos são aceitos!</div>
+    </div>
+    <div class="feedback" id="fb-g8-ok">✅ <strong>Correto!</strong> O coletivo de estrelas pode ser <strong>constelação</strong> (grupo de estrelas num padrão) ou <strong>galáxia</strong>!</div>
+    <div class="feedback" id="fb-g8-err">❌ O coletivo de estrelas é <strong>constelação</strong> (ou galáxia). Ex: "Uma constelação de estrelas iluminou o céu da festa junina."</div>
+  </div>
+
+  <!-- G9 Tempos compostos -->
+  <div class="exercise" id="g9">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">9</div>
+      <div class="ex-question">Complete com o tempo correto:<br><em>"Ultimamente ela _____ muito sobre o Brasil." (falar)</em></div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g9',false)"><span class="icon">○</span> falou</div>
+      <div class="option" onclick="mc(this,'g9',true)"><span class="icon">○</span> tem falado</div>
+      <div class="option" onclick="mc(this,'g9',false)"><span class="icon">○</span> tinha falado</div>
+    </div>
+    <div class="feedback" id="fb-g9-ok">✅ <strong>Correto!</strong> "Ultimamente" → ação contínua até o presente → Pretérito Perfeito Composto: <strong>tem falado</strong>!</div>
+    <div class="feedback" id="fb-g9-err">❌ "Ultimamente" indica ação repetida/contínua → Pret. Perf. Composto: <strong>tem falado</strong>. "Falou" seria para momento específico no passado.</div>
+  </div>
+
+  <!-- G10 Reflexivo -->
+  <div class="exercise" id="g10">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">10</div>
+      <div class="ex-question">Complete com o pronome reflexivo correto:<br><em>"Eles _____ abraçaram quando se encontraram na festa."</em></div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g10',false)"><span class="icon">○</span> me</div>
+      <div class="option" onclick="mc(this,'g10',false)"><span class="icon">○</span> te</div>
+      <div class="option" onclick="mc(this,'g10',true)"><span class="icon">○</span> se</div>
+    </div>
+    <div class="feedback" id="fb-g10-ok">✅ <strong>Correto!</strong> Sujeito "eles" → pronome reflexivo <strong>se</strong>. Ação mútua: eles abraçaram um ao outro!</div>
+    <div class="feedback" id="fb-g10-err">❌ Sujeito "eles" → pronome reflexivo <strong>se</strong>. Tabela: eu=me, tu/você=te/se, ele/ela=se, nós=nos, vocês/eles=<strong>se</strong>.</div>
+  </div>
+
+  <!-- G11 Presente x Futuro Subj -->
+  <div class="exercise" id="g11">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">11</div>
+      <div class="ex-question">Qual tempo do subjuntivo está correto:<br><em>"Espero que você _____ feliz sempre." (ser)</em></div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g11',true)"><span class="icon">○</span> seja (Presente do Subjuntivo)</div>
+      <div class="option" onclick="mc(this,'g11',false)"><span class="icon">○</span> for (Futuro do Subjuntivo)</div>
+      <div class="option" onclick="mc(this,'g11',false)"><span class="icon">○</span> fosse (Imperfeito do Subjuntivo)</div>
+    </div>
+    <div class="feedback" id="fb-g11-ok">✅ <strong>Correto!</strong> "Espero que" + Presente do Subjuntivo: <strong>seja</strong>. Desejo/esperança no presente!</div>
+    <div class="feedback" id="fb-g11-err">❌ "Espero que" + Presente do Subjuntivo → <strong>seja</strong>. "For" seria para condição futura com "quando/se"; "fosse" seria hipótese no passado.</div>
+  </div>
+
+  <!-- G12 Partícipio -->
+  <div class="exercise" id="g12">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#C62828">12</div>
+      <div class="ex-question">Qual é o particípio irregular de <em>"fazer"</em>?</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'g12',false)"><span class="icon">○</span> fazido</div>
+      <div class="option" onclick="mc(this,'g12',true)"><span class="icon">○</span> feito</div>
+      <div class="option" onclick="mc(this,'g12',false)"><span class="icon">○</span> fazendo</div>
+    </div>
+    <div class="feedback" id="fb-g12-ok">✅ <strong>Correto!</strong> "Feito" — particípio irregular de "fazer". Ex: "O bolo foi <strong>feito</strong> pela Ana."</div>
+    <div class="feedback" id="fb-g12-err">❌ O particípio de "fazer" é <strong>feito</strong> — irregular! Outros irregulares: dito (dizer), visto (ver), aberto (abrir), escrito (escrever).</div>
+  </div>
+
+  <div class="section-progress">Gramática: <span id="score-s1">0/20</span> pts</div>
+  <div class="nav-btns">
+    <button class="nav-btn prev" onclick="goTo(0)">← Voltar</button>
+    <button class="nav-btn next" onclick="goTo(2)">Próxima seção →</button>
+  </div>
+</div>
+
+<!-- ══ AUDITIVA ══ -->
+<div class="section" id="s2">
+  <div class="section-header" style="background:#00897B">
+    <h2>🎧 II. Compreensão Auditiva</h2>
+    <div class="meta">
+      <span>Assista ao vídeo e responda</span>
+      <span class="pts-badge">10 pts</span>
+    </div>
+  </div>
+
+  <div class="video-box">
+    <p>📺 Assista ao vídeo antes de responder às questões:</p>
+    <a class="video-btn" href="https://www.youtube.com/watch?v=UP_KqdKweVg" target="_blank">▶ Assistir — O que é Brasilidade?</a>
+    <div class="video-url">youtube.com/watch?v=UP_KqdKweVg</div>
+  </div>
+
+  <div class="exercise" id="a1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">1</div>
+      <div class="ex-question">Segundo o vídeo, o que melhor define "brasilidade"?</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'a1',false)"><span class="icon">○</span> É só a música e o carnaval do Brasil.</div>
+      <div class="option" onclick="mc(this,'a1',true)"><span class="icon">○</span> É um conjunto de características, valores e jeito de ser dos brasileiros.</div>
+      <div class="option" onclick="mc(this,'a1',false)"><span class="icon">○</span> É a identidade dos brasileiros que vivem fora do Brasil.</div>
+    </div>
+    <div class="feedback" id="fb-a1-ok">✅ <strong>Correto!</strong> Brasilidade é um conceito amplo — engloba valores, comportamentos, cultura e o jeito único dos brasileiros de ver a vida!</div>
+    <div class="feedback" id="fb-a1-err">❌ Brasilidade é muito mais ampla — é um <strong>conjunto de características, valores e o jeito de ser</strong> dos brasileiros, não apenas música ou carnaval.</div>
+  </div>
+
+  <div class="exercise" id="a2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">2</div>
+      <div class="ex-question">Qual característica NÃO está associada à brasilidade no vídeo?</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'a2',false)"><span class="icon">○</span> Alegria e hospitalidade</div>
+      <div class="option" onclick="mc(this,'a2',false)"><span class="icon">○</span> Criatividade e jogo de cintura</div>
+      <div class="option" onclick="mc(this,'a2',true)"><span class="icon">○</span> Frieza e individualismo</div>
+    </div>
+    <div class="feedback" id="fb-a2-ok">✅ <strong>Correto!</strong> Frieza e individualismo são opostos à brasilidade — os brasileiros são conhecidos pela calorosa hospitalidade e espírito coletivo!</div>
+    <div class="feedback" id="fb-a2-err">❌ "Frieza e individualismo" são o oposto da brasilidade. Os brasileiros são conhecidos pela <strong>alegria, hospitalidade e criatividade</strong>!</div>
+  </div>
+
+  <div class="exercise" id="a3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">3</div>
+      <div class="ex-question">A palavra "saudade" aparece no contexto da brasilidade. O que ela significa?</div>
+      <span class="ex-pts">3 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'a3',false)"><span class="icon">○</span> Tristeza profunda e permanente</div>
+      <div class="option" onclick="mc(this,'a3',true)"><span class="icon">○</span> Sentimento de falta de algo ou alguém amado — com afeto</div>
+      <div class="option" onclick="mc(this,'a3',false)"><span class="icon">○</span> Nostalgia sem esperança de reencontro</div>
+    </div>
+    <div class="feedback" id="fb-a3-ok">✅ <strong>Correto!</strong> "Saudade" é única em português — é a falta de alguém/algo com muito amor. Nem feliz nem triste — é os dois ao mesmo tempo!</div>
+    <div class="feedback" id="fb-a3-err">❌ Saudade não é tristeza pura! É <strong>sentir falta de algo/alguém amado</strong> — com afeto e carinho. É considerada a palavra mais bonita do português!</div>
+  </div>
+
+  <div class="exercise" id="a4">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#00897B">4</div>
+      <div class="ex-question">Como você definiria <em>"mexicanidade"</em> em português? Cite 2 características.</div>
+      <span class="ex-pts">3 pts</span>
+    </div>
+    <div class="text-area-wrapper">
+      <textarea id="ta-a4" placeholder="Escreva sua resposta em português..." oninput="countWords('ta-a4','wc-a4')"></textarea>
+      <div class="word-count" id="wc-a4">0 palavras</div>
+    </div>
+    <div style="margin-top:8px;padding:8px 12px;background:#E0F2F1;border-radius:6px;font-size:12px;color:#004D40">
+      💡 Esta questão será avaliada pela professora. Escreva pelo menos 2 características da identidade mexicana em português!
+    </div>
+  </div>
+
+  <div class="section-progress">Auditiva automática: <span id="score-s2">0/7</span> pts · questão aberta: ___/3 pts ✏️ (professora)</div>
+  <div class="nav-btns">
+    <button class="nav-btn prev" onclick="goTo(1)">← Gramática</button>
+    <button class="nav-btn next" onclick="goTo(3)">Próxima seção →</button>
+  </div>
+</div>
+
+<!-- ══ LEITURA ══ -->
+<div class="section" id="s3">
+  <div class="section-header" style="background:#5E35B1">
+    <h2>📖 III. Compreensão de Leitura</h2>
+    <div class="meta">
+      <span>Leia o texto e responda</span>
+      <span class="pts-badge">10 pts</span>
+    </div>
+  </div>
+
+  <div style="background:white;border-radius:10px;padding:20px 22px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.06)">
+    <div style="background:#8B1A1A;color:white;padding:10px 16px;border-radius:8px;text-align:center;font-weight:bold;font-size:16px;margin-bottom:14px">A Festa Junina</div>
+    <p style="font-size:13.5px;line-height:1.8;color:#1A2340">
+      &nbsp;&nbsp;&nbsp;&nbsp;A Festa Junina é uma das celebrações mais populares do Brasil. Acontece durante o mês de junho, em homenagem a três santos católicos: Santo Antônio (13 de junho), São João (24 de junho) e São Pedro (29 de junho). A festa tem origem europeia — veio de Portugal no século XVI — mas ao longo dos anos incorporou elementos da cultura indígena e africana, tornando-se algo único e brasileiro.<br><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;As festas juninas são marcadas por muitas tradições: as pessoas se vestem com roupas xadrez coloridas, dançam a quadrilha, acendem fogueiras e soltam balões. As comidas típicas incluem a pamonha, o milho cozido, o canjica, o quentão e o arroz doce. A música é o forró, com seus ritmos animados de sanfona, triângulo e zabumba.<br><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;A maior Festa Junina do mundo acontece em Campina Grande, na Paraíba, no Nordeste do Brasil. Conhecida como "O maior São João do mundo", a festa dura mais de 30 dias e atrai milhares de turistas de todo o Brasil e do exterior. Para os brasileiros, a festa junina não é só diversão — é identidade, memória e cultura viva.
+    </p>
+  </div>
+
+  <div class="exercise" id="l1">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">1</div>
+      <div class="ex-question">Quais são os três santos homenageados na Festa Junina?</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'l1',false)"><span class="icon">○</span> Santo Antônio, São Paulo e São Pedro</div>
+      <div class="option" onclick="mc(this,'l1',true)"><span class="icon">○</span> Santo Antônio, São João e São Pedro</div>
+      <div class="option" onclick="mc(this,'l1',false)"><span class="icon">○</span> São João, São Jorge e São Pedro</div>
+    </div>
+    <div class="feedback" id="fb-l1-ok">✅ <strong>Correto!</strong> Santo Antônio (13/06), São João (24/06) e São Pedro (29/06) — os três santos do mês de junho!</div>
+    <div class="feedback" id="fb-l1-err">❌ Os três santos são: <strong>Santo Antônio, São João e São Pedro</strong> — todos homenageados em junho!</div>
+  </div>
+
+  <div class="exercise" id="l2">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">2</div>
+      <div class="ex-question">Qual é a origem da Festa Junina?</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'l2',false)"><span class="icon">○</span> Origem indígena brasileira</div>
+      <div class="option" onclick="mc(this,'l2',false)"><span class="icon">○</span> Origem africana</div>
+      <div class="option" onclick="mc(this,'l2',true)"><span class="icon">○</span> Origem europeia — veio de Portugal no século XVI</div>
+    </div>
+    <div class="feedback" id="fb-l2-ok">✅ <strong>Correto!</strong> A Festa Junina veio de Portugal no século XVI, mas incorporou elementos indígenas e africanos ao longo do tempo!</div>
+    <div class="feedback" id="fb-l2-err">❌ A origem é <strong>europeia — veio de Portugal</strong> no século XVI. Com o tempo incorporou elementos indígenas e africanos!</div>
+  </div>
+
+  <div class="exercise" id="l3">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">3</div>
+      <div class="ex-question">Onde acontece a maior Festa Junina do mundo?</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'l3',false)"><span class="icon">○</span> São Paulo, no estado de São Paulo</div>
+      <div class="option" onclick="mc(this,'l3',true)"><span class="icon">○</span> Campina Grande, na Paraíba</div>
+      <div class="option" onclick="mc(this,'l3',false)"><span class="icon">○</span> Salvador, na Bahia</div>
+    </div>
+    <div class="feedback" id="fb-l3-ok">✅ <strong>Correto!</strong> Campina Grande, na Paraíba — "O maior São João do mundo", com mais de 30 dias de festa!</div>
+    <div class="feedback" id="fb-l3-err">❌ É em <strong>Campina Grande, na Paraíba</strong> — "O maior São João do mundo", com mais de 30 dias de festa e milhares de turistas!</div>
+  </div>
+
+  <div class="exercise" id="l4">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">4</div>
+      <div class="ex-question">Segundo o texto, a festa junina para os brasileiros é:</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="options">
+      <div class="option" onclick="mc(this,'l4',false)"><span class="icon">○</span> Apenas uma festa religiosa</div>
+      <div class="option" onclick="mc(this,'l4',false)"><span class="icon">○</span> Uma festa só para crianças</div>
+      <div class="option" onclick="mc(this,'l4',true)"><span class="icon">○</span> Identidade, memória e cultura viva</div>
+    </div>
+    <div class="feedback" id="fb-l4-ok">✅ <strong>Correto!</strong> O texto diz: "a festa junina não é só diversão — é <strong>identidade, memória e cultura viva</strong>."</div>
+    <div class="feedback" id="fb-l4-err">❌ O próprio texto diz: "a festa junina não é só diversão — é <strong>identidade, memória e cultura viva</strong>."</div>
+  </div>
+
+  <div class="exercise" id="l5">
+    <div class="ex-header">
+      <div class="ex-num" style="background:#5E35B1">5</div>
+      <div class="ex-question">No México existe uma festa parecida com a Festa Junina? Descreva brevemente em português.</div>
+      <span class="ex-pts">2 pts</span>
+    </div>
+    <div class="text-area-wrapper">
+      <textarea id="ta-l5" placeholder="Escreva em português..." oninput="countWords('ta-l5','wc-l5')"></textarea>
+      <div class="word-count" id="wc-l5">0 palavras</div>
+    </div>
+    <div style="margin-top:8px;padding:8px 12px;background:#EDE7F6;border-radius:6px;font-size:12px;color:#4A148C">
+      💡 Avaliado pela professora. Compare com alguma festa mexicana que você conhece!
+    </div>
+  </div>
+
+  <div class="section-progress">Leitura automática: <span id="score-s3">0/8</span> pts · questão aberta: ___/2 pts ✏️ (professora)</div>
+  <div class="nav-btns">
+    <button class="nav-btn prev" onclick="goTo(2)">← Auditiva</button>
+    <button class="nav-btn next" onclick="goTo(4)">Próxima seção →</button>
+  </div>
+</div>
+
+<!-- ══ ESCRITA ══ -->
+<div class="section" id="s4">
+  <div class="section-header" style="background:#880E4F">
+    <h2>✍️ IV. Expressão Escrita</h2>
+    <div class="meta">
+      <span>Carta de amor — Dia dos Namorados</span>
+      <span class="pts-badge">10 pts</span>
+    </div>
+  </div>
+
+  <div style="background:white;border-radius:10px;padding:18px 22px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.06)">
+    <p style="font-size:14px;font-weight:bold;color:#880E4F;margin-bottom:10px">📝 Proposta de escrita:</p>
+    <p style="font-size:13.5px;line-height:1.7;color:#1A2340">
+      Escreva uma <strong>carta de amor</strong> em português para alguém especial (real ou fictício) no contexto do Dia dos Namorados brasileiro.<br><br>
+      Sua carta DEVE incluir:
+    </p>
+    <ul style="margin:10px 0 0 20px;font-size:13px;line-height:1.8;color:#1A2340">
+      <li>Uma referência ao <strong>12 de junho</strong> — Dia dos Namorados no Brasil</li>
+      <li>Pelo menos <strong>uma cor</strong> (variável, invariável ou composta)</li>
+      <li>Uma frase com <strong>pronome reflexivo</strong> (me, te, se, nos)</li>
+      <li>Uma frase no <strong>futuro do subjuntivo</strong> (quando for, se puder...)</li>
+      <li>Vocabulário do tema: <em>saudade, fogueira, São João, amor, coração...</em></li>
+    </ul>
+    <p style="margin-top:10px;font-size:12.5px;color:#666;font-style:italic">
+      Extensão: 80–120 palavras · Começo sugerido: "Querida/o ________, Hoje é 12 de junho e..."
+    </p>
+  </div>
+
+  <div style="background:white;border-radius:10px;padding:18px 22px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,0.06)">
+    <label style="font-size:13px;font-weight:bold;color:#880E4F;display:block;margin-bottom:8px">Escreva sua carta aqui:</label>
+    <textarea id="ta-escrita" style="width:100%;padding:12px 14px;border:2px solid #E0E6ED;border-radius:8px;font-size:13.5px;font-family:Arial,sans-serif;resize:vertical;min-height:200px;outline:none"
+      placeholder="Querida/o ________,&#10;&#10;Hoje é 12 de junho e..." oninput="countWords('ta-escrita','wc-escrita')"></textarea>
+    <div style="font-size:11px;color:#888;margin-top:4px;text-align:right" id="wc-escrita">0 palavras (mínimo: 80)</div>
+  </div>
+
+  <div style="background:#FCE4EC;border-radius:10px;padding:14px 18px;margin-bottom:14px;border-left:4px solid #880E4F">
+    <p style="font-size:12.5px;color:#880E4F;font-weight:bold;margin-bottom:6px">📊 Critérios de avaliação (10 pts):</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;font-size:12px;color:#4A0020">
+      <span>• Vocabulário das aulas (3 pts)</span>
+      <span>• Estrutura e coesão (2 pts)</span>
+      <span>• Gramática — itens pedidos (3 pts)</span>
+      <span>• Ortografia e extensão (2 pts)</span>
+    </div>
+  </div>
+
+  <div class="section-progress">Escrita: ___/10 pts ✏️ · avaliada pela professora</div>
+  <div class="nav-btns">
+    <button class="nav-btn prev" onclick="goTo(3)">← Leitura</button>
+    <button class="nav-btn next submit" onclick="goTo(5)">Ver resultado e enviar →</button>
+  </div>
+</div>
+
+<!-- ══ RESULTADO ══ -->
+<div class="section" id="s5">
+  <div class="section-header" style="background:#002776">
+    <h2>📊 Resultado</h2>
+    <div class="meta"><span>Resumo da sua prova</span></div>
+  </div>
+
+  <div id="result-panel" style="display:block">
+    <h2>🎓 Sua pontuação automática</h2>
+    <div class="total-score" id="final-score">0</div>
+    <div class="total-label">de 35 pts automáticos</div>
+
+    <div class="score-breakdown">
+      <div class="score-item">
+        <div class="label">📐 Gramática (automática)</div>
+        <div class="value" id="res-gram">0/20</div>
+      </div>
+      <div class="score-item">
+        <div class="label">🎧 Auditiva — MC (automática)</div>
+        <div class="value" id="res-aud">0/7</div>
+      </div>
+      <div class="score-item">
+        <div class="label">📖 Leitura — MC (automática)</div>
+        <div class="value" id="res-leit">0/8</div>
+      </div>
+      <div class="score-item" style="border-left-color:#00897B">
+        <div class="label">🎧 Auditiva — questão aberta</div>
+        <div class="value" style="color:#00897B">___ / 3 pts ✏️</div>
+      </div>
+      <div class="score-item" style="border-left-color:#5E35B1">
+        <div class="label">📖 Leitura — questão aberta</div>
+        <div class="value" style="color:#5E35B1">___ / 2 pts ✏️</div>
+      </div>
+      <div class="score-item" style="border-left-color:#880E4F">
+        <div class="label">✍️ Carta de amor</div>
+        <div class="value" style="color:#880E4F">___ / 10 pts ✏️</div>
+      </div>
+      <div class="score-item" style="border-left-color:#E65100">
+        <div class="label">🎥 Oralidade</div>
+        <div class="value" style="color:#E65100">___ / 10 pts ✏️</div>
+      </div>
+    </div>
+    <div style="background:#FFF3E0;border-radius:8px;padding:12px 16px;margin:10px 0;border-left:4px solid #E65100;font-size:12.5px;color:#5D4037">
+      ✏️ <strong>Itens marcados com ✏️</strong> ficam em aberto — a professora avalia e pontua após receber a prova.
+    </div>
+
+    <div class="oralidade-box">
+      <h3>🎥 Oralidade (10 pts) — pendente</h3>
+      <p>Grave um vídeo de <strong>2–3 minutos</strong> sobre uma festa importante para você — compare com uma tradição brasileira das aulas.<br><br>
+      📱 Envie pelo WhatsApp para: <strong>56 3424-7232</strong><br>
+      ⏰ Prazo: <strong>segunda-feira às 20h</strong><br><br>
+      Sua nota final = pontuação automática + escrita + auditiva aberta + leitura aberta + oralidade = <strong>60 pts</strong></p>
+    </div>
+
+    <div style="background:#E8F5E9;border-radius:10px;padding:16px;margin:14px 0;border-left:4px solid #009C3B">
+      <p style="font-size:13px;color:#1B5E20;margin-bottom:8px;font-weight:bold">📧 Enviar resultado para a professora:</p>
+      <input type="text" id="confirm-name" placeholder="Confirme seu nome completo..."
+        style="width:100%;padding:9px 13px;border:2px solid #A5D6A7;border-radius:7px;font-size:13px;margin-bottom:10px;outline:none">
+      <button onclick="submitResult()"
+        style="width:100%;padding:11px;background:#009C3B;color:white;border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer">
+        ✅ Enviar resultado para a professora
+      </button>
+      <p id="submit-msg" style="font-size:12px;color:#555;margin-top:8px;text-align:center"></p>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn prev" onclick="goTo(4)">← Escrita</button>
+  </div>
+</div>
+
+</div><!-- container -->
+
+<footer>
+  Profa. Janaina Jacomelli · UNAM FES Acatlán · Cuarto Nivel · 2026
+</footer>
+
+<script>
+// ── CONFIG ──
+const FORMSPREE = 'https://formspree.io/f/janainajacomelli';
+
+// Scores
+const sectionPts = { gram:0, aud:0, leit:0 };
+const sectionMax  = { gram:20, aud:7, leit:8 };
+
+// Guarda a resposta escolhida por questão
+const answers = {};
+
+let currentSection = 0;
+
+// Points per exercise
+const exPts = {
+  g1:1, g2:1, g3:1, g4:1, g5:1,
+  g6:3, g7:3, g8:1, g9:2, g10:2, g11:2, g12:2,
+  a1:2, a2:2, a3:3,
+  l1:2, l2:2, l3:2, l4:2,
+};
+
+function mc(el, exId, isCorrect) {
+  const ex = document.getElementById(exId);
+  if (ex.querySelector('.disabled')) return;
+
+  ex.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+
+  const pts = exPts[exId] || 1;
+  const section = exId[0]; // g, a, l
+
+  // Salva a resposta escolhida (texto sem o ícone)
+  const chosenText = el.textContent.replace(/^[○✓✗]\s*/, '').trim();
+  answers[exId] = (isCorrect ? '✅ ' : '❌ ') + chosenText;
+
+  if (isCorrect) {
+    el.classList.add('correct-ans');
+    el.querySelector('.icon').textContent = '✓';
+    ex.classList.add('answered-correct');
+    const fb = document.getElementById('fb-'+exId+'-ok');
+    if (fb) { fb.classList.add('show','correct'); }
+    if (section === 'g') sectionPts.gram += pts;
+    if (section === 'a') sectionPts.aud += pts;
+    if (section === 'l') sectionPts.leit += pts;
+  } else {
+    el.classList.add('wrong-ans');
+    el.querySelector('.icon').textContent = '✗';
+    ex.classList.add('answered-wrong');
+    const fb = document.getElementById('fb-'+exId+'-err');
+    if (fb) { fb.classList.add('show','wrong'); }
+    ex.querySelectorAll('.option').forEach(o => {
+      if (o.getAttribute('onclick') && o.getAttribute('onclick').includes('true')) {
+        o.classList.add('correct-ans');
+        o.querySelector('.icon').textContent = '✓';
+      }
+    });
+  }
+  updateScores();
+}
+
+function updateScores() {
+  const total = sectionPts.gram + sectionPts.aud + sectionPts.leit;
+  document.getElementById('header-score').textContent = total;
+  document.getElementById('score-s1').textContent = sectionPts.gram+'/20';
+  document.getElementById('score-s2').textContent = sectionPts.aud+'/7';
+  document.getElementById('score-s3').textContent = sectionPts.leit+'/8';
+  document.getElementById('final-score').textContent = total;
+  document.getElementById('res-gram').textContent = sectionPts.gram+'/20';
+  document.getElementById('res-aud').textContent = sectionPts.aud+'/7';
+  document.getElementById('res-leit').textContent = sectionPts.leit+'/8';
+}
+
+function countWords(taId, wcId) {
+  const words = document.getElementById(taId).value.trim().split(/\s+/).filter(w=>w).length;
+  const el = document.getElementById(wcId);
+  if (el) el.textContent = words + ' palavras';
+}
+
+function calcTotal() {
+  const gram  = sectionPts.gram;
+  const aud   = sectionPts.aud;
+  const leit  = sectionPts.leit;
+  const audA  = parseInt(document.getElementById('inp-aud-aberta')?.value) || 0;
+  const leitA = parseInt(document.getElementById('inp-leit-aberta')?.value) || 0;
+  const esc   = parseInt(document.getElementById('inp-escrita')?.value) || 0;
+  const oral  = parseInt(document.getElementById('inp-oralidade')?.value) || 0;
+
+  const total = gram + aud + leit + audA + leitA + esc + oral;
+
+  // Update display
+  const el = document.getElementById('total-final');
+  const conc = document.getElementById('conceito-final');
+  if (el) {
+    el.textContent = total;
+    // Color based on score
+    if (total >= 54) { el.style.color = '#FFDF00'; conc.textContent = '⭐ Excelente!'; }
+    else if (total >= 48) { el.style.color = '#A5D6A7'; conc.textContent = '✅ Muito bom!'; }
+    else if (total >= 36) { el.style.color = '#FFE082'; conc.textContent = '👍 Bom'; }
+    else if (total >= 24) { el.style.color = '#FFCCBC'; conc.textContent = '📚 Regular'; }
+    else { el.style.color = '#EF9A9A'; conc.textContent = '❌ Insuficiente'; }
+  }
+  // Update calc display
+  const cg = document.getElementById('calc-gram');
+  const ca = document.getElementById('calc-aud');
+  const cl = document.getElementById('calc-leit');
+  if (cg) cg.textContent = gram + ' / 20';
+  if (ca) ca.textContent = aud + ' / 7';
+  if (cl) cl.textContent = leit + ' / 8';
+}
+
+function goTo(idx) {
+  document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active', i===idx));
+  document.querySelectorAll('#nav button').forEach((b,i) => b.classList.toggle('active', i===idx));
+  currentSection = idx;
+  if (idx === 5) { updateScores(); calcTotal(); }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+async function submitResult() {
+  const name = (document.getElementById('confirm-name').value || document.getElementById('student-name').value || '').trim();
+  const date = document.getElementById('student-date').value || '';
+  const msg = document.getElementById('submit-msg');
+
+  if (!name) { msg.textContent = '⚠️ Por favor confirme seu nome!'; msg.style.color='#C62828'; return; }
+
+  const totalAuto = sectionPts.gram + sectionPts.aud + sectionPts.leit;
+  const escrita = document.getElementById('ta-escrita').value;
+  const auditiva_aberta = document.getElementById('ta-a4').value;
+  const leitura_aberta = document.getElementById('ta-l5').value;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mqevgwlw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: `📝 Prova Final Aulas 7-9 — ${name}`,
+
+        '━━━ IDENTIFICAÇÃO ━━━': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        'Nome': name,
+        'Data': date,
+
+        '━━━ 📐 GRAMÁTICA ━━━': `TOTAL: ${sectionPts.gram} / 20 pts  (✅ = acerto · ❌ = erro)`,
+        'Q1 — Significado de fogueira (1 pt)': answers['g1'] || '(não respondeu)',
+        'Q2 — Dia dos Namorados no Brasil (1 pt)': answers['g2'] || '(não respondeu)',
+        'Q3 — Futuro do Subjuntivo (1 pt)': answers['g3'] || '(não respondeu)',
+        'Q4 — Conjunção (1 pt)': answers['g4'] || '(não respondeu)',
+        'Q5 — Locução prepositiva (antes de)': answers['g5'] || '(não respondeu)',
+        'Q6 — Voz passiva (3 pts)': answers['g6'] || '(não respondeu)',
+        'Q7 — Partícula SE (3 pts)': answers['g7'] || '(não respondeu)',
+        'Q8 — Substantivo coletivo (1 pt)': answers['g8'] || '(não respondeu)',
+        'Q9 — Tempos compostos (2 pts)': answers['g9'] || '(não respondeu)',
+        'Q10 — Pronome reflexivo (2 pts)': answers['g10'] || '(não respondeu)',
+        'Q11 — Presente do Subjuntivo (2 pts)': answers['g11'] || '(não respondeu)',
+        'Q12 — Particípio irregular (2 pts)': answers['g12'] || '(não respondeu)',
+
+        '━━━ 🎧 C. AUDITIVA ━━━': `MC automático: ${sectionPts.aud} / 7 pts`,
+        'Q13 — Brasilidade (2 pts)': answers['a1'] || '(não respondeu)',
+        'Q14 — Característica NÃO associada (2 pts)': answers['a2'] || '(não respondeu)',
+        'Q15 — Significado de saudade (3 pts)': answers['a3'] || '(não respondeu)',
+        'Q16 — Mexicanidade [AVALIAR ___/3 pts]': auditiva_aberta || '(sem resposta)',
+
+        '━━━ 📖 C. LEITURA ━━━': `MC automático: ${sectionPts.leit} / 8 pts`,
+        'Q17 — Três santos (2 pts)': answers['l1'] || '(não respondeu)',
+        'Q18 — Origem da Festa Junina (2 pts)': answers['l2'] || '(não respondeu)',
+        'Q19 — Maior Festa Junina (2 pts)': answers['l3'] || '(não respondeu)',
+        'Q20 — Significado para os brasileiros (2 pts)': answers['l4'] || '(não respondeu)',
+        'Q21 — Festa no México [AVALIAR ___/2 pts]': leitura_aberta || '(sem resposta)',
+
+        '━━━ ✍️ EXPRESSÃO ESCRITA ━━━': '[AVALIAR ___/10 pts]',
+        'Carta de amor': escrita || '(sem resposta)',
+
+        '━━━ 🎥 ORALIDADE ━━━': '[AVALIAR ___/10 pts]',
+        'Vídeo WhatsApp': 'Pendente — 56 3424-7232 até segunda às 20h',
+
+        '━━━ 📊 TOTAL FINAL ━━━': `Automático: ${totalAuto}/35 | Auditiva aberta: ___/3 | Leitura aberta: ___/2 | Escrita: ___/10 | Oralidade: ___/10 | TOTAL FINAL: ___/60`,
+      })
+    });
+    if (res.ok) {
+      msg.innerHTML = '✅ <strong>Prova enviada com sucesso!</strong> A professora receberá seu resultado por e-mail.';
+      msg.style.color = '#009C3B';
+      msg.style.fontWeight = 'bold';
+    } else {
+      throw new Error('Erro no envio');
+    }
+  } catch(e) {
+    msg.innerHTML = '❌ Erro ao enviar. Tente novamente ou avise a professora.';
+    msg.style.color = '#C62828';
+  }
+}
+</script>
+</body>
+</html>
