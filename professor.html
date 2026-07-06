@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voz Passiva - Professor - Grupo Bahia BTG</title>
+<style>
+  :root{
+    --azul:#0d3b6e;
+    --teal:#1a9a8a;
+    --ouro:#f5c842;
+    --branco:#ffffff;
+    --cinza:#f4f6f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--cinza);
+    color:#1d1d1d;
+  }
+  header{
+    background:var(--azul);
+    color:var(--branco);
+    padding:18px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  header h1{
+    font-size:1.3rem;
+    margin:0;
+  }
+  header span{
+    font-size:0.85rem;
+    opacity:0.85;
+  }
+  .slide{
+    display:none;
+    max-width:820px;
+    margin:24px auto;
+    background:var(--branco);
+    border-radius:10px;
+    padding:28px 32px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    border-top:6px solid var(--teal);
+  }
+  .slide.active{display:block;}
+  .slide h2{
+    color:var(--azul);
+    border-bottom:2px solid var(--ouro);
+    padding-bottom:8px;
+    margin-top:0;
+  }
+  .slide h3{color:var(--teal);}
+  .box{
+    background:var(--cinza);
+    border-left:4px solid var(--teal);
+    padding:14px 18px;
+    margin:14px 0;
+    border-radius:6px;
+  }
+  .exemplo{
+    background:#fffaf0;
+    border-left:4px solid var(--ouro);
+    padding:12px 18px;
+    margin:10px 0;
+    border-radius:6px;
+    font-style:italic;
+  }
+  .formula{
+    background:var(--azul);
+    color:var(--branco);
+    padding:12px 18px;
+    border-radius:6px;
+    font-weight:bold;
+    text-align:center;
+    margin:14px 0;
+    font-size:1.05rem;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0;
+  }
+  th,td{
+    border:1px solid #ccc;
+    padding:8px 10px;
+    text-align:left;
+  }
+  th{background:var(--azul);color:var(--branco);}
+  tr:nth-child(even){background:var(--cinza);}
+  .nav{
+    max-width:820px;
+    margin:0 auto 40px auto;
+    display:flex;
+    justify-content:space-between;
+    padding:0 32px;
+  }
+  button.navbtn{
+    background:var(--teal);
+    color:var(--branco);
+    border:none;
+    padding:10px 22px;
+    border-radius:6px;
+    font-size:0.95rem;
+    cursor:pointer;
+  }
+  button.navbtn:hover{background:var(--azul);}
+  button.navbtn:disabled{background:#aaa;cursor:not-allowed;}
+  .progresso{
+    text-align:center;
+    color:#666;
+    font-size:0.85rem;
+    margin-bottom:6px;
+  }
+  .musica-btn{
+    display:inline-block;
+    background:var(--ouro);
+    color:var(--azul);
+    font-weight:bold;
+    padding:10px 18px;
+    border-radius:6px;
+    text-decoration:none;
+    margin-top:10px;
+  }
+  .destaque{color:var(--teal);font-weight:bold;}
+  ul{line-height:1.6;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇧🇷 Voz Passiva: com SER e com SE</h1>
+  <span>Grupo Bahia · BTG Pactual · Nível B2</span>
+</header>
+
+<div class="progresso" id="progresso">Slide 1 de 9</div>
+
+<!-- SLIDE 1 -->
+<div class="slide active">
+  <h2>Objetivo da aula</h2>
+  <div class="box">
+    <p>Hoje vamos estudar duas formas de construir a <span class="destaque">voz passiva</span> em português, muito comuns na linguagem corporativa e jornalística:</p>
+    <ul>
+      <li><strong>Voz passiva analítica</strong> — com o verbo <strong>SER</strong> + particípio</li>
+      <li><strong>Voz passiva sintética</strong> — com o pronome apassivador <strong>SE</strong></li>
+    </ul>
+    <p>Vocês vão perceber que essas estruturas aparecem o tempo todo em contratos, relatórios financeiros e notícias.</p>
+  </div>
+  <div class="exemplo">"O orçamento foi aprovado pela diretoria." / "Aprovou-se o orçamento."</div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide">
+  <h2>Ativa x Passiva: relembrando</h2>
+  <p>Na <strong>voz ativa</strong>, o sujeito pratica a ação. Na <strong>voz passiva</strong>, o sujeito recebe a ação.</p>
+  <table>
+    <tr><th>Voz ativa</th><th>Voz passiva</th></tr>
+    <tr><td>O diretor assinou o contrato.</td><td>O contrato foi assinado pelo diretor.</td></tr>
+    <tr><td>A equipe entregou o relatório.</td><td>O relatório foi entregue pela equipe.</td></tr>
+  </table>
+  <div class="box">Observem: o <strong>objeto direto</strong> da voz ativa vira o <strong>sujeito</strong> da voz passiva.</div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+  <h2>Voz passiva analítica: com SER</h2>
+  <div class="formula">sujeito paciente + SER (conjugado) + particípio + (por + agente)</div>
+  <p>O verbo <strong>ser</strong> concorda em tempo e pessoa com o verbo da frase ativa. O particípio concorda em gênero e número com o sujeito.</p>
+  <div class="exemplo">Os contratos <strong>são revisados</strong> pelo departamento jurídico.</div>
+  <div class="exemplo">A proposta <strong>foi apresentada</strong> na reunião de sexta-feira.</div>
+  <div class="exemplo">Os relatórios <strong>serão enviados</strong> até amanhã.</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+  <h2>Atenção à concordância do particípio</h2>
+  <table>
+    <tr><th>Sujeito</th><th>Particípio</th></tr>
+    <tr><td>o contrato (m. sing.)</td><td>assinad<strong>o</strong></td></tr>
+    <tr><td>a proposta (f. sing.)</td><td>aprovad<strong>a</strong></td></tr>
+    <tr><td>os relatórios (m. pl.)</td><td>enviad<strong>os</strong></td></tr>
+    <tr><td>as reuniões (f. pl.)</td><td>marcad<strong>as</strong></td></tr>
+  </table>
+  <div class="box">Erro comum de falantes de espanhol: esquecer a concordância no plural — cuidado com "los reportes fueron enviado<strong>s</strong>" (em espanhol o particípio às vezes é invariável em outras construções, mas em português a concordância é obrigatória aqui).</div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+  <h2>Voz passiva sintética: com SE</h2>
+  <div class="formula">verbo transitivo (3ª pessoa) + SE + sujeito paciente</div>
+  <p>Muito usada quando <strong>não interessa quem pratica a ação</strong> — comum em avisos, contratos e comunicados corporativos.</p>
+  <div class="exemplo">Vende<strong>-se</strong> este imóvel.</div>
+  <div class="exemplo">Aprova<strong>-ram-se</strong> os novos investimentos. <em>(verbo concorda com o sujeito: os investimentos → plural)</em></div>
+  <div class="exemplo">Precisa<strong>-se</strong> de mais informações antes da assinatura.</div>
+  <div class="box">Regra de ouro: o verbo concorda com o sujeito paciente. <br>"Vende-se <u>casas</u>" → mais correto: "Vendem-se <u>casas</u>."</div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide">
+  <h2>SER x SE: quando usar cada um?</h2>
+  <table>
+    <tr><th>Voz com SER</th><th>Voz com SE</th></tr>
+    <tr><td>Mais formal, comum em textos escritos e jurídicos</td><td>Mais usada em avisos, manuais, comunicados curtos</td></tr>
+    <tr><td>Permite mencionar o agente ("por + alguém")</td><td>Geralmente não menciona quem pratica a ação</td></tr>
+    <tr><td>"O contrato foi assinado pelo cliente."</td><td>"Assina-se o contrato."</td></tr>
+  </table>
+  <div class="box">No ambiente corporativo (BTG, relatórios, e-mails internos), as duas formas aparecem lado a lado — o importante é reconhecer e usar as duas com naturalidade.</div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide">
+  <h2>Exemplos do dia a dia bancário</h2>
+  <div class="exemplo">"Os investimentos <strong>foram analisados</strong> pela equipe de risco antes de <strong>serem aprovados</strong>."</div>
+  <div class="exemplo">"Não <strong>se aceitam</strong> propostas fora do prazo."</div>
+  <div class="exemplo">"A reunião <strong>foi remarcada</strong> para quinta-feira."</div>
+  <div class="exemplo">"<strong>Divulgam-se</strong> os resultados trimestrais na próxima semana."</div>
+  <p>Peçam para os alunos identificarem, em cada frase, se é voz com SER ou com SE, e qual é o sujeito paciente.</p>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide">
+  <h2>Conexão com o mundo real: a voz passiva no jornalismo</h2>
+  <p>A voz passiva é o registro típico das notícias econômicas — repare como as duas formas (SER e SE) aparecem lado a lado neste trecho fictício, no estilo de uma notícia de mercado:</p>
+  <div class="exemplo">
+    "O novo pacote de investimentos <strong>foi anunciado</strong> ontem pelo banco. Segundo a assessoria, <strong>serão priorizados</strong> os setores de tecnologia e energia. <strong>Espera-se</strong> um crescimento de 8% até o fim do ano, e <strong>discutem-se</strong> ainda parcerias com fundos internacionais. O plano <strong>será apresentado</strong> oficialmente na próxima semana."
+  </div>
+  <div class="box">Peçam aos alunos para sublinhar cada construção passiva e classificá-la: <strong>SER</strong> ou <strong>SE</strong>? Depois, perguntem: por que o jornalista evitou dizer quem faz a ação em cada caso?</div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide">
+  <h2>Tarefa e fechamento</h2>
+  <div class="box">
+    <p>Os alunos vão receber o material do aluno com exercícios de transformação (ativa → passiva com SER, e ativa → passiva com SE), além de uma produção escrita curta simulando um comunicado interno do banco.</p>
+    <p>Resposta deve ser enviada por e-mail para <strong>enlacebrasilcursos@gmail.com</strong>.</p>
+  </div>
+  <p style="text-align:center;color:#888;font-size:0.85rem;">Prof. Janaina Jacomelli · Enlace Brasil · Grupo Bahia BTG Pactual</p>
+</div>
+
+<div class="nav">
+  <button class="navbtn" id="prevBtn" onclick="mudarSlide(-1)">← Anterior</button>
+  <button class="navbtn" id="nextBtn" onclick="mudarSlide(1)">Próximo →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let atual = 0;
+  function mostrar(i){
+    slides.forEach(s=>s.classList.remove('active'));
+    slides[i].classList.add('active');
+    document.getElementById('progresso').textContent = `Slide ${i+1} de ${slides.length}`;
+    document.getElementById('prevBtn').disabled = (i===0);
+    document.getElementById('nextBtn').disabled = (i===slides.length-1);
+  }
+  function mudarSlide(dir){
+    const novo = atual + dir;
+    if(novo>=0 && novo<slides.length){
+      atual = novo;
+      mostrar(atual);
+    }
+  }
+  mostrar(atual);
+</script>
+
+</body>
+</html>
