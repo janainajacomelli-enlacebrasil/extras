@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revisão 2 — Aulas 10 a 14 · Aluno | Enlace Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Nunito',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--vd:#0d3b6e;--tl:#1a9a8a;--am:#f5c842;--rs:#c0392b;--cl:#5ef0cc}
+html,body{height:100%;background:#0a1a2e;font-family:'Nunito',sans-serif;overflow:hidden}
+.stage{width:100vw;height:100vh;height:100dvh;position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;pointer-events:none;display:flex;flex-direction:column;z-index:0;overflow-y:auto}
+.scene.active{opacity:1;pointer-events:auto;z-index:1}
+.pbg{position:absolute;inset:0;background:linear-gradient(140deg,#0d3b6e,#1a9a8a 130%)}
+.ov-dark{position:absolute;inset:0;background:rgba(0,0,0,.28)}
+.lbar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:clamp(8px,1.4vh,16px) clamp(14px,2vw,28px);background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent)}
+.lwrap{display:flex;align-items:center;gap:10px}
+.lname{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(12px,1.6vw,17px);color:#fff;line-height:1.1}
+.lsub{font-size:clamp(9px,1vw,11px);color:rgba(255,255,255,.6)}
+.sbadge{background:rgba(245,200,66,.18);border:1.5px solid rgba(245,200,66,.5);color:var(--am);font-size:clamp(9px,1.1vw,12px);font-weight:700;letter-spacing:.6px;padding:4px 12px;border-radius:14px;white-space:nowrap}
+.cnt{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(64px,9vh,84px) clamp(14px,3vw,48px) clamp(50px,7vh,70px);gap:clamp(10px,1.6vh,18px);min-height:100%}
+.sc-tag{font-size:clamp(11px,1.4vw,14px);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--am);background:rgba(245,200,66,.14);border:1.5px solid rgba(245,200,66,.4);padding:4px 14px;border-radius:16px;text-align:center}
+.sc-h1{font-family:'Baloo 2',sans-serif;font-size:clamp(20px,4.2vw,44px);font-weight:800;color:#fff;text-align:center;line-height:1.1;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.sc-sub{font-size:clamp(12px,1.9vw,18px);color:rgba(255,255,255,.88);text-align:center;line-height:1.55;max-width:820px}
+.sc-sub strong{color:var(--am)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.1vw,16px);width:100%;max-width:880px}
+.cbox{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;padding:clamp(11px,1.6vh,20px) clamp(13px,1.5vw,20px);backdrop-filter:blur(6px)}
+.ct{font-size:clamp(11px,1.4vw,14px);font-weight:700;color:var(--am);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.cbox ul{list-style:none;display:flex;flex-direction:column;gap:clamp(5px,.7vh,9px)}
+.cbox ul li{font-size:clamp(12px,1.6vw,17px);color:rgba(255,255,255,.92);line-height:1.4;display:flex;gap:7px;align-items:flex-start}
+.tbl{width:100%;max-width:880px;border-collapse:collapse;font-size:clamp(11px,1.55vw,15px)}
+.tbl th{padding:clamp(6px,.9vh,11px) clamp(8px,1.1vw,14px);font-weight:700;text-align:center;background:rgba(26,58,92,.7);color:#fff}
+.tbl th.pt{background:rgba(13,59,110,.85)}.tbl th.es{background:rgba(192,57,43,.6)}
+.tbl td{padding:clamp(6px,.9vh,11px) clamp(8px,1.1vw,14px);border-bottom:1px solid rgba(255,255,255,.1);text-align:center;color:rgba(255,255,255,.9)}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.05)}
+.dica-list{display:flex;flex-direction:column;gap:clamp(7px,1vh,12px);width:100%;max-width:820px}
+.dica-item{background:rgba(255,255,255,.09);border-left:4px solid var(--am);border-radius:10px;padding:clamp(10px,1.4vh,16px) clamp(12px,1.5vw,20px);font-size:clamp(12px,1.8vw,18px);color:#fff;backdrop-filter:blur(4px);line-height:1.5}
+.dica-item .es{display:block;font-size:clamp(10px,1.2vw,13px);color:rgba(255,255,255,.55);font-style:italic;margin-top:4px}
+.alert-box{background:rgba(192,57,43,.22);border:2px solid rgba(192,57,43,.5);border-radius:14px;padding:clamp(12px,1.8vh,22px);width:100%;max-width:760px;text-align:center;backdrop-filter:blur(6px);color:#fff;font-size:clamp(12px,1.7vw,16px);line-height:1.5}
+.parte-box{background:rgba(0,0,0,.32);border:2px solid rgba(94,240,204,.4);border-radius:20px;padding:clamp(20px,3vh,36px) clamp(24px,4vw,48px);text-align:center;backdrop-filter:blur(8px)}
+.parte-num{font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.parte-title{font-family:'Baloo 2',sans-serif;font-size:clamp(22px,4.6vw,46px);font-weight:800;color:#fff;line-height:1.1}
+.parte-sub{font-size:clamp(13px,1.8vw,19px);color:rgba(255,255,255,.75);margin-top:8px}
+.pronbtns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pbtn{background:rgba(245,200,66,.18);border:1.5px solid rgba(245,200,66,.5);color:var(--am);font-family:'Baloo 2',sans-serif;font-weight:700;font-size:clamp(11px,1.4vw,14px);padding:5px 12px;border-radius:10px;cursor:pointer;transition:all .15s}
+.pbtn:hover{background:rgba(245,200,66,.32)}
+.pbar{position:fixed;bottom:0;left:0;height:3px;background:var(--cl);z-index:300;transition:width .3s}
+.dots{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:200;flex-wrap:wrap;justify-content:center;max-width:92vw}
+.dot{width:clamp(4px,.6vw,6px);height:clamp(4px,.6vw,6px);border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .25s}
+.dot.active{background:var(--am);transform:scale(1.5)}
+.ctrl{position:fixed;bottom:7px;right:11px;display:flex;gap:6px;z-index:200}
+.cbtn{width:clamp(32px,4vw,42px);height:clamp(32px,4vw,42px);border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:clamp(12px,1.5vw,15px);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.scnt{position:fixed;top:clamp(10px,1.3vh,16px);right:clamp(12px,1.5vw,20px);font-size:clamp(10px,1.2vw,13px);color:rgba(255,255,255,.5);font-weight:700;z-index:200}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+/* ALUNO exercise styles */
+.exwrap{background:#f7f9fc;color:#1a1a1a;overflow:auto;height:100%}
+.exhead{background:var(--vd);padding:20px 22px;color:#fff}
+.exhead h1{font-family:'Baloo 2',sans-serif;font-size:1.4rem}
+.exhead p{opacity:.85;font-size:.85rem;margin-top:4px}
+.exmain{max-width:820px;margin:0 auto;padding:22px 18px 60px}
+.exsec{background:#fff;border:1px solid #dde4f0;border-radius:12px;margin-bottom:18px;overflow:hidden}
+.exsec-h{background:#eef2ff;padding:12px 18px;font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--vd);font-size:1rem}
+.exsec-b{padding:16px 18px}
+.exq{margin-bottom:14px;font-size:.95rem;line-height:1.6}
+.exq b{color:var(--vd)}
+.blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--tl);margin:0 4px}
+.reveal{margin-top:6px}
+.reveal summary{cursor:pointer;color:var(--tl);font-size:.85rem;font-weight:700}
+.reveal[open] summary{color:var(--rs)}
+.reveal p{margin-top:6px;background:#eafaf5;border-left:3px solid var(--tl);padding:8px 12px;border-radius:6px;font-size:.9rem}
+
+.game-box{background:#fff;border:1px solid #dde4f0;border-radius:12px;padding:16px 18px;margin-top:10px}
+.quiz-q{font-size:.95rem;font-weight:700;color:var(--vd);margin-bottom:8px}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{text-align:left;background:#f2f5fa;border:1.5px solid #dde4f0;border-radius:8px;padding:8px 12px;font-size:.9rem;cursor:pointer;font-family:'Nunito',sans-serif}
+.quiz-opt:hover{background:#e6ecf7}
+.quiz-opt.correct{background:#d7f5e6;border-color:#1a9a8a;color:#0d3b6e;font-weight:700}
+.quiz-opt.wrong{background:#fbe0dd;border-color:#c0392b;color:#c0392b}
+.quiz-opt.disabled{pointer-events:none}
+.score-bar{display:flex;justify-content:space-between;align-items:center;background:var(--vd);color:#fff;padding:10px 16px;border-radius:10px;margin-bottom:14px;font-family:'Baloo 2',sans-serif;font-weight:700}
+.score-bar span#scoreval{color:var(--am)}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:560px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-card{background:#f2f5fa;border:1.5px solid #dde4f0;border-radius:8px;padding:9px 12px;font-size:.88rem;cursor:pointer;text-align:center;font-family:'Nunito',sans-serif}
+.match-card.sel{border-color:var(--am);background:#fff6dc}
+.match-card.done{background:#d7f5e6;border-color:#1a9a8a;color:#0d3b6e;pointer-events:none;font-weight:700}
+.match-card.wrong{background:#fbe0dd;border-color:#c0392b}
+.match-status{margin-top:10px;font-size:.85rem;color:#1a9a8a;font-weight:700}
+
+.cf-item{margin-bottom:16px}
+.cf-sentence{font-size:.95rem;line-height:1.8;margin-bottom:8px}
+.cf-blank{display:inline-block;min-width:70px;border-bottom:2px solid var(--tl);text-align:center;font-weight:700;color:#aaa;padding:0 4px}
+.cf-blank.filled{color:var(--vd)}
+.cf-blank.right{color:#0d3b6e;background:#d7f5e6;border-radius:4px}
+.cf-blank.wrong{color:#c0392b;background:#fbe0dd;border-radius:4px}
+.cf-opts{display:flex;flex-wrap:wrap;gap:6px}
+.cf-opt{background:#f2f5fa;border:1.5px solid #dde4f0;border-radius:16px;padding:5px 14px;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif}
+.cf-opt:hover{background:#e6ecf7}
+.cf-opt.picked-right{background:#d7f5e6;border-color:#1a9a8a}
+.cf-opt.picked-wrong{background:#fbe0dd;border-color:#c0392b}
+</style>
+</head>
+<body>
+<div class="exwrap">
+<div class="exhead"><h1>Revisão 2 — Aulas 10 a 14</h1><p>Enlace Brasil · Instituto de Língua e Cultura Brasileira · Exercícios do aluno</p></div>
+<div class="exmain">
+
+<div class="exsec"><div class="exsec-h">Tema 10 · Contrações e plural (Aula 10)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete com a contração correta<span>Acertos: <span id="cfscore_t10c">0</span>/3</span></div>
+<div id="cfhost_t10c"></div>
+<script>
+(function(){
+const IT_t10c=JSON.parse('[{"pre": "Eu moro", "post": "cidade do México.", "opts": ["na", "do", "no"], "correct": 0}, {"pre": "O livro é", "post": "professora.", "opts": ["do", "da", "no"], "correct": 1}, {"pre": "Nós vamos", "post": "mercado hoje.", "opts": ["ao", "do", "no"], "correct": 0}]');
+let score_t10c=0, done_t10c=new Set();
+const host=document.getElementById('cfhost_t10c');
+IT_t10c.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t10c_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t10c.has(ii))return;
+      done_t10c.add(ii);
+      const blank=document.getElementById('cfblank_t10c_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t10c++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t10c').textContent=score_t10c;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+<div class="game-box">
+<div class="score-bar">👉 Complete o plural<span>Acertos: <span id="cfscore_t10pl">0</span>/1</span></div>
+<div id="cfhost_t10pl"></div>
+<script>
+(function(){
+const IT_t10pl=JSON.parse('[{"pre": "Plural de \\"animal\\":", "post": "", "opts": ["animais", "animals", "animaus"], "correct": 0}]');
+let score_t10pl=0, done_t10pl=new Set();
+const host=document.getElementById('cfhost_t10pl');
+IT_t10pl.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t10pl_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t10pl.has(ii))return;
+      done_t10pl.add(ii);
+      const blank=document.getElementById('cfblank_t10pl_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t10pl++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t10pl').textContent=score_t10pl;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 11 · Números, preços e datas (Aula 11)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Escolha a forma correta<span>Acertos: <span id="cfscore_t11n">0</span>/2</span></div>
+<div id="cfhost_t11n"></div>
+<script>
+(function(){
+const IT_t11n=JSON.parse('[{"pre": "15:30 por extenso:", "post": "", "opts": ["três e meia da tarde", "quinze e trinta", "três meia"], "correct": 0}, {"pre": "Telefone termina em 36:", "post": "", "opts": ["três, meia", "três, seis", "trinta e seis"], "correct": 0}]');
+let score_t11n=0, done_t11n=new Set();
+const host=document.getElementById('cfhost_t11n');
+IT_t11n.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t11n_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t11n.has(ii))return;
+      done_t11n.add(ii);
+      const blank=document.getElementById('cfblank_t11n_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t11n++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t11n').textContent=score_t11n;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 12 · Dias, meses e frequência (Aula 12)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete a sequência de dias<span>Acertos: <span id="cfscore_t12dsem">0</span>/2</span></div>
+<div id="cfhost_t12dsem"></div>
+<script>
+(function(){
+const IT_t12dsem=JSON.parse('[{"pre": "segunda, terça,", "post": ", quinta, sexta", "opts": ["quarta", "quinta", "sábado"], "correct": 0}, {"pre": "quinta, sexta,", "post": ", domingo", "opts": ["sábado", "segunda", "terça"], "correct": 0}]');
+let score_t12dsem=0, done_t12dsem=new Set();
+const host=document.getElementById('cfhost_t12dsem');
+IT_t12dsem.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t12dsem_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t12dsem.has(ii))return;
+      done_t12dsem.add(ii);
+      const blank=document.getElementById('cfblank_t12dsem_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t12dsem++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t12dsem').textContent=score_t12dsem;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+<div class="game-box">
+<div class="score-bar">🧩 Jogo da memória: Dias da semana<span>Pares: <span id="matchval_t12dias">0</span>/4</span></div>
+<div class="match-grid">
+<div class="match-col" id="mleft_t12dias"></div>
+<div class="match-col" id="mright_t12dias"></div>
+</div>
+<div class="match-status" id="mstatus_t12dias"></div>
+<script>
+(function(){
+const PAIRS_t12dias=JSON.parse('[["segunda-feira", "Monday"], ["quarta-feira", "Wednesday"], ["sábado", "Saturday"], ["domingo", "Sunday"]]');
+let left_t12dias=PAIRS_t12dias.map(p=>p[0]);
+let right_t12dias=PAIRS_t12dias.map(p=>p[1]);
+right_t12dias=right_t12dias.map(v=>({v,r:Math.random()})).sort((a,b)=>a.r-b.r).map(x=>x.v);
+let selL_t12dias=null, selR_t12dias=null, done_t12dias=0;
+const lHost=document.getElementById('mleft_t12dias'), rHost=document.getElementById('mright_t12dias');
+function findPair(l,r){ return PAIRS_t12dias.some(p=>p[0]===l&&p[1]===r); }
+left_t12dias.forEach(w=>{
+  const c=document.createElement('div'); c.className='match-card'; c.textContent=w;
+  c.onclick=()=>{
+    if(c.classList.contains('done'))return;
+    lHost.querySelectorAll('.match-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel'); selL_t12dias=c; checkMatch_t12dias();
+  };
+  lHost.appendChild(c);
+});
+right_t12dias.forEach(w=>{
+  const c=document.createElement('div'); c.className='match-card'; c.textContent=w;
+  c.onclick=()=>{
+    if(c.classList.contains('done'))return;
+    rHost.querySelectorAll('.match-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel'); selR_t12dias=c; checkMatch_t12dias();
+  };
+  rHost.appendChild(c);
+});
+function checkMatch_t12dias(){
+  if(!selL_t12dias||!selR_t12dias) return;
+  if(findPair(selL_t12dias.textContent, selR_t12dias.textContent)){
+    selL_t12dias.classList.add('done'); selR_t12dias.classList.add('done');
+    selL_t12dias.classList.remove('sel'); selR_t12dias.classList.remove('sel');
+    done_t12dias++; document.getElementById('matchval_t12dias').textContent=done_t12dias;
+    selL_t12dias=null; selR_t12dias=null;
+    if(done_t12dias===PAIRS_t12dias.length){ document.getElementById('mstatus_t12dias').textContent='🎉 Concluído!'; }
+  } else {
+    selL_t12dias.classList.add('wrong'); selR_t12dias.classList.add('wrong');
+    setTimeout(()=>{
+      selL_t12dias && selL_t12dias.classList.remove('wrong','sel');
+      selR_t12dias && selR_t12dias.classList.remove('wrong','sel');
+      selL_t12dias=null; selR_t12dias=null;
+    },550);
+  }
+}
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 13 · Horas e rotina (Aula 13)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete a rotina<span>Acertos: <span id="cfscore_t13rot">0</span>/3</span></div>
+<div id="cfhost_t13rot"></div>
+<script>
+(function(){
+const IT_t13rot=JSON.parse('[{"pre": "Eu", "post": "(acordar) às 7h.", "opts": ["acordo", "acorda", "acordamos"], "correct": 0}, {"pre": "Eu", "post": "(tomar) café da manhã.", "opts": ["tomo", "toma", "tomam"], "correct": 0}, {"pre": "Eu", "post": "(trabalhar) até as 18h.", "opts": ["trabalho", "trabalha", "trabalham"], "correct": 0}]');
+let score_t13rot=0, done_t13rot=new Set();
+const host=document.getElementById('cfhost_t13rot');
+IT_t13rot.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t13rot_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t13rot.has(ii))return;
+      done_t13rot.add(ii);
+      const blank=document.getElementById('cfblank_t13rot_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t13rot++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t13rot').textContent=score_t13rot;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+<div class="game-box">
+<div class="score-bar">🎮 Jogo: Que horas são?<span>Acertos: <span id="scoreval_t13h">0</span>/3</span></div>
+<div id="quizhost_t13h"></div>
+<script>
+(function(){
+const Q_t13h=JSON.parse('[{"q": "12:00 (meio-dia)", "opts": ["É meio-dia", "São meio-dia", "É meia-noite"], "correct": 0}, {"q": "1:00", "opts": ["São uma hora", "É uma hora", "São um hora"], "correct": 1}, {"q": "8:30", "opts": ["São oito e meia", "É oito e meia", "São oito meia"], "correct": 0}]');
+let score_t13h=0, answered_t13h=new Set();
+const host=document.getElementById('quizhost_t13h');
+Q_t13h.forEach((item,qi)=>{
+  const box=document.createElement('div');
+  box.style.marginBottom='16px';
+  const qd=document.createElement('div'); qd.className='quiz-q'; qd.textContent=(qi+1)+'. '+item.q;
+  box.appendChild(qd);
+  const opts=document.createElement('div'); opts.className='quiz-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='quiz-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(answered_t13h.has(qi)) return;
+      answered_t13h.add(qi);
+      const all=opts.querySelectorAll('.quiz-opt');
+      all.forEach(x=>x.classList.add('disabled'));
+      if(oi===item.correct){ b.classList.add('correct'); score_t13h++; }
+      else{ b.classList.add('wrong'); all[item.correct].classList.add('correct'); }
+      document.getElementById('scoreval_t13h').textContent=score_t13h;
+    };
+    opts.appendChild(b);
+  });
+  box.appendChild(opts);
+  host.appendChild(box);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 14 · Muito bem x muito bom (Aula 14)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Muito bem ou muito bom?<span>Acertos: <span id="cfscore_t14mb">0</span>/3</span></div>
+<div id="cfhost_t14mb"></div>
+<script>
+(function(){
+const IT_t14mb=JSON.parse('[{"pre": "Ela fala português", "post": ".", "opts": ["muito bem", "muito bom"], "correct": 0}, {"pre": "Este restaurante é", "post": ".", "opts": ["muito bem", "muito bom"], "correct": 1}, {"pre": "Ele canta", "post": ".", "opts": ["muito bem", "muito bom"], "correct": 0}]');
+let score_t14mb=0, done_t14mb=new Set();
+const host=document.getElementById('cfhost_t14mb');
+IT_t14mb.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t14mb_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t14mb.has(ii))return;
+      done_t14mb.add(ii);
+      const blank=document.getElementById('cfblank_t14mb_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t14mb++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t14mb').textContent=score_t14mb;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Produção livre — sua rotina</div><div class="exsec-b">
+<div class="exq">Escreva 5 frases descrevendo sua rotina semanal: o que você faz, em que dias e a que horas.</div>
+</div></div>
+
+</div>
+</div>
+</body>
+</html>

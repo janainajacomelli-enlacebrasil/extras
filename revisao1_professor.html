@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Revisão 1 (Aulas 1–9) · Professor | Enlace Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--vd:#0d3b6e;--tl:#1a9a8a;--am:#f5c842;--rs:#c0392b;--cl:#5ef0cc}
+html,body{height:100%;background:#0a1a2e;font-family:'Nunito',sans-serif;overflow:hidden}
+.stage{width:100vw;height:100vh;height:100dvh;position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;pointer-events:none;display:flex;flex-direction:column;z-index:0;overflow-y:auto}
+.scene.active{opacity:1;pointer-events:auto;z-index:1}
+.pbg{position:absolute;inset:0;background:linear-gradient(140deg,#0d3b6e,#1a9a8a 130%)}
+.ov-dark{position:absolute;inset:0;background:rgba(0,0,0,.28)}
+.lbar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:clamp(8px,1.4vh,16px) clamp(14px,2vw,28px);background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent)}
+.lwrap{display:flex;align-items:center;gap:10px}
+.lname{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(12px,1.6vw,17px);color:#fff;line-height:1.1}
+.lsub{font-size:clamp(9px,1vw,11px);color:rgba(255,255,255,.6)}
+.sbadge{background:rgba(245,200,66,.18);border:1.5px solid rgba(245,200,66,.5);color:var(--am);font-size:clamp(9px,1.1vw,12px);font-weight:700;letter-spacing:.6px;padding:4px 12px;border-radius:14px;white-space:nowrap}
+.cnt{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(64px,9vh,84px) clamp(14px,3vw,48px) clamp(50px,7vh,70px);gap:clamp(10px,1.6vh,18px);min-height:100%}
+.sc-tag{font-size:clamp(11px,1.4vw,14px);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--am);background:rgba(245,200,66,.14);border:1.5px solid rgba(245,200,66,.4);padding:4px 14px;border-radius:16px;text-align:center}
+.sc-h1{font-family:'Baloo 2',sans-serif;font-size:clamp(20px,4.2vw,44px);font-weight:800;color:#fff;text-align:center;line-height:1.1;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.sc-sub{font-size:clamp(12px,1.9vw,18px);color:rgba(255,255,255,.88);text-align:center;line-height:1.55;max-width:820px}
+.sc-sub strong{color:var(--am)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.1vw,16px);width:100%;max-width:880px}
+.cbox{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;padding:clamp(11px,1.6vh,20px) clamp(13px,1.5vw,20px);backdrop-filter:blur(6px)}
+.ct{font-size:clamp(11px,1.4vw,14px);font-weight:700;color:var(--am);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.cbox ul{list-style:none;display:flex;flex-direction:column;gap:clamp(5px,.7vh,9px)}
+.cbox ul li{font-size:clamp(12px,1.6vw,17px);color:rgba(255,255,255,.92);line-height:1.4;display:flex;gap:7px;align-items:flex-start}
+.tbl{width:100%;max-width:880px;border-collapse:collapse;font-size:clamp(11px,1.55vw,15px)}
+.tbl th{padding:clamp(6px,.9vh,11px) clamp(8px,1.1vw,14px);font-weight:700;text-align:center;background:rgba(26,58,92,.7);color:#fff}
+.tbl th.pt{background:rgba(13,59,110,.85)}.tbl th.es{background:rgba(192,57,43,.6)}
+.tbl td{padding:clamp(6px,.9vh,11px) clamp(8px,1.1vw,14px);border-bottom:1px solid rgba(255,255,255,.1);text-align:center;color:rgba(255,255,255,.9)}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.05)}
+.dica-list{display:flex;flex-direction:column;gap:clamp(7px,1vh,12px);width:100%;max-width:820px}
+.dica-item{background:rgba(255,255,255,.09);border-left:4px solid var(--am);border-radius:10px;padding:clamp(10px,1.4vh,16px) clamp(12px,1.5vw,20px);font-size:clamp(12px,1.8vw,18px);color:#fff;backdrop-filter:blur(4px);line-height:1.5}
+.dica-item .es{display:block;font-size:clamp(10px,1.2vw,13px);color:rgba(255,255,255,.55);font-style:italic;margin-top:4px}
+.alert-box{background:rgba(192,57,43,.22);border:2px solid rgba(192,57,43,.5);border-radius:14px;padding:clamp(12px,1.8vh,22px);width:100%;max-width:760px;text-align:center;backdrop-filter:blur(6px);color:#fff;font-size:clamp(12px,1.7vw,16px);line-height:1.5}
+.parte-box{background:rgba(0,0,0,.32);border:2px solid rgba(94,240,204,.4);border-radius:20px;padding:clamp(20px,3vh,36px) clamp(24px,4vw,48px);text-align:center;backdrop-filter:blur(8px)}
+.parte-num{font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.parte-title{font-family:'Baloo 2',sans-serif;font-size:clamp(22px,4.6vw,46px);font-weight:800;color:#fff;line-height:1.1}
+.parte-sub{font-size:clamp(13px,1.8vw,19px);color:rgba(255,255,255,.75);margin-top:8px}
+.pronbtns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pbtn{background:rgba(245,200,66,.18);border:1.5px solid rgba(245,200,66,.5);color:var(--am);font-family:'Baloo 2',sans-serif;font-weight:700;font-size:clamp(11px,1.4vw,14px);padding:5px 12px;border-radius:10px;cursor:pointer;transition:all .15s}
+.pbtn:hover{background:rgba(245,200,66,.32)}
+.pbar{position:fixed;bottom:0;left:0;height:3px;background:var(--cl);z-index:300;transition:width .3s}
+.dots{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:200;flex-wrap:wrap;justify-content:center;max-width:92vw}
+.dot{width:clamp(4px,.6vw,6px);height:clamp(4px,.6vw,6px);border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .25s}
+.dot.active{background:var(--am);transform:scale(1.5)}
+.ctrl{position:fixed;bottom:7px;right:11px;display:flex;gap:6px;z-index:200}
+.cbtn{width:clamp(32px,4vw,42px);height:clamp(32px,4vw,42px);border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:clamp(12px,1.5vw,15px);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.scnt{position:fixed;top:clamp(10px,1.3vh,16px);right:clamp(12px,1.5vw,20px);font-size:clamp(10px,1.2vw,13px);color:rgba(255,255,255,.5);font-weight:700;z-index:200}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+/* ALUNO exercise styles */
+.exwrap{background:#f7f9fc;color:#1a1a1a;overflow:auto;height:100%}
+.exhead{background:var(--vd);padding:20px 22px;color:#fff}
+.exhead h1{font-family:'Baloo 2',sans-serif;font-size:1.4rem}
+.exhead p{opacity:.85;font-size:.85rem;margin-top:4px}
+.exmain{max-width:820px;margin:0 auto;padding:22px 18px 60px}
+.exsec{background:#fff;border:1px solid #dde4f0;border-radius:12px;margin-bottom:18px;overflow:hidden}
+.exsec-h{background:#eef2ff;padding:12px 18px;font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--vd);font-size:1rem}
+.exsec-b{padding:16px 18px}
+.exq{margin-bottom:14px;font-size:.95rem;line-height:1.6}
+.exq b{color:var(--vd)}
+.blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--tl);margin:0 4px}
+.reveal{margin-top:6px}
+.reveal summary{cursor:pointer;color:var(--tl);font-size:.85rem;font-weight:700}
+.reveal[open] summary{color:var(--rs)}
+.reveal p{margin-top:6px;background:#eafaf5;border-left:3px solid var(--tl);padding:8px 12px;border-radius:6px;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="pbar" id="prog"></div>
+<div class="scnt" id="scnt">1 / 12</div>
+<div class="dots" id="dots"></div>
+<div class="ctrl"><button class="cbtn" onclick="prev()">◀</button><button class="cbtn" onclick="next()">▶</button></div>
+<div class="scene active" data-n="1">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Revisão 1 · Nível A1 · Aulas 1 a 9</div>
+<div class="sc-h1">Retomada A1<br><span style="color:var(--am)">Fonética, Verbos e Substantivos</span></div>
+<div class="sc-sub">Revisão condensada · Aulas 1–9<br>Antes de continuar a partir da Aula 19</div>
+<div class="pronbtns"><button class="pbtn" onclick="spk('Revisão da aula 1 até a aula 9.')">🔊 Título</button></div>
+
+</div>
+</div>
+<div class="scene" data-n="2">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">📋 O que vamos revisar hoje?</div>
+<div class="dica-list">
+<div class="dica-item">1️⃣ <strong>Alfabeto, pronúncia e acentuação</strong></div>
+<div class="dica-item">2️⃣ <strong>Apresentação pessoal</strong> — nome, país, profissão, nacionalidade</div>
+<div class="dica-item">3️⃣ <strong>Pronomes</strong> você/tu · Verbos <strong>ser, estar, ter, morar</strong></div>
+<div class="dica-item">4️⃣ <strong>Artigos</strong> definidos/indefinidos</div>
+<div class="dica-item">5️⃣ <strong>Substantivos</strong>, gênero, falsos amigos e falsos cognatos</div>
+</div>
+
+</div>
+</div>
+<div class="scene" data-n="3">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 1 · Alfabeto e Pronúncia</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Sons da Letra X</div>
+<div class="grid2">
+<div class="cbox"><div class="ct">4 sons possíveis</div><ul>
+<li>🔊 /ʃ/ ("ch") — xícara, peixe, baixo, lixo</li>
+<li>🔊 /ks/ — táxi, fixo, tóxico</li>
+<li>🔊 /z/ — exame, exato, exemplo</li>
+<li>🔊 /s/ — próximo, auxílio, sintaxe</li>
+</ul></div>
+<div class="cbox"><div class="ct">Dica prática</div><ul>
+<li>Não existe regra 100% fixa — o som se aprende palavra por palavra</li>
+<li>X depois de ditongo (ai, ei, ou) geralmente é /ʃ/: baixo, deixa</li>
+</ul></div>
+</div>
+<div class="pronbtns"><button class="pbtn" onclick="spk('xícara, peixe, táxi, exame, próximo')">🔊 Praticar os 4 sons</button></div>
+
+</div>
+</div>
+<div class="scene" data-n="4">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 2 · Acentuação e Cumprimentos</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Acentuação, Cumprimentos e Despedidas</div>
+<div class="grid2">
+<div class="cbox"><div class="ct">Cumprimentos</div><ul>
+<li>Oi / Olá / Bom dia / Boa tarde / Boa noite</li>
+<li>Tudo bem? / Como vai? / E aí?</li>
+</ul></div>
+<div class="cbox"><div class="ct">Despedidas</div><ul>
+<li>Tchau / Até logo / Até amanhã / Até mais</li>
+<li>Foi um prazer! / Nos vemos!</li>
+</ul></div>
+</div>
+<div class="alert-box">💡 Acentuação: palavras oxítonas (força na última sílaba), paroxítonas (penúltima) e proparoxítonas (antepenúltima) — atenção aos sons que não existem em espanhol: <strong>ã, õ, ê, ô</strong></div>
+
+</div>
+</div>
+<div class="scene" data-n="5">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 3 · Informações pessoais</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Nome, País, Profissão e Nacionalidade</div>
+<table class="tbl"><tr><th class="pt">Pergunta</th><th>Exemplo de resposta</th></tr>
+<tr><td>Qual é o seu nome?</td><td>Meu nome é...</td></tr>
+<tr><td>De onde você é?</td><td>Eu sou do México / da Colômbia...</td></tr>
+<tr><td>Qual é a sua profissão?</td><td>Eu sou professora / engenheiro...</td></tr>
+<tr><td>Qual é a sua nacionalidade?</td><td>Eu sou mexicano/a, brasileiro/a...</td></tr>
+<tr><td>Onde você mora?</td><td>Eu moro na Cidade do México</td></tr>
+</table>
+<div class="dica-list"><div class="dica-item">Diálogo modelo: "— Oi, tudo bem? Qual é o seu nome? — Meu nome é Ana, sou mexicana e sou professora."</div></div>
+
+</div>
+</div>
+<div class="scene" data-n="6">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 4 · Você/Tu</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Pronomes Pessoais — Você e Tu</div>
+<div class="alert-box">No Brasil, <strong>você</strong> é o padrão na maior parte do país (usado com verbo na 3ª pessoa). <strong>Tu</strong> aparece em regiões como o Sul e partes do Nordeste — o aluno reconhece, mas usa <strong>você</strong> por padrão.</div>
+<div class="dica-list"><div class="dica-item">Ex: "Você fala português?" (padrão) vs. "Tu falas português?" (regional)</div></div>
+
+</div>
+</div>
+<div class="scene" data-n="7">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 5–6 · Ser e Estar</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Verbo SER x Verbo ESTAR</div>
+<div class="grid2">
+<div class="cbox"><div class="ct">SER (identidade, permanente)</div><ul>
+<li>eu sou · você/ele/ela é</li>
+<li>nós somos (a gente é) · vocês/eles são</li>
+<li>Ex: Eu sou professora. Ela é brasileira.</li>
+</ul></div>
+<div class="cbox"><div class="ct">ESTAR (estado, temporário, lugar)</div><ul>
+<li>eu estou · você/ele/ela está</li>
+<li>nós estamos · vocês/eles estão</li>
+<li>Ex: Eu estou cansada. Nós estamos em casa.</li>
+</ul></div>
+</div>
+<div class="dica-list">
+<div class="dica-item">"Nós somos" x "a gente é": a gente sempre concorda no singular, mesmo significando "nós"<span class="es">Muito comum na fala do dia a dia</span></div>
+<div class="dica-item">Períodos do dia: de manhã, à tarde, à noite · Advérbios de lugar: aqui, ali, lá, perto, longe, dentro, fora</div>
+</div>
+
+</div>
+</div>
+<div class="scene" data-n="8">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 7 · Ter e Morar</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Verbos Ter e Morar</div>
+<table class="tbl"><tr><th class="pt">TER</th><th class="pt">MORAR</th></tr>
+<tr><td>eu tenho</td><td>eu moro</td></tr>
+<tr><td>você/ele/ela tem</td><td>você/ele/ela mora</td></tr>
+<tr><td>nós temos</td><td>nós moramos</td></tr>
+<tr><td>vocês/eles têm</td><td>vocês/eles moram</td></tr>
+</table>
+<div class="dica-list"><div class="dica-item">Ex: "Eu tenho dois irmãos e moro em São Paulo." · "Você tem filhos? Onde você mora?"</div></div>
+
+</div>
+</div>
+<div class="scene" data-n="9">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 8 · Artigos</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Artigos Definidos e Indefinidos</div>
+<div class="grid2">
+<div class="cbox"><div class="ct">Definidos</div><ul>
+<li>o (masc. sing.) · a (fem. sing.)</li>
+<li>os (masc. pl.) · as (fem. pl.)</li>
+<li>Ex: o livro, a mesa, os livros, as mesas</li>
+</ul></div>
+<div class="cbox"><div class="ct">Indefinidos</div><ul>
+<li>um (masc. sing.) · uma (fem. sing.)</li>
+<li>uns (masc. pl.) · umas (fem. pl.)</li>
+<li>Ex: um carro, uma casa</li>
+</ul></div>
+</div>
+
+</div>
+</div>
+<div class="scene" data-n="10">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Aula 9 · Substantivos e Gênero</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Gênero, Heterogenéricas e Falsos Cognatos</div>
+<div class="grid2">
+<div class="cbox"><div class="ct">⚠️ Palavras heterogenéricas</div><ul>
+<li>o sangue (la sangre) · a árvore (el árbol)</li>
+<li>o nariz (la nariz) · a viagem (el viaje)</li>
+<li>o costume (la costumbre)</li>
+</ul></div>
+<div class="cbox"><div class="ct">🚨 Falsos cognatos</div><ul>
+<li>exquisito ≠ esquisito (= raro/estranho)</li>
+<li>embarazada ≠ embaraçada (= envergonhada)</li>
+<li>oficina ≠ escritório (oficina PT = taller mecânico)</li>
+<li>largo ≠ largo (PT largo = ancho; comprido = largo ES)</li>
+</ul></div>
+</div>
+<div class="alert-box">💡 Truque: quando uma palavra parecer "fácil demais" com o espanhol, desconfie — pode ser falso cognato!</div>
+
+</div>
+</div>
+<div class="scene" data-n="11">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="sc-tag">Prática integrada · Aulas 1-9</div>
+<div class="sc-h1" style="font-size:clamp(18px,3.4vw,32px)">Vamos juntar tudo</div>
+<div class="dica-list">
+<div class="dica-item">Monte um mini-diálogo de apresentação usando: cumprimento + nome + nacionalidade + profissão + onde mora</div>
+<div class="dica-item">Pratique oralmente com o professor antes de passar para os exercícios escritos</div>
+</div>
+
+</div>
+</div>
+<div class="scene" data-n="12">
+<div class="pbg"></div><div class="ov-dark"></div>
+<div class="lbar"><div class="lwrap"><div><div class="lname">Enlace Brasil</div><div class="lsub">Instituto de Língua e Cultura Brasileira · CDMX</div></div></div><span class="sbadge">Revisão 1 · A1</span></div>
+<div class="cnt">
+
+<div class="parte-box">
+<div class="parte-num">Fim da Revisão 1</div>
+<div class="parte-title">Aulas 1 a 9 ✅</div>
+<div class="parte-sub">Próximo: Revisão 2 — Aulas 10 a 14</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<script>
+let cur=1;
+const scenes=document.querySelectorAll('.scene');
+const N=scenes.length;
+function render(){
+  scenes.forEach(s=>s.classList.toggle('active', +s.dataset.n===cur));
+  document.getElementById('scnt').textContent=cur+' / '+N;
+  document.getElementById('prog').style.width=(cur/N*100)+'%';
+  document.querySelectorAll('.dot').forEach(d=>d.classList.toggle('active', +d.dataset.n===cur));
+  window.scrollTo(0,0);
+}
+function next(){ if(cur<N){cur++;render();} }
+function prev(){ if(cur>1){cur--;render();} }
+document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight')next(); if(e.key==='ArrowLeft')prev(); });
+let dotsHtml='';
+for(let i=1;i<=N;i++){ dotsHtml+=`<div class="dot" data-n="${i}" onclick="cur=${i};render();"></div>`; }
+document.getElementById('dots').innerHTML=dotsHtml;
+render();
+function spk(t){ try{ const u=new SpeechSynthesisUtterance(t); u.lang='pt-BR'; speechSynthesis.speak(u); }catch(e){} }
+</script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revisão 1 — Aulas 1 a 9 · Aluno | Enlace Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Nunito',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--vd:#0d3b6e;--tl:#1a9a8a;--am:#f5c842;--rs:#c0392b;--cl:#5ef0cc}
+html,body{height:100%;background:#0a1a2e;font-family:'Nunito',sans-serif;overflow:hidden}
+.stage{width:100vw;height:100vh;height:100dvh;position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;pointer-events:none;display:flex;flex-direction:column;z-index:0;overflow-y:auto}
+.scene.active{opacity:1;pointer-events:auto;z-index:1}
+.pbg{position:absolute;inset:0;background:linear-gradient(140deg,#0d3b6e,#1a9a8a 130%)}
+.ov-dark{position:absolute;inset:0;background:rgba(0,0,0,.28)}
+.lbar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:clamp(8px,1.4vh,16px) clamp(14px,2vw,28px);background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent)}
+.lwrap{display:flex;align-items:center;gap:10px}
+.lname{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(12px,1.6vw,17px);color:#fff;line-height:1.1}
+.lsub{font-size:clamp(9px,1vw,11px);color:rgba(255,255,255,.6)}
+.sbadge{background:rgba(245,200,66,.18);border:1.5px solid rgba(245,200,66,.5);color:var(--am);font-size:clamp(9px,1.1vw,12px);font-weight:700;letter-spacing:.6px;padding:4px 12px;border-radius:14px;white-space:nowrap}
+.cnt{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(64px,9vh,84px) clamp(14px,3vw,48px) clamp(50px,7vh,70px);gap:clamp(10px,1.6vh,18px);min-height:100%}
+.sc-tag{font-size:clamp(11px,1.4vw,14px);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--am);background:rgba(245,200,66,.14);border:1.5px solid rgba(245,200,66,.4);padding:4px 14px;border-radius:16px;text-align:center}
+.sc-h1{font-family:'Baloo 2',sans-serif;font-size:clamp(20px,4.2vw,44px);font-weight:800;color:#fff;text-align:center;line-height:1.1;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.sc-sub{font-size:clamp(12px,1.9vw,18px);color:rgba(255,255,255,.88);text-align:center;line-height:1.55;max-width:820px}
+.sc-sub strong{color:var(--am)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.1vw,16px);width:100%;max-width:880px}
+.cbox{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;padding:clamp(11px,1.6vh,20px) clamp(13px,1.5vw,20px);backdrop-filter:blur(6px)}
+.ct{font-size:clamp(11px,1.4vw,14px);font-weight:700;color:var(--am);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.cbox ul{list-style:none;display:flex;flex-direction:column;gap:clamp(5px,.7vh,9px)}
+.cbox ul li{font-size:clamp(12px,1.6vw,17px);color:rgba(255,255,255,.92);line-height:1.4;display:flex;gap:7px;align-items:flex-start}
+.tbl{width:100%;max-width:880px;border-collapse:collapse;font-size:clamp(11px,1.55vw,15px)}
+.tbl th{padding:clamp(6px,.9vh,11px) clamp(8px,1.1vw,14px);font-weight:700;text-align:center;background:rgba(26,58,92,.7);color:#fff}
+.tbl th.pt{background:rgba(13,59,110,.85)}.tbl th.es{background:rgba(192,57,43,.6)}
+.tbl td{padding:clamp(6px,.9vh,11px) clamp(8px,1.1vw,14px);border-bottom:1px solid rgba(255,255,255,.1);text-align:center;color:rgba(255,255,255,.9)}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.05)}
+.dica-list{display:flex;flex-direction:column;gap:clamp(7px,1vh,12px);width:100%;max-width:820px}
+.dica-item{background:rgba(255,255,255,.09);border-left:4px solid var(--am);border-radius:10px;padding:clamp(10px,1.4vh,16px) clamp(12px,1.5vw,20px);font-size:clamp(12px,1.8vw,18px);color:#fff;backdrop-filter:blur(4px);line-height:1.5}
+.dica-item .es{display:block;font-size:clamp(10px,1.2vw,13px);color:rgba(255,255,255,.55);font-style:italic;margin-top:4px}
+.alert-box{background:rgba(192,57,43,.22);border:2px solid rgba(192,57,43,.5);border-radius:14px;padding:clamp(12px,1.8vh,22px);width:100%;max-width:760px;text-align:center;backdrop-filter:blur(6px);color:#fff;font-size:clamp(12px,1.7vw,16px);line-height:1.5}
+.parte-box{background:rgba(0,0,0,.32);border:2px solid rgba(94,240,204,.4);border-radius:20px;padding:clamp(20px,3vh,36px) clamp(24px,4vw,48px);text-align:center;backdrop-filter:blur(8px)}
+.parte-num{font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.parte-title{font-family:'Baloo 2',sans-serif;font-size:clamp(22px,4.6vw,46px);font-weight:800;color:#fff;line-height:1.1}
+.parte-sub{font-size:clamp(13px,1.8vw,19px);color:rgba(255,255,255,.75);margin-top:8px}
+.pronbtns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pbtn{background:rgba(245,200,66,.18);border:1.5px solid rgba(245,200,66,.5);color:var(--am);font-family:'Baloo 2',sans-serif;font-weight:700;font-size:clamp(11px,1.4vw,14px);padding:5px 12px;border-radius:10px;cursor:pointer;transition:all .15s}
+.pbtn:hover{background:rgba(245,200,66,.32)}
+.pbar{position:fixed;bottom:0;left:0;height:3px;background:var(--cl);z-index:300;transition:width .3s}
+.dots{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:200;flex-wrap:wrap;justify-content:center;max-width:92vw}
+.dot{width:clamp(4px,.6vw,6px);height:clamp(4px,.6vw,6px);border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .25s}
+.dot.active{background:var(--am);transform:scale(1.5)}
+.ctrl{position:fixed;bottom:7px;right:11px;display:flex;gap:6px;z-index:200}
+.cbtn{width:clamp(32px,4vw,42px);height:clamp(32px,4vw,42px);border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:clamp(12px,1.5vw,15px);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.scnt{position:fixed;top:clamp(10px,1.3vh,16px);right:clamp(12px,1.5vw,20px);font-size:clamp(10px,1.2vw,13px);color:rgba(255,255,255,.5);font-weight:700;z-index:200}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+/* ALUNO exercise styles */
+.exwrap{background:#f7f9fc;color:#1a1a1a;overflow:auto;height:100%}
+.exhead{background:var(--vd);padding:20px 22px;color:#fff}
+.exhead h1{font-family:'Baloo 2',sans-serif;font-size:1.4rem}
+.exhead p{opacity:.85;font-size:.85rem;margin-top:4px}
+.exmain{max-width:820px;margin:0 auto;padding:22px 18px 60px}
+.exsec{background:#fff;border:1px solid #dde4f0;border-radius:12px;margin-bottom:18px;overflow:hidden}
+.exsec-h{background:#eef2ff;padding:12px 18px;font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--vd);font-size:1rem}
+.exsec-b{padding:16px 18px}
+.exq{margin-bottom:14px;font-size:.95rem;line-height:1.6}
+.exq b{color:var(--vd)}
+.blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--tl);margin:0 4px}
+.reveal{margin-top:6px}
+.reveal summary{cursor:pointer;color:var(--tl);font-size:.85rem;font-weight:700}
+.reveal[open] summary{color:var(--rs)}
+.reveal p{margin-top:6px;background:#eafaf5;border-left:3px solid var(--tl);padding:8px 12px;border-radius:6px;font-size:.9rem}
+
+.game-box{background:#fff;border:1px solid #dde4f0;border-radius:12px;padding:16px 18px;margin-top:10px}
+.quiz-q{font-size:.95rem;font-weight:700;color:var(--vd);margin-bottom:8px}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{text-align:left;background:#f2f5fa;border:1.5px solid #dde4f0;border-radius:8px;padding:8px 12px;font-size:.9rem;cursor:pointer;font-family:'Nunito',sans-serif}
+.quiz-opt:hover{background:#e6ecf7}
+.quiz-opt.correct{background:#d7f5e6;border-color:#1a9a8a;color:#0d3b6e;font-weight:700}
+.quiz-opt.wrong{background:#fbe0dd;border-color:#c0392b;color:#c0392b}
+.quiz-opt.disabled{pointer-events:none}
+.score-bar{display:flex;justify-content:space-between;align-items:center;background:var(--vd);color:#fff;padding:10px 16px;border-radius:10px;margin-bottom:14px;font-family:'Baloo 2',sans-serif;font-weight:700}
+.score-bar span#scoreval{color:var(--am)}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:560px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-card{background:#f2f5fa;border:1.5px solid #dde4f0;border-radius:8px;padding:9px 12px;font-size:.88rem;cursor:pointer;text-align:center;font-family:'Nunito',sans-serif}
+.match-card.sel{border-color:var(--am);background:#fff6dc}
+.match-card.done{background:#d7f5e6;border-color:#1a9a8a;color:#0d3b6e;pointer-events:none;font-weight:700}
+.match-card.wrong{background:#fbe0dd;border-color:#c0392b}
+.match-status{margin-top:10px;font-size:.85rem;color:#1a9a8a;font-weight:700}
+
+.cf-item{margin-bottom:16px}
+.cf-sentence{font-size:.95rem;line-height:1.8;margin-bottom:8px}
+.cf-blank{display:inline-block;min-width:70px;border-bottom:2px solid var(--tl);text-align:center;font-weight:700;color:#aaa;padding:0 4px}
+.cf-blank.filled{color:var(--vd)}
+.cf-blank.right{color:#0d3b6e;background:#d7f5e6;border-radius:4px}
+.cf-blank.wrong{color:#c0392b;background:#fbe0dd;border-radius:4px}
+.cf-opts{display:flex;flex-wrap:wrap;gap:6px}
+.cf-opt{background:#f2f5fa;border:1.5px solid #dde4f0;border-radius:16px;padding:5px 14px;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif}
+.cf-opt:hover{background:#e6ecf7}
+.cf-opt.picked-right{background:#d7f5e6;border-color:#1a9a8a}
+.cf-opt.picked-wrong{background:#fbe0dd;border-color:#c0392b}
+</style>
+</head>
+<body>
+<div class="exwrap">
+<div class="exhead"><h1>Revisão 1 — Aulas 1 a 9</h1><p>Enlace Brasil · Instituto de Língua e Cultura Brasileira · Exercícios do aluno</p></div>
+<div class="exmain">
+
+<div class="exsec"><div class="exsec-h">Tema 1 · Alfabeto e sons do X (Aula 1)</div><div class="exsec-b">
+<div class="exq" style="margin-bottom:10px">A letra <b>X</b> pode soar de 4 jeitos diferentes em português. Clique na palavra que tem o mesmo som:</div>
+</div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete: o X soa igual ao de...<span>Acertos: <span id="cfscore_t1x">0</span>/3</span></div>
+<div id="cfhost_t1x"></div>
+<script>
+(function(){
+const IT_t1x=JSON.parse('[{"pre": "O X de \\"táxi\\" soa igual ao de", "post": "", "opts": ["fixo", "xícara", "exame"], "correct": 0}, {"pre": "O X de \\"exame\\" soa igual ao de", "post": "", "opts": ["exato", "próximo", "peixe"], "correct": 0}, {"pre": "O X de \\"peixe\\" soa igual ao de", "post": "", "opts": ["baixo", "táxi", "exemplo"], "correct": 0}]');
+let score_t1x=0, done_t1x=new Set();
+const host=document.getElementById('cfhost_t1x');
+IT_t1x.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t1x_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t1x.has(ii))return;
+      done_t1x.add(ii);
+      const blank=document.getElementById('cfblank_t1x_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t1x++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t1x').textContent=score_t1x;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 2 · Cumprimentos e acentuação (Aula 2)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete o cumprimento/despedida<span>Acertos: <span id="cfscore_t2cump">0</span>/2</span></div>
+<div id="cfhost_t2cump"></div>
+<script>
+(function(){
+const IT_t2cump=JSON.parse('[{"pre": "\\"Bom dia! Tudo", "post": "?\\"", "opts": ["bem", "boa", "bom"], "correct": 0}, {"pre": "\\"", "post": "logo!\\" (despedida)", "opts": ["Até", "Para", "Por"], "correct": 0}]');
+let score_t2cump=0, done_t2cump=new Set();
+const host=document.getElementById('cfhost_t2cump');
+IT_t2cump.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t2cump_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t2cump.has(ii))return;
+      done_t2cump.add(ii);
+      const blank=document.getElementById('cfblank_t2cump_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t2cump++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t2cump').textContent=score_t2cump;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 3 · Informações pessoais (Aula 3)</div><div class="exsec-b">
+<div class="exq">Responda em português: Qual é o seu nome? De onde você é? Qual é a sua profissão?</div>
+</div></div>
+
+
+<div class="exsec"><div class="exsec-h">Tema 4-6 · Ser e Estar (Aulas 4-6)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete com SER ou ESTAR<span>Acertos: <span id="cfscore_t2se">0</span>/4</span></div>
+<div id="cfhost_t2se"></div>
+<script>
+(function(){
+const IT_t2se=JSON.parse('[{"pre": "Eu", "post": "professora de português.", "opts": ["sou", "estou"], "correct": 0}, {"pre": "Nós", "post": "em casa agora.", "opts": ["somos", "estamos"], "correct": 1}, {"pre": "Vocês", "post": "brasileiros?", "opts": ["são", "estão"], "correct": 0}, {"pre": "Ela", "post": "cansada hoje.", "opts": ["é", "está"], "correct": 1}]');
+let score_t2se=0, done_t2se=new Set();
+const host=document.getElementById('cfhost_t2se');
+IT_t2se.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t2se_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t2se.has(ii))return;
+      done_t2se.add(ii);
+      const blank=document.getElementById('cfblank_t2se_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t2se++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t2se').textContent=score_t2se;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 7 · Ter e Morar (Aula 7)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete com TER ou MORAR<span>Acertos: <span id="cfscore_t7tm">0</span>/2</span></div>
+<div id="cfhost_t7tm"></div>
+<script>
+(function(){
+const IT_t7tm=JSON.parse('[{"pre": "Eu", "post": "em São Paulo.", "opts": ["moro", "tenho"], "correct": 0}, {"pre": "Ela", "post": "dois filhos.", "opts": ["mora", "tem"], "correct": 1}]');
+let score_t7tm=0, done_t7tm=new Set();
+const host=document.getElementById('cfhost_t7tm');
+IT_t7tm.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t7tm_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t7tm.has(ii))return;
+      done_t7tm.add(ii);
+      const blank=document.getElementById('cfblank_t7tm_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t7tm++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t7tm').textContent=score_t7tm;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 8 · Artigos (Aula 8)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete com o artigo correto<span>Acertos: <span id="cfscore_t8art">0</span>/2</span></div>
+<div id="cfhost_t8art"></div>
+<script>
+(function(){
+const IT_t8art=JSON.parse('[{"pre": "", "post": "livro está na mesa.", "opts": ["O", "A", "Os"], "correct": 0}, {"pre": "Eu tenho", "post": "ideia.", "opts": ["um", "uma"], "correct": 1}]');
+let score_t8art=0, done_t8art=new Set();
+const host=document.getElementById('cfhost_t8art');
+IT_t8art.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t8art_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t8art.has(ii))return;
+      done_t8art.add(ii);
+      const blank=document.getElementById('cfblank_t8art_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t8art++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t8art').textContent=score_t8art;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Tema 9 · Substantivos, heterogenéricas e falsos cognatos (Aula 9)</div><div class="exsec-b"></div></div>
+
+<div class="game-box">
+<div class="score-bar">👉 Complete com O ou A (palavras heterogenéricas)<span>Acertos: <span id="cfscore_t9het">0</span>/3</span></div>
+<div id="cfhost_t9het"></div>
+<script>
+(function(){
+const IT_t9het=JSON.parse('[{"pre": "", "post": "sangue", "opts": ["O", "A"], "correct": 0}, {"pre": "", "post": "árvore", "opts": ["O", "A"], "correct": 1}, {"pre": "\\"esquisito\\" em espanhol significa", "post": "", "opts": ["raro / extraño", "delicioso", "embaraçoso"], "correct": 0}]');
+let score_t9het=0, done_t9het=new Set();
+const host=document.getElementById('cfhost_t9het');
+IT_t9het.forEach((item,ii)=>{
+  const wrap=document.createElement('div'); wrap.className='cf-item';
+  const sent=document.createElement('div'); sent.className='cf-sentence';
+  sent.innerHTML=item.pre+' <span class="cf-blank" id="cfblank_t9het_'+ii+'">___</span> '+item.post;
+  wrap.appendChild(sent);
+  const opts=document.createElement('div'); opts.className='cf-opts';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='cf-opt'; b.type='button'; b.textContent=opt;
+    b.onclick=()=>{
+      if(done_t9het.has(ii))return;
+      done_t9het.add(ii);
+      const blank=document.getElementById('cfblank_t9het_'+ii);
+      blank.textContent=opt; blank.classList.add('filled');
+      opts.querySelectorAll('.cf-opt').forEach(x=>x.style.pointerEvents='none');
+      if(oi===item.correct){ blank.classList.add('right'); b.classList.add('picked-right'); score_t9het++; }
+      else{ blank.classList.add('wrong'); b.classList.add('picked-wrong');
+        const correctBtn=opts.children[item.correct]; correctBtn.classList.add('picked-right'); }
+      document.getElementById('cfscore_t9het').textContent=score_t9het;
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  host.appendChild(wrap);
+});
+})();
+</script>
+</div>
+<div class="game-box">
+<div class="score-bar">🧩 Jogo da memória: Falsos cognatos PT ↔ ES<span>Pares: <span id="matchval_t3fc">0</span>/4</span></div>
+<div class="match-grid">
+<div class="match-col" id="mleft_t3fc"></div>
+<div class="match-col" id="mright_t3fc"></div>
+</div>
+<div class="match-status" id="mstatus_t3fc"></div>
+<script>
+(function(){
+const PAIRS_t3fc=JSON.parse('[["esquisito", "raro / extraño"], ["embaraçada", "avergonzada"], ["oficina", "taller mecánico"], ["largo (PT)", "ancho"]]');
+let left_t3fc=PAIRS_t3fc.map(p=>p[0]);
+let right_t3fc=PAIRS_t3fc.map(p=>p[1]);
+right_t3fc=right_t3fc.map(v=>({v,r:Math.random()})).sort((a,b)=>a.r-b.r).map(x=>x.v);
+let selL_t3fc=null, selR_t3fc=null, done_t3fc=0;
+const lHost=document.getElementById('mleft_t3fc'), rHost=document.getElementById('mright_t3fc');
+function findPair(l,r){ return PAIRS_t3fc.some(p=>p[0]===l&&p[1]===r); }
+left_t3fc.forEach(w=>{
+  const c=document.createElement('div'); c.className='match-card'; c.textContent=w;
+  c.onclick=()=>{
+    if(c.classList.contains('done'))return;
+    lHost.querySelectorAll('.match-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel'); selL_t3fc=c; checkMatch_t3fc();
+  };
+  lHost.appendChild(c);
+});
+right_t3fc.forEach(w=>{
+  const c=document.createElement('div'); c.className='match-card'; c.textContent=w;
+  c.onclick=()=>{
+    if(c.classList.contains('done'))return;
+    rHost.querySelectorAll('.match-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel'); selR_t3fc=c; checkMatch_t3fc();
+  };
+  rHost.appendChild(c);
+});
+function checkMatch_t3fc(){
+  if(!selL_t3fc||!selR_t3fc) return;
+  if(findPair(selL_t3fc.textContent, selR_t3fc.textContent)){
+    selL_t3fc.classList.add('done'); selR_t3fc.classList.add('done');
+    selL_t3fc.classList.remove('sel'); selR_t3fc.classList.remove('sel');
+    done_t3fc++; document.getElementById('matchval_t3fc').textContent=done_t3fc;
+    selL_t3fc=null; selR_t3fc=null;
+    if(done_t3fc===PAIRS_t3fc.length){ document.getElementById('mstatus_t3fc').textContent='🎉 Concluído!'; }
+  } else {
+    selL_t3fc.classList.add('wrong'); selR_t3fc.classList.add('wrong');
+    setTimeout(()=>{
+      selL_t3fc && selL_t3fc.classList.remove('wrong','sel');
+      selR_t3fc && selR_t3fc.classList.remove('wrong','sel');
+      selL_t3fc=null; selR_t3fc=null;
+    },550);
+  }
+}
+})();
+</script>
+</div>
+
+<div class="exsec"><div class="exsec-h">Produção livre — apresente-se</div><div class="exsec-b">
+<div class="exq">Escreva um pequeno parágrafo (4-5 frases) se apresentando: nome, nacionalidade, profissão, onde mora e algo que você tem.</div>
+</div></div>
+
+</div>
+</div>
+</body>
+</html>
