@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Sobrevivência — São Paulo + Casamento na Praia dos Carneiros</title>
+<style>
+  :root{
+    --azul:#0d3b6e;
+    --teal:#1a9a8a;
+    --ouro:#f5c842;
+    --bg:#f7f9fb;
+    --texto:#1f2937;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--bg);
+    color:var(--texto);
+    line-height:1.55;
+  }
+  header{
+    background:linear-gradient(135deg, var(--azul), var(--teal));
+    color:#fff;
+    padding:28px 20px 24px;
+    text-align:center;
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:1.5rem;
+  }
+  header p{
+    margin:0;
+    font-size:0.95rem;
+    opacity:0.92;
+  }
+  .badge{
+    display:inline-block;
+    background:var(--ouro);
+    color:var(--azul);
+    font-weight:700;
+    font-size:0.75rem;
+    padding:4px 12px;
+    border-radius:20px;
+    margin-top:10px;
+    letter-spacing:0.5px;
+  }
+  nav{
+    background:#fff;
+    padding:12px 16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    border-bottom:3px solid var(--ouro);
+    position:sticky;
+    top:0;
+    z-index:10;
+  }
+  nav a{
+    text-decoration:none;
+    font-size:0.78rem;
+    color:var(--azul);
+    background:#eef3f8;
+    padding:6px 10px;
+    border-radius:16px;
+    font-weight:600;
+  }
+  main{
+    max-width:720px;
+    margin:0 auto;
+    padding:18px 16px 60px;
+  }
+  section{
+    background:#fff;
+    border-radius:14px;
+    padding:18px 18px 8px;
+    margin-bottom:18px;
+    box-shadow:0 2px 8px rgba(13,59,110,0.08);
+    border-left:6px solid var(--teal);
+  }
+  section h2{
+    color:var(--azul);
+    font-size:1.15rem;
+    margin-top:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  details{
+    margin-bottom:12px;
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+    padding:8px 12px;
+    background:#fafcfe;
+  }
+  summary{
+    font-weight:700;
+    color:var(--teal);
+    cursor:pointer;
+    font-size:0.98rem;
+    padding:4px 0;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0 16px;
+    font-size:0.88rem;
+  }
+  th,td{
+    text-align:left;
+    padding:7px 8px;
+    border-bottom:1px solid #e5e9ef;
+    vertical-align:top;
+  }
+  th{
+    background:var(--azul);
+    color:#fff;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.3px;
+  }
+  tr:nth-child(even){background:#f4f8fb;}
+  .pt{font-weight:700; color:var(--azul);}
+  .es{color:#555; font-style:italic; font-size:0.85em;}
+  .frase-caixa{
+    background:#eef7f5;
+    border-left:4px solid var(--teal);
+    padding:10px 12px;
+    border-radius:8px;
+    margin:10px 0;
+    font-size:0.92rem;
+  }
+  .emergencia{
+    background:#fdf1f1;
+    border-left:4px solid #d64545;
+    padding:12px 14px;
+    border-radius:8px;
+    margin:12px 0;
+  }
+  .emergencia strong{color:#b02a2a;}
+  .dica{
+    background:#fff9e8;
+    border-left:4px solid var(--ouro);
+    padding:10px 12px;
+    border-radius:8px;
+    margin:10px 0;
+    font-size:0.9rem;
+  }
+  .rodape{
+    text-align:center;
+    font-size:0.8rem;
+    color:#8a94a3;
+    padding:20px 10px;
+  }
+  ul{padding-left:20px; margin:8px 0;}
+  li{margin-bottom:4px;}
+</style>
+<style>
+  .dialogo{
+    background:#eef7f5;
+    border-left:4px solid var(--teal);
+    padding:12px 14px;
+    border-radius:8px;
+    margin:10px 0;
+    font-size:0.92rem;
+  }
+  .dialogo p{margin:5px 0;}
+  .dialogo strong{color:var(--teal);}
+  .dialogo .voce{color:var(--azul);}
+  .cena{
+    display:inline-block;
+    background:var(--azul);
+    color:#fff;
+    font-size:0.72rem;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:20px;
+    margin-bottom:8px;
+    letter-spacing:0.4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌴 Guia de Sobrevivência</h1>
+  <p>São Paulo + Casamento na Praia dos Carneiros (Recife/PE)</p>
+  <span class="badge">Especial para Meshel · Nível A1</span>
+</header>
+
+<nav>
+  <a href="#basico">Básico</a>
+  <a href="#cidades">Cidades</a>
+  <a href="#sp">São Paulo</a>
+  <a href="#numeros">Números</a>
+  <a href="#compras">Compras</a>
+  <a href="#transporte">Transporte</a>
+  <a href="#praticas">Info Prática</a>
+  <a href="#praia">Praia dos Carneiros</a>
+  <a href="#casamento">Casamento</a>
+  <a href="#traje">Traje</a>
+  <a href="#beleza">Salão</a>
+  <a href="#bebidas">Bebidas</a>
+  <a href="#simulacoes">Simulações</a>
+  <a href="#imprevistos">Imprevistos</a>
+  <a href="#pronuncia">Pronúncia</a>
+  <a href="#revisao">Revisão</a>
+  <a href="#cultura">Cultura</a>
+  <a href="#emergencia">Emergência</a>
+  <a href="#ficha">Ficha</a>
+  <a href="#cola">Cola Rápida</a>
+</nav>
+
+<main>
+
+<section id="intro">
+  <h2>👋 Antes de começar</h2>
+  <p>Oi, Meshel! Preparei este guia especial para a sua viagem: primeiro <strong>São Paulo</strong>, depois o <strong>casamento na Praia dos Carneiros</strong>, em Pernambuco. São as frases e palavras mais úteis para você se virar sozinha — no aeroporto, no hotel, na praia e na festa. Boa viagem! 💙</p>
+  <div class="dica">💡 <strong>Dica geral:</strong> os brasileiros adoram quando um estrangeiro tenta falar português, mesmo com erros. Fale com confiança — ninguém vai te julgar!</div>
+</section>
+
+<section id="basico">
+  <h2>🗣️ Básico essencial</h2>
+  <details open>
+    <summary>Cumprimentos e cortesia</summary>
+    <table>
+      <tr><th>Português</th><th>Espanhol</th></tr>
+      <tr><td class="pt">Oi! / Olá!</td><td class="es">¡Hola!</td></tr>
+      <tr><td class="pt">Bom dia / Boa tarde / Boa noite</td><td class="es">Buenos días / Buenas tardes / Buenas noches</td></tr>
+      <tr><td class="pt">Por favor</td><td class="es">Por favor</td></tr>
+      <tr><td class="pt">Obrigada (você fala como mulher)</td><td class="es">Gracias (femenino)</td></tr>
+      <tr><td class="pt">De nada</td><td class="es">De nada</td></tr>
+      <tr><td class="pt">Com licença</td><td class="es">Con permiso / Disculpe (para pasar o llamar la atención)</td></tr>
+      <tr><td class="pt">Desculpa / Desculpe</td><td class="es">Perdón / Lo siento</td></tr>
+      <tr><td class="pt">Tudo bem? / Tudo bem!</td><td class="es">¿Todo bien? / ¡Todo bien!</td></tr>
+    </table>
+  </details>
+  <details>
+    <summary>Perguntas úteis para qualquer situação</summary>
+    <table>
+      <tr><td class="pt">Você fala inglês?</td><td class="es">¿Habla inglés?</td></tr>
+      <tr><td class="pt">Eu não entendo muito bem português</td><td class="es">No entiendo muy bien portugués</td></tr>
+      <tr><td class="pt">Pode repetir, por favor?</td><td class="es">¿Puede repetir, por favor?</td></tr>
+      <tr><td class="pt">Mais devagar, por favor</td><td class="es">Más despacio, por favor</td></tr>
+      <tr><td class="pt">Onde fica...?</td><td class="es">¿Dónde queda...?</td></tr>
+      <tr><td class="pt">Quanto custa?</td><td class="es">¿Cuánto cuesta?</td></tr>
+      <tr><td class="pt">Aceita cartão?</td><td class="es">¿Aceptan tarjeta?</td></tr>
+    </table>
+  </details>
+  <div class="dica">⚠️ <strong>Atenção, falso amigo:</strong> "embarazada" em espanhol ≠ "embaraçada" em português (que significa vergonhosa/enrolada). Grávida = "grávida".</div>
+</section>
+
+<section id="cidades">
+  <h2>🗺️ Conhecendo as Cidades</h2>
+  <details open>
+    <summary>🏙️ São Paulo — a cidade, a comida, o povo</summary>
+    <p><strong>A cidade:</strong> São Paulo é grande, rápida e cheia de gente. Tem prédios altos, bairros bem diferentes entre si (Jardins, Vila Madalena, Liberdade) e um ótimo metrô para se locomover.</p>
+    <p><strong>A comida:</strong></p>
+    <ul>
+      <li>Pastel — massa frita, clássico de feira</li>
+      <li>Pizza paulistana — estilo próprio da cidade</li>
+      <li>Pão de queijo e coxinha — lanche do dia a dia</li>
+      <li>Feijoada — comida típica do sábado</li>
+    </ul>
+    <p><strong>O povo:</strong> o paulistano é direto e educado, mas anda rápido — "tempo é dinheiro". Um cumprimento simples e objetivo já é suficiente.</p>
+    <div class="frase-caixa">▶️ <a href="https://www.youtube.com/watch?v=gS90PGNB6IA" target="_blank" rel="noopener"><strong>Vídeo: São Paulo em 3 dias</strong></a></div>
+  </details>
+  <details open>
+    <summary>🏖️ Praia dos Carneiros — a cidade, a comida, o povo</summary>
+    <p><strong>A cidade:</strong> Recife tem rios e pontes — chamada de "Veneza brasileira". A Praia dos Carneiros fica a 1h30 de carro, em Tamandaré, com coqueiros, água calma e a famosa igrejinha branca na areia.</p>
+    <p><strong>A comida:</strong></p>
+    <ul>
+      <li>Tapioca — café da manhã típico</li>
+      <li>Peixe e camarão — fresco, direto da praia</li>
+      <li>Bolo de rolo — doce clássico de Pernambuco</li>
+      <li>Caldinho de feijão — comum em festas</li>
+    </ul>
+    <p><strong>O povo:</strong> o nordestino é caloroso e gosta de conversar. Sotaque cantado, palavras como "oxente" e "visse". Em um casamento na praia, espera música ao vivo — frevo e forró!</p>
+    <div class="frase-caixa">▶️ <a href="https://www.youtube.com/watch?v=RgeBYlIRDj8" target="_blank" rel="noopener"><strong>Vídeo: Praia dos Carneiros</strong></a></div>
+  </details>
+</section>
+
+<section id="sp">
+  <h2>🏙️ Em São Paulo</h2>
+  <details open>
+    <summary>Aeroporto e transporte</summary>
+    <table>
+      <tr><td class="pt">Onde pego um táxi / Uber?</td><td class="es">¿Dónde tomo un taxi / Uber?</td></tr>
+      <tr><td class="pt">Para o hotel [nome], por favor</td><td class="es">Al hotel [nombre], por favor</td></tr>
+      <tr><td class="pt">Quanto tempo até o centro?</td><td class="es">¿Cuánto tiempo hasta el centro?</td></tr>
+      <tr><td class="pt">Onde fica a estação de metrô mais perto?</td><td class="es">¿Dónde queda la estación de metro más cercana?</td></tr>
+      <tr><td class="pt">Este ônibus vai para...?</td><td class="es">¿Este autobús va a...?</td></tr>
+    </table>
+  </details>
+  <details>
+    <summary>Hotel</summary>
+    <table>
+      <tr><td class="pt">Tenho uma reserva no nome de...</td><td class="es">Tengo una reserva a nombre de...</td></tr>
+      <tr><td class="pt">A que horas é o check-out?</td><td class="es">¿A qué hora es el check-out?</td></tr>
+      <tr><td class="pt">O wi-fi não está funcionando</td><td class="es">El wifi no está funcionando</td></tr>
+      <tr><td class="pt">Pode chamar um táxi para mim?</td><td class="es">¿Puede llamarme un taxi?</td></tr>
+    </table>
+  </details>
+  <details>
+    <summary>Restaurante</summary>
+    <table>
+      <tr><td class="pt">Uma mesa para uma pessoa, por favor</td><td class="es">Una mesa para una persona, por favor</td></tr>
+      <tr><td class="pt">O cardápio, por favor</td><td class="es">El menú, por favor</td></tr>
+      <tr><td class="pt">O que você recomenda?</td><td class="es">¿Qué recomienda?</td></tr>
+      <tr><td class="pt">Eu vou querer...</td><td class="es">Voy a querer...</td></tr>
+      <tr><td class="pt">A conta, por favor</td><td class="es">La cuenta, por favor</td></tr>
+      <tr><td class="pt">Está delicioso!</td><td class="es">¡Está delicioso!</td></tr>
+    </table>
+  </details>
+  <div class="frase-caixa">🍽️ <strong>Experimente em SP:</strong> pão de queijo, coxinha, pastel, açaí, um bom café coado, e se der tempo, um restaurante de comida mineira ou nordestina.</div>
+</section>
+
+<section id="numeros">
+  <h2>🔢 Números e Dinheiro</h2>
+  <details open>
+    <summary>Contando e pagando</summary>
+    <table>
+      <tr><th>Português</th><th>Espanhol</th></tr>
+      <tr><td class="pt">um, dois, três, quatro, cinco</td><td class="es">uno, dos, tres, cuatro, cinco</td></tr>
+      <tr><td class="pt">dez, vinte, trinta, cem</td><td class="es">diez, veinte, treinta, cien</td></tr>
+      <tr><td class="pt">Quanto custa isso?</td><td class="es">¿Cuánto cuesta esto?</td></tr>
+      <tr><td class="pt">Tem desconto?</td><td class="es">¿Hay descuento?</td></tr>
+      <tr><td class="pt">Vou pagar no Pix / cartão / dinheiro</td><td class="es">Voy a pagar con Pix / tarjeta / efectivo</td></tr>
+      <tr><td class="pt">Pode parcelar?</td><td class="es">¿Se puede pagar en cuotas?</td></tr>
+      <tr><td class="pt">O troco, por favor</td><td class="es">El vuelto, por favor</td></tr>
+    </table>
+    <div class="dica">💰 <strong>Pix</strong> é o sistema de pagamento instantâneo mais usado no Brasil — quase todo lugar aceita, até vendedor de rua. Cartão internacional funciona na maioria dos lugares em SP.</div>
+  </details>
+
+  <details>
+    <summary>💠 O que é o Pix?</summary>
+    <p>O <strong>Pix</strong> é o sistema brasileiro de transferência instantânea de dinheiro, criado pelo Banco Central. Funciona 24 horas, todos os dias, e é gratuito para pessoa física. É a forma mais comum de pagar no Brasil hoje — muitas vezes mais usada que cartão ou dinheiro.</p>
+    <p>Como turista, você provavelmente <strong>não vai conseguir usar o Pix diretamente</strong> (ele exige conta em banco brasileiro), mas é bom saber o que é, porque vai ver e ouvir a palavra o tempo todo:</p>
+    <table>
+      <tr><td class="pt">Como funciona</td><td>A pessoa paga escaneando um QR code ou digitando uma "chave Pix" (que pode ser CPF, e-mail, telefone ou um código aleatório)</td></tr>
+      <tr><td class="pt">Onde é usado</td><td>Lojas, restaurantes, táxi, feira, até para dividir a conta entre amigos</td></tr>
+      <tr><td class="pt">Vou pagar no Pix</td><td class="es">Voy a pagar con Pix</td></tr>
+      <tr><td class="pt">Só aceita Pix ou cartão?</td><td class="es">¿Solo aceptan Pix o tarjeta?</td></tr>
+    </table>
+    <div class="dica">💳 Se o lugar não aceitar seu cartão internacional, pergunte: "Vocês aceitam cartão de crédito internacional?" — a maioria dos estabelecimentos em SP aceita normalmente.</div>
+  </details>
+
+  <details>
+    <summary>🧾 CPF na nota</summary>
+    <p>No Brasil, ao pagar em lojas e restaurantes, é comum o caixa perguntar: <strong>"CPF na nota?"</strong> — o CPF é o número de identificação fiscal do brasileiro (parecido com o CURP no México). Colocar o CPF na nota serve para o cliente participar de programas de nota fiscal (descontos de imposto, sorteios estaduais).</p>
+    <table>
+      <tr><td class="pt">CPF na nota?</td><td class="es">¿CPF en la factura? (pregunta común del cajero)</td></tr>
+      <tr><td class="pt">Não, obrigada / Sem CPF, por favor</td><td class="es">No, gracias / Sin CPF, por favor</td></tr>
+      <tr><td class="pt">Não tenho CPF, sou turista</td><td class="es">No tengo CPF, soy turista</td></tr>
+    </table>
+    <div class="dica">✋ Como turista, você não tem CPF — é só responder "não, obrigada" ou "não tenho, sou turista" e seguir normalmente. Ninguém vai insistir.</div>
+  </details>
+</section>
+
+<section id="compras">
+  <h2>🛍️ Compras</h2>
+  <details open>
+    <summary>Na loja</summary>
+    <table>
+      <tr><td class="pt">Só estou olhando, obrigada</td><td class="es">Solo estoy mirando, gracias</td></tr>
+      <tr><td class="pt">Posso experimentar?</td><td class="es">¿Puedo probarme esto?</td></tr>
+      <tr><td class="pt">Onde fica o provador?</td><td class="es">¿Dónde queda el probador?</td></tr>
+      <tr><td class="pt">Tem outro tamanho / outra cor?</td><td class="es">¿Tiene otra talla / otro color?</td></tr>
+      <tr><td class="pt">Ficou pequeno / grande</td><td class="es">Me quedó chico / grande</td></tr>
+      <tr><td class="pt">Vou levar este</td><td class="es">Me llevo este</td></tr>
+    </table>
+    <div class="dica">💡 Regatear preço não é comum no Brasil (diferente de feiras em outros países) — exceto às vezes em feiras de artesanato.</div>
+  </details>
+</section>
+
+<section id="transporte">
+  <h2>🚇 Transporte em São Paulo</h2>
+  <details open>
+    <summary>Metrô, ônibus e app</summary>
+    <table>
+      <tr><td class="pt">Onde compro o bilhete?</td><td class="es">¿Dónde compro el boleto?</td></tr>
+      <tr><td class="pt">Este trem vai para...?</td><td class="es">¿Este tren va a...?</td></tr>
+      <tr><td class="pt">Qual estação eu desço?</td><td class="es">¿En qué estación me bajo?</td></tr>
+      <tr><td class="pt">O Uber já está chegando</td><td class="es">El Uber ya está llegando</td></tr>
+      <tr><td class="pt">Confirma seu nome, por favor</td><td class="es">Confirme su nombre, por favor</td></tr>
+    </table>
+    <div class="dica">🚇 O Bilhete Único e o cartão de metrô podem ser comprados nas próprias estações. Para o Uber, é só confirmar o nome com o motorista antes de entrar — segurança básica.</div>
+  </details>
+</section>
+
+<section id="praticas">
+  <h2>🔌 Informações Práticas</h2>
+
+  <details open>
+    <summary>🔌 Tomadas e voltagem</summary>
+    <p>O Brasil usa tomadas de <strong>3 pinos redondos</strong> (padrão próprio, tipo N) — o plugue americano/mexicano de 2 pinos chatos <strong>não encaixa</strong> direto na maioria das tomadas novas. A voltagem varia por região: em São Paulo geralmente é <strong>110V</strong>, mas alguns hotéis têm tomadas 110V e 220V lado a lado.</p>
+    <table>
+      <tr><td class="pt">Tem adaptador de tomada?</td><td class="es">¿Tiene adaptador de enchufe?</td></tr>
+      <tr><td class="pt">Essa tomada é 110 ou 220?</td><td class="es">¿Este enchufe es de 110 o 220?</td></tr>
+    </table>
+    <div class="dica">🔌 Leve um adaptador universal — carregadores de celular/notebook modernos já aceitam 110V e 220V automaticamente, só muda o formato do pino.</div>
+  </details>
+
+  <details>
+    <summary>📶 Wi-Fi e celular</summary>
+    <table>
+      <tr><td class="pt">Qual é a senha do wi-fi?</td><td class="es">¿Cuál es la contraseña del wifi?</td></tr>
+      <tr><td class="pt">Não tenho internet aqui</td><td class="es">No tengo internet aquí</td></tr>
+      <tr><td class="pt">Onde compro um chip brasileiro?</td><td class="es">¿Dónde compro un chip brasileño?</td></tr>
+      <tr><td class="pt">Vocês têm wi-fi para os clientes?</td><td class="es">¿Tienen wifi para los clientes?</td></tr>
+    </table>
+    <div class="dica">📱 O mais prático costuma ser ativar um <strong>eSIM internacional</strong> antes da viagem (Airalo, Holafly etc.) — evita procurar loja de chip físico. Se preferir chip local, Vivo, Claro e TIM têm lojas em qualquer shopping de SP.</div>
+  </details>
+
+  <details>
+    <summary>💵 Gorjeta</summary>
+    <table>
+      <tr><td class="pt">A gorjeta está incluída?</td><td class="es">¿La propina está incluida?</td></tr>
+      <tr><td class="pt">Posso deixar a gorjeta no cartão?</td><td class="es">¿Puedo dejar la propina en la tarjeta?</td></tr>
+    </table>
+    <div class="dica">💵 Em restaurantes, os 10% de "taxa de serviço" costumam já vir na conta (não é obrigatório pagar, mas é comum). Em táxi/Uber não se dá gorjeta. Para manobrista ou carregador de mala, uma nota pequena é bem-vinda.</div>
+  </details>
+</section>
+
+<section id="praia">
+  <h2>🏖️ Praia dos Carneiros e Recife</h2>
+  <details open>
+    <summary>Praia e clima</summary>
+    <table>
+      <tr><td class="pt">Está muito quente hoje!</td><td class="es">¡Hace mucho calor hoy!</td></tr>
+      <tr><td class="pt">Onde posso alugar uma cadeira/guarda-sol?</td><td class="es">¿Dónde puedo alquilar una silla/sombrilla?</td></tr>
+      <tr><td class="pt">O mar está calmo / agitado</td><td class="es">El mar está calmo / agitado</td></tr>
+      <tr><td class="pt">Passa protetor solar!</td><td class="es">¡Ponte protector solar!</td></tr>
+      <tr><td class="pt">Água de coco, por favor</td><td class="es">Agua de coco, por favor</td></tr>
+    </table>
+  </details>
+  <div class="dica">🌊 A Praia dos Carneiros fica em Tamandaré, litoral sul de Pernambuco — famosa pelas piscinas naturais e pela igrejinha de São Benedito na areia. É um dos lugares mais bonitos do Brasil para um casamento!</div>
+</section>
+
+<section id="casamento">
+  <h2>💍 No casamento</h2>
+  <details open>
+    <summary>Vocabulário do casamento</summary>
+    <table>
+      <tr><td class="pt">noivo / noiva</td><td class="es">novio / novia</td></tr>
+      <tr><td class="pt">casamento</td><td class="es">boda</td></tr>
+      <tr><td class="pt">cerimônia</td><td class="es">ceremonia</td></tr>
+      <tr><td class="pt">festa / recepção</td><td class="es">fiesta / recepción</td></tr>
+      <tr><td class="pt">padrinho / madrinha</td><td class="es">padrino / madrina</td></tr>
+      <tr><td class="pt">convidados</td><td class="es">invitados</td></tr>
+      <tr><td class="pt">buquê</td><td class="es">ramo de novia</td></tr>
+      <tr><td class="pt">brinde</td><td class="es">brindis</td></tr>
+      <tr><td class="pt">lua de mel</td><td class="es">luna de miel</td></tr>
+    </table>
+  </details>
+  <details>
+    <summary>Frases sociais (small talk e elogios)</summary>
+    <table>
+      <tr><td class="pt">Parabéns! Que casamento lindo!</td><td class="es">¡Felicitaciones! ¡Qué boda tan linda!</td></tr>
+      <tr><td class="pt">Como você conhece os noivos?</td><td class="es">¿Cómo conoces a los novios?</td></tr>
+      <tr><td class="pt">Você está linda / Você está lindo</td><td class="es">Estás hermosa / Estás guapo</td></tr>
+      <tr><td class="pt">Muito prazer, eu sou a Meshel</td><td class="es">Mucho gusto, soy Meshel</td></tr>
+      <tr><td class="pt">Vamos dançar?</td><td class="es">¿Vamos a bailar?</td></tr>
+      <tr><td class="pt">Foi uma festa maravilhosa!</td><td class="es">¡Fue una fiesta maravillosa!</td></tr>
+    </table>
+  </details>
+  <div class="frase-caixa">🥂 No brinde, todo mundo diz <strong>"Saúde!"</strong> ou <strong>"Parabéns aos noivos!"</strong> — pode repetir junto com os outros convidados.</div>
+</section>
+
+<section id="traje">
+  <h2>👗 Traje para o Casamento na Praia</h2>
+  <details open>
+    <summary>Vocabulário de traje</summary>
+    <table>
+      <tr><td class="pt">Qual é o traje?</td><td class="es">¿Cuál es el código de vestimenta?</td></tr>
+      <tr><td class="pt">Traje esporte fino</td><td class="es">Vestimenta semi-formal/casual elegante</td></tr>
+      <tr><td class="pt">Descalço na areia</td><td class="es">Descalzo en la arena</td></tr>
+      <tr><td class="pt">Vestido leve / longo</td><td class="es">Vestido liviano / largo</td></tr>
+      <tr><td class="pt">Sandália rasteira</td><td class="es">Sandalia baja</td></tr>
+      <tr><td class="pt">Protetor solar</td><td class="es">Protector solar</td></tr>
+    </table>
+    <div class="dica">👣 Casamentos na praia no Brasil costumam pedir "traje esporte fino": vestido leve, tecidos naturais, sandália baixa ou até descalço na cerimônia. Evite salto fino na areia!</div>
+  </details>
+</section>
+
+<section id="beleza">
+  <h2>💅 No Salão de Beleza</h2>
+  <details open>
+    <summary>Cabelo e unha antes da festa</summary>
+    <table>
+      <tr><td class="pt">Queria marcar um horário para cabelo/unha</td><td class="es">Quería reservar un turno para pelo/uñas</td></tr>
+      <tr><td class="pt">Quero fazer escova / penteado</td><td class="es">Quiero hacer brushing / peinado</td></tr>
+      <tr><td class="pt">Manicure e pedicure, por favor</td><td class="es">Manicura y pedicura, por favor</td></tr>
+      <tr><td class="pt">Pode ser um pouco mais claro/escuro</td><td class="es">Puede ser un poco más claro/oscuro</td></tr>
+      <tr><td class="pt">Ficou lindo, obrigada!</td><td class="es">Quedó hermoso, ¡gracias!</td></tr>
+    </table>
+    <div class="dica">💅 Muitos hotéis e pousadas perto da Praia dos Carneiros indicam salões de confiança — vale perguntar na recepção com alguns dias de antecedência.</div>
+  </details>
+</section>
+
+<section id="bebidas">
+  <h2>🍹 Bebidas</h2>
+  <details open>
+    <summary>Pedindo uma bebida</summary>
+    <table>
+      <tr><td class="pt">Uma cerveja gelada, por favor</td><td class="es">Una cerveza fría, por favor</td></tr>
+      <tr><td class="pt">Uma caipirinha, por favor</td><td class="es">Una caipiriña, por favor</td></tr>
+      <tr><td class="pt">Eu não bebo álcool</td><td class="es">Yo no bebo alcohol</td></tr>
+      <tr><td class="pt">Tem opção sem álcool?</td><td class="es">¿Hay opción sin alcohol?</td></tr>
+      <tr><td class="pt">Vamos brindar!</td><td class="es">¡Vamos a brindar!</td></tr>
+      <tr><td class="pt">Saúde!</td><td class="es">¡Salud!</td></tr>
+    </table>
+    <div class="dica">🍋 A caipirinha tradicional é feita com cachaça, limão e açúcar — se preferir mais leve, pode pedir "caipirinha de vodka" ou "com menos açúcar".</div>
+  </details>
+</section>
+
+<section id="simulacoes">
+  <h2>🎭 Situações — Simule a Conversa</h2>
+  <p style="font-size:0.9rem;color:#555">Pratique em voz alta! Cubra a resposta da outra pessoa e tente adivinhar antes de olhar.</p>
+
+  <details open>
+    <summary>🛬 Chegando — Imigração e táxi</summary>
+    <div class="dialogo">
+      <span class="cena">No aeroporto</span>
+      <p><strong>Agente:</strong> Boa tarde! Passaporte, por favor.</p>
+      <p class="voce"><strong>Você:</strong> Boa tarde! Aqui está.</p>
+      <p><strong>Agente:</strong> Qual é o motivo da viagem?</p>
+      <p class="voce"><strong>Você:</strong> Turismo. Vou para um casamento.</p>
+      <p><strong>Agente:</strong> Quantos dias vai ficar no Brasil?</p>
+      <p class="voce"><strong>Você:</strong> Dez dias.</p>
+      <p><strong>Agente:</strong> Boa viagem!</p>
+    </div>
+    <div class="dialogo">
+      <span class="cena">Pegando um táxi/Uber</span>
+      <p class="voce"><strong>Você:</strong> Boa tarde! Para o hotel Ibirapuera, por favor.</p>
+      <p><strong>Motorista:</strong> Claro! Já tenho o endereço aqui.</p>
+      <p class="voce"><strong>Você:</strong> Quanto tempo até lá, mais ou menos?</p>
+      <p><strong>Motorista:</strong> Uns 30 minutos, depende do trânsito.</p>
+      <p class="voce"><strong>Você:</strong> Perfeito, obrigada!</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>🏨 No hotel — Check-in</summary>
+    <div class="dialogo">
+      <span class="cena">Recepção</span>
+      <p><strong>Recepcionista:</strong> Boa noite! Em que posso ajudar?</p>
+      <p class="voce"><strong>Você:</strong> Boa noite! Tenho uma reserva no nome de Meshel.</p>
+      <p><strong>Recepcionista:</strong> Deixa eu conferir... Sim, encontrei! Pode me mostrar o passaporte?</p>
+      <p class="voce"><strong>Você:</strong> Claro, aqui está.</p>
+      <p><strong>Recepcionista:</strong> Perfeito. O café da manhã é das 7h às 10h. Aqui está a chave do seu quarto.</p>
+      <p class="voce"><strong>Você:</strong> Muito obrigada!</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>🍽️ No restaurante — Pedindo a comida</summary>
+    <div class="dialogo">
+      <span class="cena">Mesa do restaurante</span>
+      <p><strong>Garçom:</strong> Boa noite! Já escolheu?</p>
+      <p class="voce"><strong>Você:</strong> Ainda não. O que você recomenda?</p>
+      <p><strong>Garçom:</strong> A feijoada daqui é famosa!</p>
+      <p class="voce"><strong>Você:</strong> Então eu vou querer a feijoada e uma água sem gás, por favor.</p>
+      <p><strong>Garçom:</strong> Perfeito. Mais alguma coisa?</p>
+      <p class="voce"><strong>Você:</strong> Só isso, obrigada. Ah, e a conta, por favor, quando puder!</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>💊 Na rua — Pedindo informação e farmácia</summary>
+    <div class="dialogo">
+      <span class="cena">Pedindo direção</span>
+      <p class="voce"><strong>Você:</strong> Com licença, onde fica a farmácia mais perto?</p>
+      <p><strong>Pessoa:</strong> É duas quadras daqui, siga em frente e vire à direita.</p>
+      <p class="voce"><strong>Você:</strong> Muito obrigada!</p>
+      <p><strong>Pessoa:</strong> De nada, imagina!</p>
+    </div>
+    <div class="dialogo">
+      <span class="cena">Na farmácia</span>
+      <p><strong>Atendente:</strong> Boa tarde! Precisando de quê?</p>
+      <p class="voce"><strong>Você:</strong> Boa tarde! Tem alguma coisa para dor de cabeça?</p>
+      <p><strong>Atendente:</strong> Tenho sim, esse aqui é bem eficaz.</p>
+      <p class="voce"><strong>Você:</strong> Perfeito, eu levo. Quanto custa?</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>💍 Na festa — Chegando e conversando com convidados</summary>
+    <div class="dialogo">
+      <span class="cena">Chegando ao casamento</span>
+      <p><strong>Convidado:</strong> Oi! Você é amiga de quem, dos noivos?</p>
+      <p class="voce"><strong>Você:</strong> Muito prazer, eu sou a Meshel. Sou amiga da noiva.</p>
+      <p><strong>Convidado:</strong> Que legal! Eu sou primo do noivo. A festa está linda, né?</p>
+      <p class="voce"><strong>Você:</strong> Está maravilhosa! O lugar é incrível.</p>
+    </div>
+    <div class="dialogo">
+      <span class="cena">Na hora do brinde</span>
+      <p><strong>Todo mundo:</strong> Saúde! Parabéns aos noivos!</p>
+      <p class="voce"><strong>Você:</strong> Saúde! 🥂</p>
+      <p><strong>Convidado:</strong> Vamos dançar?</p>
+      <p class="voce"><strong>Você:</strong> Vamos sim!</p>
+    </div>
+  </details>
+</section>
+
+<section id="imprevistos">
+  <h2>😅 Pequenos Imprevistos</h2>
+  <details open>
+    <summary>Resolvendo problemas comuns</summary>
+    <table>
+      <tr><td class="pt">Perdi o Uber, pode pedir outro?</td><td class="es">Perdí el Uber, ¿puede pedir otro?</td></tr>
+      <tr><td class="pt">Acho que tem um erro na conta</td><td class="es">Creo que hay un error en la cuenta</td></tr>
+      <tr><td class="pt">Este não foi o prato que eu pedi</td><td class="es">Este no fue el plato que pedí</td></tr>
+      <tr><td class="pt">Posso trocar de quarto?</td><td class="es">¿Puedo cambiar de habitación?</td></tr>
+      <tr><td class="pt">O ar-condicionado não está funcionando</td><td class="es">El aire acondicionado no está funcionando</td></tr>
+      <tr><td class="pt">Esqueci uma coisa no quarto/táxi</td><td class="es">Olvidé algo en la habitación/taxi</td></tr>
+      <tr><td class="pt">Não se preocupe, não tem problema</td><td class="es">No se preocupe, no hay problema</td></tr>
+    </table>
+    <div class="dica">😌 Fica tranquila: os brasileiros costumam ser flexíveis e resolver as coisas com calma — só explicar com educação já resolve a maioria das situações.</div>
+  </details>
+</section>
+
+<section id="pronuncia">
+  <h2>🔊 Pronúncia — Sons Difíceis</h2>
+  <details open>
+    <summary>Os sons que mais confundem hispanofalantes</summary>
+    <table>
+      <tr><th>Som</th><th>Como soa</th><th>Exemplo</th></tr>
+      <tr><td class="pt">ão</td><td>Nasal, tipo "aum" fechado</td><td>Não, coração, pão</td></tr>
+      <tr><td class="pt">lh</td><td>Como "ll" argentino suave, não como "li"</td><td>Trabalho, mulher, filha</td></tr>
+      <tr><td class="pt">rr / r inicial</td><td>Um "h" aspirado, não o "rr" espanhol</td><td>Carro, Recife, restaurante</td></tr>
+      <tr><td class="pt">nh</td><td>Como "ñ" espanhol</td><td>Banho, tamanho, amanhã</td></tr>
+      <tr><td class="pt">s final</td><td>Muitas vezes vira "sh"</td><td>Rapaz, dois, mais (no Rio/Recife)</td></tr>
+    </table>
+    <div class="dica">🗣️ Não se preocupe em soar perfeita — o importante é tentar! Escutar os áudios do vídeo de São Paulo e da Praia dos Carneiros (na seção "Cidades") já ajuda a treinar o ouvido.</div>
+  </details>
+</section>
+
+<section id="revisao">
+  <h2>📝 Revisão — Expressões do Dia a Dia</h2>
+
+  <details open>
+    <summary>🌤️ Bom dia, boa tarde, boa noite — quando usar</summary>
+    <table>
+      <tr><th>Expressão</th><th>Quando usar</th></tr>
+      <tr><td class="pt">Bom dia</td><td>Do amanhecer até por volta do meio-dia</td></tr>
+      <tr><td class="pt">Boa tarde</td><td>Do meio-dia até escurecer (~18h)</td></tr>
+      <tr><td class="pt">Boa noite</td><td>Depois de escurecer — também para <em>se despedir</em> à noite (tipo "buenas noches" de despedida)</td></tr>
+    </table>
+    <div class="dica">💡 "Boa noite" tem duas funções: cumprimento ao chegar E despedida ao sair — igual em espanhol.</div>
+  </details>
+
+  <details>
+    <summary>💬 Palavrinhas do dia a dia (né, tá, uai...)</summary>
+    <table>
+      <tr><th>Português</th><th>Significado / uso</th></tr>
+      <tr><td class="pt">né?</td><td>"¿verdad?" — pede confirmação. Ex: <em>Está calor, né?</em></td></tr>
+      <tr><td class="pt">tá / tá bom</td><td>"vale / está bien" — concordar, confirmar</td></tr>
+      <tr><td class="pt">tá?</td><td>"¿vale?" no final de uma frase, tipo confirmação suave</td></tr>
+      <tr><td class="pt">pois é</td><td>"pues sí" — concordar com algo (às vezes meio resignado)</td></tr>
+      <tr><td class="pt">pois não</td><td>Resposta educada de quem atende — tipo "¿en qué le puedo ayudar?"</td></tr>
+      <tr><td class="pt">ué / uai</td><td>Expressa surpresa — "uai" é bem mineiro. Tipo "¿eh?" ou "¡uy!"</td></tr>
+      <tr><td class="pt">hein?</td><td>"¿eh?" — pedir para repetir, ou chamar atenção</td></tr>
+      <tr><td class="pt">ô</td><td>Usado antes do nome pra chamar alguém: <em>Ô Meshel, vem aqui!</em></td></tr>
+      <tr><td class="pt">imagina!</td><td>Resposta a um agradecimento — tipo "de nada, ¡para nada!"</td></tr>
+    </table>
+    <div class="frase-caixa">🗣️ <strong>Exemplo real:</strong> "Tá calor hoje, né?" — "Pois é! Vamos tomar uma água de coco?" — "Boa ideia, uai!"</div>
+  </details>
+</section>
+
+<section id="cultura">
+  <h2>🇧🇷 Cultura e Costumes</h2>
+
+  <details open>
+    <summary>🤗 Cumprimento — beijo no rosto e abraço</summary>
+    <p>Em São Paulo, o comum entre mulheres (e homem/mulher que já se conhecem) é <strong>1 beijo no rosto</strong>. Em algumas regiões do Brasil pode ser 2 — na dúvida, deixe a outra pessoa iniciar. Entre homens, geralmente é aperto de mão ou "meio abraço" com tapinha nas costas.</p>
+    <div class="dica">😊 Se não tiver certeza, um sorriso e "prazer em te conhecer" já resolve — ninguém vai estranhar um estrangeiro mais reservado no cumprimento.</div>
+  </details>
+
+  <details>
+    <summary>⏰ Horário "elástico" brasileiro</summary>
+    <p>É comum um evento social (festa, jantar, até casamento) começar um pouco depois do horário marcado — 15 a 30 minutos de atraso não costuma ser problema. Já compromissos de trabalho e voos, claro, seguem o horário certinho.</p>
+    <table>
+      <tr><td class="pt">A que horas começa mesmo?</td><td class="es">¿A qué hora empieza en realidad?</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary>🙅 Recusar algo com educação</summary>
+    <table>
+      <tr><td class="pt">Não, obrigada, já estou satisfeita</td><td class="es">No, gracias, ya estoy satisfecha</td></tr>
+      <tr><td class="pt">Talvez outra hora!</td><td class="es">¡Tal vez en otro momento!</td></tr>
+      <tr><td class="pt">Hoje eu não vou poder, mas obrigada pelo convite</td><td class="es">Hoy no voy a poder, pero gracias por la invitación</td></tr>
+    </table>
+    <div class="dica">💬 Brasileiros costumam insistir por educação ("tem certeza? só um pouquinho?") — repetir "não, obrigada" com um sorriso é suficiente, não é falta de educação.</div>
+  </details>
+
+  <details>
+    <summary>📸 Pedindo fotos</summary>
+    <table>
+      <tr><td class="pt">Pode tirar uma foto minha, por favor?</td><td class="es">¿Puede tomarme una foto, por favor?</td></tr>
+      <tr><td class="pt">Podemos tirar uma foto juntas?</td><td class="es">¿Podemos tomarnos una foto juntas?</td></tr>
+      <tr><td class="pt">Posso te marcar no Instagram?</td><td class="es">¿Puedo etiquetarte en Instagram?</td></tr>
+      <tr><td class="pt">Qual é o seu @ (arroba)?</td><td class="es">¿Cuál es tu usuario de Instagram?</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary>💡 Contrastes que costumam surpreender</summary>
+    <ul>
+      <li>O almoço costuma ser a refeição principal do dia (mais cedo que em muitos outros países), e o jantar mais leve</li>
+      <li>Futebol é assunto universal — pode puxar conversa com qualquer pessoa perguntando "você torce para qual time?"</li>
+      <li>O famoso "jeitinho brasileiro" — soluções criativas e flexíveis para resolver problemas do dia a dia, mesmo fora do "manual"</li>
+      <li>Contato físico e proximidade em conversas é mais comum do que em muitos países — não é falta de espaço pessoal, é calor humano</li>
+    </ul>
+  </details>
+</section>
+
+<section id="emergencia">
+  <h2>🚨 Emergência</h2>
+  <div class="emergencia">
+    <p><strong>SAMU (ambulância):</strong> 192</p>
+    <p><strong>Bombeiros:</strong> 193</p>
+    <p><strong>Polícia:</strong> 190</p>
+  </div>
+  <table>
+    <tr><td class="pt">Preciso de ajuda!</td><td class="es">¡Necesito ayuda!</td></tr>
+    <tr><td class="pt">Chame uma ambulância, por favor</td><td class="es">Llame una ambulancia, por favor</td></tr>
+    <tr><td class="pt">Perdi meu passaporte</td><td class="es">Perdí mi pasaporte</td></tr>
+    <tr><td class="pt">Onde fica o hospital / a farmácia mais perto?</td><td class="es">¿Dónde queda el hospital / la farmacia más cercana?</td></tr>
+    <tr><td class="pt">Eu sou alérgica a...</td><td class="es">Soy alérgica a...</td></tr>
+  </table>
+</section>
+
+<section id="ficha">
+  <h2>🧳 Ficha Rápida da Meshel</h2>
+  <p style="font-size:0.9rem;color:#555">Preencha antes de viajar e guarde uma foto no celular!</p>
+  <table>
+    <tr><td class="pt" style="width:50%">Hotel em SP — nome e endereço</td><td>_______________________</td></tr>
+    <tr><td class="pt">Telefone do hotel</td><td>_______________________</td></tr>
+    <tr><td class="pt">Hospedagem na Praia dos Carneiros</td><td>_______________________</td></tr>
+    <tr><td class="pt">Contato de emergência no Brasil</td><td>_______________________</td></tr>
+    <tr><td class="pt">Número do voo de volta</td><td>_______________________</td></tr>
+    <tr><td class="pt">Seguro viagem — telefone</td><td>_______________________</td></tr>
+  </table>
+</section>
+
+<section id="cola">
+  <h2>⭐ Cola rápida — as 10 frases mais importantes</h2>
+  <ol style="font-size:0.95rem;">
+    <li><span class="pt">Oi, tudo bem?</span></li>
+    <li><span class="pt">Por favor / Obrigada</span></li>
+    <li><span class="pt">Com licença / Desculpa</span></li>
+    <li><span class="pt">Quanto custa?</span></li>
+    <li><span class="pt">Onde fica...?</span></li>
+    <li><span class="pt">Eu não entendo muito bem português</span></li>
+    <li><span class="pt">Pode repetir, por favor?</span></li>
+    <li><span class="pt">A conta, por favor</span></li>
+    <li><span class="pt">Que lindo! Parabéns!</span></li>
+    <li><span class="pt">Preciso de ajuda!</span></li>
+  </ol>
+</section>
+
+</main>
+
+<div class="rodape">Material preparado especialmente para Meshel · Enlace Brasil — Instituto de Língua e Cultura Brasileira</div>
+
+</body>
+</html>
