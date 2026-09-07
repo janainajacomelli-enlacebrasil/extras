@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voz Passiva com Verbos Auxiliares – B2 | BTG Pactual</title>
+<style>
+  :root {
+    --azul: #0d3b6e; --azul-medio: #1a5fa8; --teal: #1a9a8a; --teal-claro: #22bfac;
+    --dourado: #f5c842; --branco: #ffffff; --cinza-claro: #f4f6f9;
+    --cinza-texto: #3a4a5c; --borda: #d0ddf0; --sombra: 0 4px 24px rgba(13,59,110,0.13);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #e8edf4; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+
+  .header { width: 100%; max-width: 900px; background: var(--azul); border-radius: 14px 14px 0 0; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .header-logo { font-size: 1.25rem; font-weight: 800; color: white; }
+  .header-logo span { color: var(--dourado); }
+  .header-info { font-size: 0.78rem; color: rgba(255,255,255,0.7); text-align: right; line-height: 1.5; }
+  .header-info strong { color: var(--dourado); }
+
+  .progress-bar { width: 100%; max-width: 900px; height: 4px; background: rgba(13,59,110,0.15); }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--dourado)); transition: width 0.4s ease; }
+
+  .slide-container { width: 100%; max-width: 900px; background: white; box-shadow: var(--sombra); min-height: 500px; }
+
+  .slide { display: none; padding: 40px 48px 32px; min-height: 500px; flex-direction: column; justify-content: center; animation: fadeIn 0.3s ease; }
+  .slide.active { display: flex; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+  /* CAPA */
+  .slide-capa { background: linear-gradient(135deg, var(--azul) 0%, #1a5fa8 55%, var(--teal) 100%); color: white; align-items: center; text-align: center; padding: 60px 48px; }
+  .capa-tag { background: rgba(245,200,66,0.18); border: 1.5px solid var(--dourado); color: var(--dourado); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; margin-bottom: 22px; display: inline-block; }
+  .slide-capa h1 { font-size: 2rem; font-weight: 800; line-height: 1.15; margin-bottom: 12px; }
+  .slide-capa h1 span { color: var(--dourado); }
+  .slide-capa p { font-size: 0.93rem; color: rgba(255,255,255,0.82); max-width: 520px; line-height: 1.6; margin-bottom: 26px; }
+  .obj-chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .obj-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); color: white; font-size: 0.78rem; padding: 6px 14px; border-radius: 20px; }
+
+  /* TÍTULOS */
+  .slide-title { font-size: 1.3rem; font-weight: 800; color: var(--azul); margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+  .num { background: var(--teal); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; flex-shrink: 0; }
+  .num.gold { background: var(--dourado); color: var(--azul); }
+  .slide-subtitle { font-size: 0.87rem; color: var(--teal); font-weight: 600; margin-bottom: 20px; padding-left: 40px; }
+
+  /* GRIDS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+
+  /* CARDS */
+  .card { background: var(--cinza-claro); border-radius: 10px; padding: 15px 17px; border-left: 4px solid var(--teal); }
+  .card.azul { border-left-color: var(--azul); }
+  .card.gold { border-left-color: var(--dourado); }
+  .card.red  { border-left-color: #e74c3c; }
+  .card h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--azul); margin-bottom: 10px; }
+  .card ul { list-style: none; }
+  .card ul li { font-size: 0.86rem; color: var(--cinza-texto); padding: 5px 0; border-bottom: 1px dashed #d1d9e6; line-height: 1.45; }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li strong { color: var(--azul); }
+  .card ul li em { color: var(--teal); font-style: normal; font-weight: 600; }
+
+  /* DESTAQUE */
+  .destaque { background: var(--azul); color: white; border-radius: 10px; padding: 14px 18px; margin-bottom: 13px; font-size: 0.9rem; line-height: 1.6; }
+  .destaque strong { color: var(--dourado); }
+
+  /* FÓRMULA */
+  .formula { background: linear-gradient(135deg, #0d3b6e, #1a5fa8); border-radius: 12px; padding: 18px 24px; margin-bottom: 14px; text-align: center; }
+  .formula .eq { font-size: 0.95rem; color: white; line-height: 2.4; }
+  .fbox { display: inline-block; background: rgba(245,200,66,0.2); border: 1.5px solid var(--dourado); color: var(--dourado); padding: 4px 14px; border-radius: 6px; font-weight: 700; margin: 0 4px; }
+  .fseta { color: rgba(255,255,255,0.4); margin: 0 6px; }
+  .fresult { background: var(--teal); color: white; padding: 4px 14px; border-radius: 6px; font-weight: 700; margin: 0 4px; display: inline-block; }
+
+  /* TABELA */
+  .tabela { width: 100%; border-collapse: separate; border-spacing: 0 5px; margin-bottom: 12px; }
+  .tabela thead th { background: var(--azul); color: white; font-size: 0.78rem; font-weight: 700; padding: 9px 14px; text-align: left; }
+  .tabela thead th:first-child { border-radius: 8px 0 0 8px; }
+  .tabela thead th:last-child  { border-radius: 0 8px 8px 0; }
+  .tabela tbody td { background: var(--cinza-claro); padding: 9px 14px; font-size: 0.86rem; color: var(--cinza-texto); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; line-height: 1.45; }
+  .tabela tbody td:first-child { border-left: 3px solid var(--teal); border-radius: 6px 0 0 6px; font-weight: 700; color: var(--azul); }
+  .tabela tbody td:last-child { border-radius: 0 6px 6px 0; }
+  .tabela tbody td code { background: rgba(26,154,138,0.12); color: var(--teal); padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.84rem; font-weight: 700; }
+  .tabela tbody tr:hover td { background: #eef4ff; }
+
+  /* AUXILIAR CARDS */
+  .aux-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 14px; }
+  .aux-card { border-radius: 10px; padding: 12px 10px; text-align: center; }
+  .aux-card .aux-verbo { font-size: 0.95rem; font-weight: 800; margin-bottom: 4px; }
+  .aux-card .aux-sent { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .aux-card .aux-ex { font-size: 0.75rem; color: var(--cinza-texto); line-height: 1.3; }
+  .aux-card.poder { background: #edf3ff; border-top: 3px solid var(--azul-medio); }
+  .aux-card.poder .aux-verbo { color: var(--azul-medio); }
+  .aux-card.poder .aux-sent { color: var(--azul-medio); }
+  .aux-card.precisar { background: #e8f8f5; border-top: 3px solid var(--teal); }
+  .aux-card.precisar .aux-verbo { color: var(--teal); }
+  .aux-card.precisar .aux-sent { color: var(--teal); }
+  .aux-card.dever { background: #fff8e1; border-top: 3px solid #c08020; }
+  .aux-card.dever .aux-verbo { color: #c08020; }
+  .aux-card.dever .aux-sent { color: #c08020; }
+  .aux-card.terque { background: #fdecea; border-top: 3px solid #e74c3c; }
+  .aux-card.terque .aux-verbo { color: #e74c3c; }
+  .aux-card.terque .aux-sent { color: #e74c3c; }
+  .aux-card.terde { background: #f3e8ff; border-top: 3px solid #8e44ad; }
+  .aux-card.terde .aux-verbo { color: #8e44ad; }
+  .aux-card.terde .aux-sent { color: #8e44ad; }
+
+  /* EXEMPLOS */
+  .ex { background: #f0fff8; border: 1.5px solid var(--teal); border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; font-size: 0.87rem; color: var(--cinza-texto); line-height: 1.5; }
+  .ex strong { color: var(--azul); }
+  .ex em { color: var(--teal); font-style: normal; font-weight: 700; }
+  .ex .trad { font-size: 0.75rem; color: #999; margin-top: 3px; }
+
+  /* NOTA */
+  .nota { background: linear-gradient(90deg, #fff8e1, #fffdf0); border-left: 4px solid var(--dourado); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 0.79rem; color: #7a6010; line-height: 1.5; margin-top: 10px; }
+  .nota::before { content: "📌 "; font-weight: 700; }
+
+  /* DIÁLOGO */
+  .dialogo { background: #f8faff; border-radius: 10px; padding: 18px 22px; border: 1px solid var(--borda); margin-bottom: 10px; }
+  .dlinha { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .dlinha:last-child { margin-bottom: 0; }
+  .av { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; color: white; }
+  .av.a { background: var(--azul); } .av.b { background: var(--teal); } .av.c { background: #c08020; }
+  .fala { background: white; border-radius: 0 10px 10px 10px; padding: 8px 13px; font-size: 0.87rem; color: var(--cinza-texto); border: 1px solid #e2e8f0; line-height: 1.55; flex: 1; }
+  .fala strong { color: var(--azul); }
+  .fala em { color: var(--teal); font-style: normal; font-weight: 700; }
+
+  /* MÚSICA */
+  .musica-box { background: linear-gradient(135deg, #1a1a2e, #16213e, #0d3b6e); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+  .musica-tag { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--dourado); margin-bottom: 10px; }
+  .letra { font-size: 0.9rem; color: rgba(255,255,255,0.9); line-height: 2; font-style: italic; }
+  .letra strong { color: var(--dourado); font-style: normal; }
+
+  /* EXERCÍCIO */
+  .ex-box { background: #f0fff8; border: 1.5px solid var(--teal); border-radius: 10px; padding: 16px 20px; }
+  .ex-box h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--teal); margin-bottom: 11px; }
+  .ex-box ol { padding-left: 18px; }
+  .ex-box ol li { font-size: 0.87rem; color: var(--cinza-texto); margin-bottom: 8px; line-height: 1.5; }
+
+  /* FOOTER */
+  .footer { width: 100%; max-width: 900px; background: var(--azul); border-radius: 0 0 14px 14px; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--sombra); }
+  .slide-num { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+  .slide-num strong { color: var(--dourado); }
+  .nav-btns { display: flex; gap: 8px; }
+  .btn-nav { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25); color: white; padding: 7px 20px; border-radius: 6px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .btn-nav:hover { background: rgba(255,255,255,0.22); }
+  .btn-nav:disabled { opacity: 0.35; cursor: default; }
+  .btn-nav.primario { background: var(--teal); border-color: var(--teal); }
+
+  @media (max-width: 600px) {
+    .slide { padding: 22px 16px; }
+    .grid-2, .grid-3, .aux-grid { grid-template-columns: 1fr; }
+    .slide-capa h1 { font-size: 1.5rem; }
+    .header, .footer { padding: 14px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">Enlace<span>Brasil</span></div>
+  <div class="header-info"><strong>BTG Pactual · Grupo B2</strong><br>Voz Passiva com Verbos Auxiliares</div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:9.09%"></div></div>
+
+<div class="slide-container">
+
+  <!-- SLIDE 1: CAPA -->
+  <div class="slide slide-capa active" id="slide-1">
+    <div class="capa-tag">Nível B2 · BTG Pactual</div>
+    <h1>Voz Passiva com<br><span>Verbos Auxiliares</span></h1>
+    <p>Como usar <strong style="color:var(--dourado)">poder · precisar · dever · ter que · ter de</strong> com a voz passiva — em contextos executivos e do dia a dia.</p>
+    <div class="obj-chips">
+      <span class="obj-chip">🏗️ Entender a estrutura</span>
+      <span class="obj-chip">💼 Usar em reuniões e e-mails</span>
+      <span class="obj-chip">⚖️ Diferenciar os auxiliares</span>
+      <span class="obj-chip">🎵 Ouvir na MPB</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: REVISÃO VIVA PASSIVA SIMPLES -->
+  <div class="slide" id="slide-2">
+    <div class="slide-title"><div class="num">1</div> Revisão Rápida — Voz Passiva Simples</div>
+    <div class="slide-subtitle">Antes de avançar — o que você já sabe</div>
+
+    <div class="formula">
+      <div class="eq">
+        <span class="fbox">sujeito paciente</span>
+        <span class="fseta">+</span>
+        <span class="fbox">ser</span>
+        <span class="fseta">+</span>
+        <span class="fbox">particípio</span>
+        <span class="fseta">+</span>
+        <span class="fresult">por + agente (opcional)</span>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:14px;">
+      <div class="card">
+        <h4>✅ Exemplos que você já conhece</h4>
+        <ul>
+          <li>"O contrato <em>foi assinado</em> pelo diretor."</li>
+          <li>"O relatório <em>foi aprovado</em> ontem."</li>
+          <li>"As metas <em>foram estabelecidas</em> no início do ano."</li>
+          <li>"A proposta <em>é revisada</em> toda semana."</li>
+        </ul>
+      </div>
+      <div class="card azul">
+        <h4>🔑 O que vem agora</h4>
+        <ul>
+          <li>Substituir o verbo <strong>ser</strong> por um auxiliar modal</li>
+          <li>O auxiliar vai para o tempo e pessoa corretos</li>
+          <li>O <strong>ser</strong> fica no infinitivo</li>
+          <li>O particípio concorda com o sujeito</li>
+          <li>Ex: "O contrato <em>pode ser assinado</em> hoje."</li>
+        </ul>
+      </div>
+    </div>
+    <div class="nota">A revisão da voz passiva simples é essencial antes de avançar. Se os alunos tiverem dúvidas sobre o particípio irregular (feito, dito, aberto, posto...), reserve 5 minutos para uma lista rápida.</div>
+  </div>
+
+  <!-- SLIDE 3: ESTRUTURA COM AUXILIAR -->
+  <div class="slide" id="slide-3">
+    <div class="slide-title"><div class="num">2</div> A Nova Estrutura — Auxiliar + Ser + Particípio</div>
+    <div class="slide-subtitle">Uma mudança simples que amplia muito o seu português</div>
+
+    <div class="formula">
+      <div class="eq">
+        <span class="fbox">sujeito</span>
+        <span class="fseta">+</span>
+        <span class="fbox">auxiliar (conjugado)</span>
+        <span class="fseta">+</span>
+        <span class="fbox">ser</span>
+        <span class="fseta">+</span>
+        <span class="fresult">particípio (concordando)</span>
+      </div>
+    </div>
+
+    <table class="tabela" style="margin-bottom:14px;">
+      <thead><tr><th>Voz Ativa</th><th>Voz Passiva Simples</th><th>Voz Passiva + Auxiliar</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>"Vamos aprovar o projeto."</td>
+          <td>"O projeto <code>será aprovado</code>."</td>
+          <td>"O projeto <code>pode ser aprovado</code>."</td>
+        </tr>
+        <tr>
+          <td>"Precisamos revisar o contrato."</td>
+          <td>"O contrato <code>é revisado</code>."</td>
+          <td>"O contrato <code>precisa ser revisado</code>."</td>
+        </tr>
+        <tr>
+          <td>"Devemos enviar o relatório."</td>
+          <td>"O relatório <code>foi enviado</code>."</td>
+          <td>"O relatório <code>deve ser enviado</code>."</td>
+        </tr>
+        <tr>
+          <td>"Temos que discutir a proposta."</td>
+          <td>"A proposta <code>foi discutida</code>."</td>
+          <td>"A proposta <code>tem que ser discutida</code>."</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="destaque">
+      💡 <strong>Regra de ouro:</strong> o auxiliar recebe a conjugação — <strong>pode, precisa, deve, tem que, tem de</strong> — e o <strong>ser</strong> sempre fica no infinitivo. O particípio concorda com o sujeito em gênero e número.
+    </div>
+  </div>
+
+  <!-- SLIDE 4: OS 5 AUXILIARES -->
+  <div class="slide" id="slide-4">
+    <div class="slide-title"><div class="num">3</div> Os 5 Auxiliares — Sentido e Uso</div>
+    <div class="slide-subtitle">Cada um comunica uma coisa diferente — não são intercambiáveis</div>
+
+    <div class="aux-grid">
+      <div class="aux-card poder">
+        <div class="aux-verbo">PODER</div>
+        <div class="aux-sent">Possibilidade</div>
+        <div class="aux-ex">"O prazo <strong>pode ser</strong> estendido."</div>
+      </div>
+      <div class="aux-card precisar">
+        <div class="aux-verbo">PRECISAR</div>
+        <div class="aux-sent">Necessidade</div>
+        <div class="aux-ex">"O contrato <strong>precisa ser</strong> revisado."</div>
+      </div>
+      <div class="aux-card dever">
+        <div class="aux-verbo">DEVER</div>
+        <div class="aux-sent">Obrigação / Expectativa</div>
+        <div class="aux-ex">"O relatório <strong>deve ser</strong> entregue até sexta."</div>
+      </div>
+      <div class="aux-card terque">
+        <div class="aux-verbo">TER QUE</div>
+        <div class="aux-sent">Obrigação forte</div>
+        <div class="aux-ex">"A proposta <strong>tem que ser</strong> aprovada hoje."</div>
+      </div>
+      <div class="aux-card terde">
+        <div class="aux-verbo">TER DE</div>
+        <div class="aux-sent">Obrigação (+ formal)</div>
+        <div class="aux-ex">"O acordo <strong>tem de ser</strong> cumprido."</div>
+      </div>
+    </div>
+
+    <table class="tabela">
+      <thead><tr><th>Auxiliar</th><th>Grau</th><th>Registro</th><th>Equivalente em espanhol</th></tr></thead>
+      <tbody>
+        <tr><td>poder ser</td><td>Possibilidade</td><td>Neutro</td><td>puede ser + participio</td></tr>
+        <tr><td>precisar ser</td><td>Necessidade</td><td>Neutro / coloquial</td><td>necesita ser / hay que</td></tr>
+        <tr><td>dever ser</td><td>Obrigação esperada</td><td>Formal</td><td>debe ser + participio</td></tr>
+        <tr><td>ter que ser</td><td>Obrigação forte</td><td>Coloquial / direto</td><td>tiene que ser + participio</td></tr>
+        <tr><td>ter de ser</td><td>Obrigação formal</td><td>Escrito / formal</td><td>ha de ser + participio</td></tr>
+      </tbody>
+    </table>
+    <div class="nota">"Ter que" e "ter de" têm o mesmo sentido, mas "ter de" é mais formal — aparece muito em contratos, documentos oficiais e e-mails executivos. "Ter que" é mais comum na fala e no WhatsApp.</div>
+  </div>
+
+  <!-- SLIDE 5: CONCORDÂNCIA DO PARTICÍPIO -->
+  <div class="slide" id="slide-5">
+    <div class="slide-title"><div class="num">4</div> Atenção ao Particípio — Concordância</div>
+    <div class="slide-subtitle">O particípio concorda com o sujeito — não esquece!</div>
+
+    <table class="tabela" style="margin-bottom:14px;">
+      <thead><tr><th>Sujeito</th><th>Particípio</th><th>Exemplo completo</th></tr></thead>
+      <tbody>
+        <tr><td>masc. sing.</td><td>aprovado</td><td>"O contrato <code>precisa ser aprovado</code>."</td></tr>
+        <tr><td>fem. sing.</td><td>aprovada</td><td>"A proposta <code>precisa ser aprovada</code>."</td></tr>
+        <tr><td>masc. pl.</td><td>aprovados</td><td>"Os documentos <code>precisam ser aprovados</code>."</td></tr>
+        <tr><td>fem. pl.</td><td>aprovadas</td><td>"As cláusulas <code>precisam ser aprovadas</code>."</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid-2">
+      <div class="card red">
+        <h4>❌ Erros comuns</h4>
+        <ul>
+          <li><em>*A proposta pode ser aprovado.</em> → aprovad<strong>a</strong></li>
+          <li><em>*Os dados deve ser analisado.</em> → analisad<strong>os</strong></li>
+          <li><em>*As metas tem que ser definido.</em> → definid<strong>as</strong></li>
+          <li><em>*O projeto precisa ser revistos.</em> → revist<strong>o</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>⚠️ Particípios irregulares — os mais usados</h4>
+        <ul>
+          <li>fazer → <strong>feito/a/os/as</strong></li>
+          <li>dizer → <strong>dito/a/os/as</strong></li>
+          <li>abrir → <strong>aberto/a/os/as</strong></li>
+          <li>ver → <strong>visto/a/os/as</strong></li>
+          <li>pôr → <strong>posto/a/os/as</strong></li>
+          <li>escrever → <strong>escrito/a/os/as</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nota">Os erros de concordância são muito frequentes — especialmente quando o sujeito vem depois do verbo. Exercite isso com exemplos reais do BTG: "as metas precisam ser revisadas", "os contratos têm de ser assinados".</div>
+  </div>
+
+  <!-- SLIDE 6: NEGATIVA E INTERROGATIVA -->
+  <div class="slide" id="slide-6">
+    <div class="slide-title"><div class="num">5</div> Forma Negativa e Interrogativa</div>
+    <div class="slide-subtitle">Como usar em perguntas e negações — muito útil em reuniões</div>
+
+    <div class="grid-2" style="margin-bottom:14px;">
+      <div class="card">
+        <h4>❌ Negativa — "não" antes do auxiliar</h4>
+        <ul>
+          <li>"O prazo <strong>não pode ser</strong> alterado."</li>
+          <li>"Este item <strong>não precisa ser</strong> revisado."</li>
+          <li>"O contrato <strong>não deve ser</strong> assinado ainda."</li>
+          <li>"Isso <strong>não tem que ser</strong> decidido hoje."</li>
+          <li>"O acordo <strong>não tem de ser</strong> público."</li>
+        </ul>
+      </div>
+      <div class="card azul">
+        <h4>❓ Interrogativa — inversão ou entonação</h4>
+        <ul>
+          <li>"<strong>Pode ser</strong> aprovado ainda hoje?"</li>
+          <li>"<strong>Precisa ser</strong> entregue antes do prazo?"</li>
+          <li>"Isso <strong>deve ser</strong> comunicado à diretoria?"</li>
+          <li>"O relatório <strong>tem que ser</strong> enviado agora?"</li>
+          <li>"<strong>Tem de ser</strong> feito por escrito?"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dialogo">
+      <div class="dlinha">
+        <div class="av a">MC</div>
+        <div class="fala">A ata <strong>precisa ser enviada</strong> hoje para todos os participantes?</div>
+      </div>
+      <div class="dlinha">
+        <div class="av b">RS</div>
+        <div class="fala">Sim, <strong>tem que ser enviada</strong> até as 18h. O modelo <strong>pode ser usado</strong> do mês passado.</div>
+      </div>
+      <div class="dlinha">
+        <div class="av a">MC</div>
+        <div class="fala">A versão final <strong>não precisa ser aprovada</strong> pelo diretor antes?</div>
+      </div>
+      <div class="dlinha">
+        <div class="av b">RS</div>
+        <div class="fala">Não, isso <strong>não tem de ser</strong> feito neste caso. <strong>Deve ser enviada</strong> diretamente.</div>
+      </div>
+    </div>
+    <div class="nota">Peça aos alunos que identifiquem todos os auxiliares no diálogo e classifiquem o sentido de cada um (possibilidade, necessidade, obrigação). Depois, reescrevam o diálogo com outros auxiliares e percebam a mudança de tom.</div>
+  </div>
+
+  <!-- SLIDE 7: CONTEXTOS EXECUTIVOS -->
+  <div class="slide" id="slide-7">
+    <div class="slide-title"><div class="num">6</div> Contextos Executivos — BTG na Prática</div>
+    <div class="slide-subtitle">Onde você vai usar isso no seu dia a dia</div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h4>📧 E-mails formais</h4>
+        <ul>
+          <li>"O documento <em>deve ser</em> anexado em PDF."</li>
+          <li>"A proposta <em>precisa ser</em> revisada antes do envio."</li>
+          <li>"O prazo <em>não pode ser</em> alterado."</li>
+          <li>"O formulário <em>tem de ser</em> preenchido em português."</li>
+        </ul>
+      </div>
+      <div class="card azul">
+        <h4>🏢 Reuniões e apresentações</h4>
+        <ul>
+          <li>"Esses dados <em>precisam ser</em> confirmados antes."</li>
+          <li>"A decisão <em>tem que ser</em> tomada hoje."</li>
+          <li>"O projeto <em>pode ser</em> iniciado em agosto."</li>
+          <li>"As metas <em>devem ser</em> revisadas no Q3."</li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h4>📋 Contratos e documentos</h4>
+        <ul>
+          <li>"O contrato <em>tem de ser</em> assinado por ambas as partes."</li>
+          <li>"As cláusulas <em>podem ser</em> negociadas."</li>
+          <li>"O prazo <em>não pode ser</em> prorrogado."</li>
+          <li>"Os termos <em>devem ser</em> respeitados."</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ex-box" style="margin-top:4px;">
+      <h4>🗣️ Prática rápida — 5 minutos</h4>
+      <ol>
+        <li>Pense em algo que aconteceu esta semana no BTG. Formule <strong>2 frases</strong> com a voz passiva + auxiliar usando os exemplos abaixo como modelo.</li>
+        <li>Use um auxiliar diferente em cada frase.</li>
+        <li>Compartilhe com o colega — ele identifica qual auxiliar você usou e por quê.</li>
+      </ol>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px;">
+        <div style="background:white; border-radius:8px; padding:10px 12px; border-top:3px solid var(--azul-medio);">
+          <div style="font-size:0.72rem; font-weight:800; color:var(--azul-medio); text-transform:uppercase; margin-bottom:6px;">Possibilidade</div>
+          <div style="font-size:0.8rem; color:var(--cinza-texto); line-height:1.5;">"A reunião <strong>pode ser</strong> adiada para quinta."<br>"O prazo <strong>pode ser</strong> negociado com o cliente."</div>
+        </div>
+        <div style="background:white; border-radius:8px; padding:10px 12px; border-top:3px solid var(--teal);">
+          <div style="font-size:0.72rem; font-weight:800; color:var(--teal); text-transform:uppercase; margin-bottom:6px;">Necessidade</div>
+          <div style="font-size:0.8rem; color:var(--cinza-texto); line-height:1.5;">"O relatório <strong>precisa ser</strong> enviado até hoje."<br>"As metas <strong>precisam ser</strong> revisadas agora."</div>
+        </div>
+        <div style="background:white; border-radius:8px; padding:10px 12px; border-top:3px solid #c08020;">
+          <div style="font-size:0.72rem; font-weight:800; color:#c08020; text-transform:uppercase; margin-bottom:6px;">Obrigação</div>
+          <div style="font-size:0.8rem; color:var(--cinza-texto); line-height:1.5;">"O contrato <strong>tem que ser</strong> assinado esta semana."<br>"A proposta <strong>deve ser</strong> aprovada pela diretoria."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: COMPARATIVO COM ESPANHOL -->
+  <div class="slide" id="slide-8">
+    <div class="slide-title"><div class="num">7</div> Português × Espanhol</div>
+    <div class="slide-subtitle">O que é igual, o que muda e onde tomar cuidado</div>
+
+    <table class="tabela" style="margin-bottom:14px;">
+      <thead><tr><th>Português</th><th>Espanhol</th><th>⚠️ Atenção</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>"<code>Pode ser aprovado</code>."</td>
+          <td>"Puede ser aprobado."</td>
+          <td>Estrutura idêntica — sem armadilha</td>
+        </tr>
+        <tr>
+          <td>"<code>Precisa ser revisado</code>."</td>
+          <td>"Necesita ser revisado." / "Hay que revisarlo."</td>
+          <td>"Hay que" em PT → <strong>tem que / precisa</strong></td>
+        </tr>
+        <tr>
+          <td>"<code>Deve ser entregue</code>."</td>
+          <td>"Debe ser entregado."</td>
+          <td>Estrutura idêntica — mas "dever" em PT é mais formal</td>
+        </tr>
+        <tr>
+          <td>"<code>Tem que ser feito</code>."</td>
+          <td>"Tiene que ser hecho." / "Hay que hacerlo."</td>
+          <td>PT usa particípio → <strong>feito</strong> (não "hacer")</td>
+        </tr>
+        <tr>
+          <td>"<code>Tem de ser assinado</code>."</td>
+          <td>"Ha de ser firmado."</td>
+          <td>"Ter de" = "haber de" — ambos formais e menos comuns</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid-2">
+      <div class="card red">
+        <h4>❌ Erros por interferência do espanhol</h4>
+        <ul>
+          <li><em>*Hay que ser revisado</em> → <strong>precisa/tem que ser revisado</strong></li>
+          <li><em>*Tiene que ser hacer</em> → <strong>tem que ser feito</strong></li>
+          <li><em>*Puede ser aprobado</em> → <strong>pode ser aprovado</strong> ✅ (correto!)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>✅ O que transfere bem do espanhol</h4>
+        <ul>
+          <li>A estrutura <strong>auxiliar + ser + particípio</strong> é idêntica</li>
+          <li>A concordância do particípio também existe em espanhol</li>
+          <li>A posição do "não" (antes do auxiliar) é a mesma</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: MÚSICA -->
+  <div class="slide" id="slide-9">
+    <div class="slide-title"><div class="num gold">★</div> Música: "Preciso Me Encontrar" — Cartola (1976)</div>
+    <div class="slide-subtitle">Leia o contexto antes de tocar</div>
+
+    <div style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0d3b6e); border-radius:12px; padding:18px 22px; margin-bottom:12px;">
+      <div style="font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--dourado); margin-bottom:10px;">📖 Para a turma</div>
+      <div style="font-size:0.86rem; color:rgba(255,255,255,0.9); line-height:1.8;">
+        <p style="margin-bottom:8px;"><strong style="color:var(--dourado)">Cartola</strong> — nome artístico de Angenor de Oliveira — é um dos maiores sambistas brasileiros. Nasceu no Rio de Janeiro em 1908, viveu em pobreza extrema e lançou seu primeiro disco aos 62 anos. "Preciso Me Encontrar" é uma composição de <strong style="color:var(--dourado)">Candeia</strong>, eternizada por Cartola no álbum de 1976 e mundialmente conhecida após o filme <strong style="color:var(--dourado)">Cidade de Deus</strong> (2002).</p>
+        <p>A música é uma declaração de <strong style="color:var(--dourado)">necessidade urgente</strong> — de partir, de se reencontrar. Cada verso usa verbos de <strong style="color:var(--dourado)">necessidade, desejo e possibilidade</strong> — os mesmos sentidos dos auxiliares da nossa aula.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:12px;">
+      <div class="musica-box">
+        <div class="musica-tag">🎵 Letra completa</div>
+        <div class="letra">
+          "Deixe-me ir, <strong>preciso</strong> andar<br>
+          Vou por aí a procurar<br>
+          Rir pra não chorar<br><br>
+          Deixe-me ir, <strong>preciso</strong> andar<br>
+          Vou por aí a procurar<br>
+          Rir pra não chorar<br><br>
+          <strong>Quero</strong> assistir ao sol nascer<br>
+          Ver as águas dos rios correr<br>
+          Ouvir os pássaros cantar<br>
+          Eu <strong>quero</strong> nascer, <strong>quero</strong> viver<br><br>
+          Deixe-me ir, <strong>preciso</strong> andar<br>
+          Vou por aí a procurar<br>
+          Rir pra não chorar<br><br>
+          Se alguém por mim perguntar<br>
+          Diga que eu só <strong>vou</strong> voltar<br>
+          Depois que me encontrar"
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="background:var(--cinza-claro); border-radius:10px; padding:13px 15px; border-left:4px solid var(--teal);">
+          <h4 style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--teal); margin-bottom:8px;">🔗 Conexão com a aula</h4>
+          <ul style="list-style:none;">
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; border-bottom:1px dashed #d1d9e6; line-height:1.4;"><strong>"Preciso andar"</strong> → necessidade (<em>precisar</em>)</li>
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; border-bottom:1px dashed #d1d9e6; line-height:1.4;"><strong>"Quero assistir..."</strong> → desejo forte, quase obrigação</li>
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; border-bottom:1px dashed #d1d9e6; line-height:1.4;"><strong>"Só vou voltar depois..."</strong> → condição futura</li>
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; line-height:1.4;">A urgência mostra a escala: <strong>preciso &gt; tenho que &gt; devo &gt; posso</strong></li>
+          </ul>
+        </div>
+        <div style="background:var(--cinza-claro); border-radius:10px; padding:13px 15px; border-left:4px solid var(--dourado);">
+          <h4 style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:#a07800; margin-bottom:8px;">🧠 Reescrita na voz passiva</h4>
+          <ul style="list-style:none;">
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; border-bottom:1px dashed #d1d9e6; line-height:1.4;">"Preciso me encontrar" →<br><em>"<strong>Preciso ser encontrado.</strong>"</em></li>
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; border-bottom:1px dashed #d1d9e6; line-height:1.4;">"Quero ver o sol nascer" →<br><em>"O sol <strong>precisa ser visto</strong> por mim."</em></li>
+            <li style="font-size:0.82rem; color:var(--cinza-texto); padding:4px 0; line-height:1.4;">O sujeito muda — mas a <strong>necessidade permanece</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <div class="destaque" style="flex:1; margin-bottom:0; font-size:0.85rem;">🎵 Ouça e identifique os verbos de necessidade e desejo. Depois reescreva 2 versos na voz passiva com auxiliar.</div>
+      <div style="display:flex; flex-direction:column; gap:8px; flex-shrink:0;">
+        <a href="https://www.youtube.com/watch?v=56mu8KSUYqk" target="_blank"
+           style="display:flex;align-items:center;gap:8px;background:#FF0000;color:white;text-decoration:none;padding:9px 16px;border-radius:8px;font-size:0.8rem;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(255,0,0,0.3);">
+          ▶ Ouvir a música
+        </a>
+        <a href="https://www.youtube.com/watch?v=U_q5cHlYbJg" target="_blank"
+           style="display:flex;align-items:center;gap:8px;background:#1a5fa8;color:white;text-decoration:none;padding:9px 16px;border-radius:8px;font-size:0.8rem;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(13,59,110,0.3);">
+          🎬 História da música
+        </a>
+      </div>
+    </div>
+    <div class="nota">A reescrita é o coração deste slide: "preciso me encontrar" (ativo) → "preciso ser encontrado" (passivo). O sujeito inverte mas a necessidade permanece. Explore com os alunos. A composição é de Candeia — Cartola a interpretou e eternizou. Vale mencionar!</div>
+  </div>
+
+
+    <!-- SLIDE 10: SÍNTESE + ENCERRAMENTO -->
+  <div class="slide" id="slide-10">
+    <div class="slide-title"><div class="num">8</div> Resumo + Atividade Final</div>
+    <div class="slide-subtitle">Tudo em um slide — e frases para levar amanhã</div>
+
+    <div class="grid-2" style="margin-bottom:12px;">
+      <div class="card">
+        <h4>🏗️ Estrutura</h4>
+        <ul>
+          <li><strong>sujeito + auxiliar + ser + particípio</strong></li>
+          <li>Auxiliar: conjugado (pode, precisa, deve, tem que, tem de)</li>
+          <li>Ser: sempre no infinitivo</li>
+          <li>Particípio: concorda com o sujeito</li>
+          <li>Negativa: <strong>não</strong> antes do auxiliar</li>
+        </ul>
+      </div>
+      <div class="card azul">
+        <h4>⚖️ Os 5 auxiliares</h4>
+        <ul>
+          <li><strong>poder</strong> → possibilidade</li>
+          <li><strong>precisar</strong> → necessidade</li>
+          <li><strong>dever</strong> → obrigação / expectativa formal</li>
+          <li><strong>ter que</strong> → obrigação forte / coloquial</li>
+          <li><strong>ter de</strong> → obrigação formal / escrita</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="destaque" style="margin-bottom:12px;">
+      💼 <strong>No BTG:</strong> "A ata <strong>precisa ser enviada</strong> hoje." · "O prazo <strong>não pode ser</strong> alterado." · "O contrato <strong>tem de ser</strong> assinado." · "As metas <strong>devem ser</strong> revisadas."
+    </div>
+
+    <div class="ex-box">
+      <h4>✍️ Atividade de encerramento — 7 minutos</h4>
+      <ol>
+        <li>Escreva <strong>5 frases</strong> sobre processos reais do seu trabalho no BTG.</li>
+        <li>Use pelo menos <strong>3 auxiliares diferentes</strong>.</li>
+        <li>Inclua <strong>1 frase negativa</strong> e <strong>1 pergunta</strong>.</li>
+        <li>Sublinhe o auxiliar e o particípio em cada frase.</li>
+      </ol>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
+        <div style="background:white; border-radius:8px; padding:11px 13px; border-top:3px solid var(--teal);">
+          <div style="font-size:0.72rem; font-weight:800; color:var(--teal); text-transform:uppercase; margin-bottom:7px;">✅ Exemplos de frases afirmativas</div>
+          <ul style="list-style:none; font-size:0.81rem; color:var(--cinza-texto); line-height:1.6;">
+            <li>• "O relatório <strong>precisa ser enviado</strong> até as 18h."</li>
+            <li>• "A reunião <strong>pode ser</strong> remarcada para quinta."</li>
+            <li>• "O contrato <strong>tem de ser</strong> assinado por ambas as partes."</li>
+            <li>• "As metas <strong>devem ser</strong> revisadas no Q3."</li>
+          </ul>
+        </div>
+        <div style="background:white; border-radius:8px; padding:11px 13px; border-top:3px solid #e74c3c;">
+          <div style="font-size:0.72rem; font-weight:800; color:#e74c3c; text-transform:uppercase; margin-bottom:7px;">❌ Exemplos negativos e ❓ perguntas</div>
+          <ul style="list-style:none; font-size:0.81rem; color:var(--cinza-texto); line-height:1.6;">
+            <li>• "O prazo <strong>não pode ser</strong> alterado."</li>
+            <li>• "Esse dado <strong>não precisa ser</strong> incluído no relatório."</li>
+            <li>• "<strong>Precisa ser</strong> aprovado antes da reunião?"</li>
+            <li>• "O documento <strong>tem que ser</strong> enviado hoje?"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: PRÁTICA ORAL -->
+  <div class="slide" id="slide-11">
+    <div class="slide-title"><div class="num">9</div> Prática em Duplas — Roleplay</div>
+    <div class="slide-subtitle">Escolha uma situação — 8 minutos</div>
+    <div class="grid-2" style="margin-bottom:14px;">
+      <div class="card">
+        <h4>📋 Situação A — Revisão de processo</h4>
+        <ul>
+          <li><strong>Aluno A:</strong> gestor que lista o que precisa ser feito antes do fechamento do trimestre</li>
+          <li><strong>Aluno B:</strong> analista que pergunta sobre prazos, prioridades e o que pode ser delegado</li>
+          <li><em>Use:</em> precisa ser · deve ser · pode ser · não pode ser</li>
+        </ul>
+      </div>
+      <div class="card azul">
+        <h4>📄 Situação B — Negociação de contrato</h4>
+        <ul>
+          <li><strong>Aluno A:</strong> advogado do BTG explicando o que tem de ser feito antes da assinatura</li>
+          <li><strong>Aluno B:</strong> representante da empresa parceira que negocia os termos</li>
+          <li><em>Use:</em> tem de ser · tem que ser · pode ser · não deve ser</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ex-box">
+      <h4>💬 Reflexão final</h4>
+
+      <div style="margin-bottom:12px; padding:12px 14px; background:white; border-radius:8px; border-left:3px solid var(--teal);">
+        <div style="font-size:0.87rem; color:var(--cinza-texto); margin-bottom:8px; line-height:1.5;">
+          <strong style="color:var(--azul);">1.</strong> Em quais situações você usaria <strong>"deve ser"</strong> em vez de <strong>"tem que ser"</strong>? Por quê?
+        </div>
+        <button onclick="toggleResposta('r1')" style="background:var(--teal);color:white;border:none;padding:5px 14px;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;letter-spacing:0.3px;">👁 Ver resposta sugerida</button>
+        <div id="r1" style="display:none; margin-top:10px; padding:10px 12px; background:#e8f8f5; border-radius:6px; font-size:0.83rem; color:#0a5a4a; line-height:1.55; border-left:3px solid var(--teal);">
+          <strong>"Deve ser"</strong> é mais formal e indica uma expectativa ou obrigação moderada — ideal para e-mails, relatórios e comunicações com a diretoria. Ex: <em>"O relatório deve ser entregue até sexta."</em><br>
+          <strong>"Tem que ser"</strong> é mais direto e coloquial — mais adequado para conversas, reuniões informais e WhatsApp. Ex: <em>"Isso tem que ser resolvido hoje!"</em><br>
+          <span style="color:var(--teal); font-weight:700;">Regra prática: quanto mais formal o canal, mais "deve ser" e "tem de ser". Quanto mais urgente e direto, mais "tem que ser".</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px; padding:12px 14px; background:white; border-radius:8px; border-left:3px solid var(--azul-medio);">
+        <div style="font-size:0.87rem; color:var(--cinza-texto); margin-bottom:8px; line-height:1.5;">
+          <strong style="color:var(--azul);">2.</strong> Qual auxiliar soa mais natural em uma <strong>reunião informal</strong>? E em um <strong>e-mail oficial</strong>?
+        </div>
+        <button onclick="toggleResposta('r2')" style="background:var(--azul-medio);color:white;border:none;padding:5px 14px;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;letter-spacing:0.3px;">👁 Ver resposta sugerida</button>
+        <div id="r2" style="display:none; margin-top:10px; padding:10px 12px; background:#edf3ff; border-radius:6px; font-size:0.83rem; color:#1a3a6e; line-height:1.55; border-left:3px solid var(--azul-medio);">
+          <strong>Reunião informal:</strong> <em>"tem que ser"</em> e <em>"precisa ser"</em> — soam diretos, naturais e próximos. Ex: <em>"Isso tem que ser decidido agora."</em><br><br>
+          <strong>E-mail oficial / contrato:</strong> <em>"deve ser"</em> e <em>"tem de ser"</em> — soam mais profissionais e distanciados. Ex: <em>"O documento deve ser assinado por ambas as partes."</em><br><br>
+          <span style="color:var(--azul); font-weight:700;">Bônus: "pode ser" é neutro — funciona bem em qualquer registro. É o mais seguro quando há dúvida.</span>
+        </div>
+      </div>
+
+      <div style="padding:12px 14px; background:white; border-radius:8px; border-left:3px solid #c08020;">
+        <div style="font-size:0.87rem; color:var(--cinza-texto); margin-bottom:8px; line-height:1.5;">
+          <strong style="color:var(--azul);">3.</strong> Dê um exemplo real do BTG onde a voz passiva com auxiliar seria mais elegante do que a ativa.
+        </div>
+        <button onclick="toggleResposta('r3')" style="background:#c08020;color:white;border:none;padding:5px 14px;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;letter-spacing:0.3px;">👁 Ver resposta sugerida</button>
+        <div id="r3" style="display:none; margin-top:10px; padding:10px 12px; background:#fff8e1; border-radius:6px; font-size:0.83rem; color:#7a5010; line-height:1.55; border-left:3px solid #c08020;">
+          <strong>Ativo (menos elegante em e-mail formal):</strong><br>
+          <em>"Nós precisamos aprovar o contrato até sexta."</em><br><br>
+          <strong>Passivo com auxiliar (mais elegante e impessoal):</strong><br>
+          <em>"O contrato precisa ser aprovado até sexta."</em><br><br>
+          <span style="color:#c08020; font-weight:700;">Por que é mais elegante? A voz passiva retira o foco de "quem faz" e coloca em "o que precisa ser feito" — tom mais profissional, impessoal e neutro. Muito comum em comunicações corporativas brasileiras.</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="nota">As respostas ocultas são para o professor usar como referência — revelar após ouvir os alunos, para comparar e enriquecer a discussão. Não revelar antes de escutar as respostas da turma!</div>
+  </div>
+
+</div><!-- fim slide-container -->
+
+<div class="footer">
+  <div class="slide-num">Slide <strong id="numAtual">1</strong> de <strong>11</strong></div>
+  <div class="nav-btns">
+    <button class="btn-nav" id="btnAnterior" onclick="mudarSlide(-1)" disabled>← Anterior</button>
+    <button class="btn-nav primario" id="btnProximo" onclick="mudarSlide(1)">Próximo →</button>
+  </div>
+</div>
+
+<script>
+  function toggleResposta(id) {
+    const el = document.getElementById(id);
+    const btn = el.previousElementSibling;
+    if (el.style.display === 'none') {
+      el.style.display = 'block';
+      btn.textContent = '🙈 Ocultar resposta';
+    } else {
+      el.style.display = 'none';
+      btn.textContent = '👁 Ver resposta sugerida';
+    }
+  }
+
+  let atual = 1;
+  const total = 11;
+  function mudarSlide(dir) {
+    document.getElementById('slide-' + atual).classList.remove('active');
+    atual += dir;
+    document.getElementById('slide-' + atual).classList.add('active');
+    document.getElementById('numAtual').textContent = atual;
+    document.getElementById('btnAnterior').disabled = atual === 1;
+    document.getElementById('btnProximo').disabled = atual === total;
+    document.getElementById('progressFill').style.width = ((atual / total) * 100) + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' && atual < total) mudarSlide(1);
+    if (e.key === 'ArrowLeft' && atual > 1) mudarSlide(-1);
+  });
+</script>
+</body>
+</html>
