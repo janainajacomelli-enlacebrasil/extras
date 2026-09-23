@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão – Apostila 2 · Nível Intermediário · Enlace Brasil</title>
+<style>
+  :root{
+    --azul:#0d3b6e;
+    --teal:#1a9a8a;
+    --ouro:#f5c842;
+    --bg:#f5f7fa;
+    --card:#ffffff;
+    --text:#26313f;
+    --muted:#6b7686;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--azul),#124a86);
+    color:#fff;
+    padding:28px 20px 22px;
+    text-align:center;
+  }
+  header h1{margin:0 0 6px;font-size:1.5rem;}
+  header p{margin:0;opacity:.9;font-size:.95rem;}
+  .tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    padding:18px 12px 4px;
+    max-width:1000px;
+    margin:0 auto;
+  }
+  .tab-btn{
+    border:2px solid var(--azul);
+    background:#fff;
+    color:var(--azul);
+    padding:9px 14px;
+    border-radius:20px;
+    font-size:.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .tab-btn:hover{background:#eaf1fb;}
+  .tab-btn.active{
+    background:var(--azul);
+    color:#fff;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:14px 16px 40px;
+  }
+  .topic{display:none;}
+  .topic.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .card{
+    background:var(--card);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:18px;
+    box-shadow:0 2px 10px rgba(13,59,110,.08);
+    border-left:5px solid var(--teal);
+  }
+  .card h2{
+    color:var(--azul);
+    margin-top:0;
+    font-size:1.25rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .card h3{
+    color:var(--teal);
+    font-size:1rem;
+    margin-bottom:6px;
+  }
+  .badge{
+    display:inline-block;
+    background:var(--ouro);
+    color:var(--azul);
+    font-weight:700;
+    font-size:.7rem;
+    padding:3px 9px;
+    border-radius:12px;
+    margin-bottom:10px;
+  }
+  .exemplos{
+    background:#eef6f5;
+    border-radius:10px;
+    padding:12px 16px;
+    margin:10px 0;
+  }
+  .exemplos p{margin:6px 0;font-style:italic;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0 16px;
+    font-size:.9rem;
+  }
+  th,td{
+    border:1px solid #dbe4ee;
+    padding:7px 8px;
+    text-align:center;
+  }
+  th{
+    background:var(--azul);
+    color:#fff;
+  }
+  tr:nth-child(even){background:#f6f9fc;}
+  .exercicio{
+    background:#fbfbfd;
+    border:1px solid #e3e8ee;
+    border-radius:10px;
+    padding:12px 16px;
+    margin-top:14px;
+  }
+  .exercicio ol{padding-left:20px;margin:8px 0;}
+  .exercicio li{margin-bottom:10px;line-height:1.5;}
+  .reveal-btn{
+    display:inline-block;
+    margin-top:10px;
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    font-size:.85rem;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .reveal-btn:hover{background:#158377;}
+  .gabarito{
+    display:none;
+    margin-top:12px;
+    background:#fff9e6;
+    border-left:4px solid var(--ouro);
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:.88rem;
+    line-height:1.6;
+  }
+  .gabarito.show{display:block;}
+  .nota{
+    background:#eaf1fb;
+    border-left:4px solid var(--azul);
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:.87rem;
+    margin-top:10px;
+  }
+  .progresso{
+    text-align:center;
+    font-size:.8rem;
+    color:var(--muted);
+    margin-top:4px;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:.8rem;
+    margin-top:20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📘 Revisão · Apostila 2 — Nível Intermediário</h1>
+  <p>Enlace Brasil · A solução para falar</p>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<main id="main"></main>
+
+<footer>Enlace Brasil — Revisão gerada a partir da Apostila 2 (Nível Intermediário)</footer>
+
+<script>
+const temas = [
+  {
+    id: "subjuntivo",
+    titulo: "Presente do Subjuntivo",
+    icone: "🔹",
+    explicacao: `O Presente do Subjuntivo se forma a partir da <strong>1ª pessoa do Presente do Indicativo</strong>: tira-se a terminação -O e troca-se por outra, de acordo com a conjugação do verbo (AR, ER ou IR).<br><br>
+    <strong>Regra prática:</strong> AR → E &nbsp;|&nbsp; ER → A &nbsp;|&nbsp; IR → A`,
+    tabela: {
+      cabecalho: ["Pessoa","VOLTAR (AR)","VENDER (ER)","ASSISTIR (IR)"],
+      linhas: [
+        ["que eu","volte","venda","assista"],
+        ["que você/ele/ela","volte","venda","assista"],
+        ["que nós","voltemos","vendamos","assistamos"],
+        ["que vocês/eles/elas","voltem","vendam","assistam"]
+      ]
+    },
+    exemplos: [
+      "Retire da geladeira os tomates que <strong>estejam</strong> estragados. (dúvida)",
+      "Duvido que ele <strong>seja</strong> a pessoa certa.",
+      "Tomara que nós <strong>divirtamos</strong>-nos na festa."
+    ],
+    nota: "Atenção: alguns verbos são irregulares no Subjuntivo — são os mesmos irregulares do Imperativo (ex: ser→seja, estar→esteja, ir→vá, saber→saiba, querer→queira).",
+    exercicio: {
+      titulo: "Conjugue os verbos no Presente do Subjuntivo",
+      itens: [
+        "CAPRICHAR: ______________",
+        "CONHECER: ______________ (Ç)",
+        "OLHAR: ______________",
+        "VIVER: ______________",
+        "DIVIDIR: ______________",
+        "ESQUECER: ______________ (Ç)",
+        "SENTIR: ______________",
+        "TORCER: ______________ (Ç)",
+        "VENCER: ______________",
+        "FICAR: ______________ (QUE)",
+        "PREFERIR: ______________",
+        "FINGIR: ______________ (J)",
+        "PERCEBER: ______________",
+        "MENTIR: ______________",
+        "COMEÇAR: ______________"
+      ],
+      gabarito: "capriche · conheça · olhe · viva · divida · esqueça · sinta · torça · vença · fique · prefira · finja · perceba · minta · comece"
+    }
+  },
+  {
+    id: "imperfeito",
+    titulo: "Pretérito Imperfeito",
+    icone: "🔹",
+    explicacao: `<strong>Verbos regulares:</strong> radical + sufixo (-ava para AR; -ia para ER/IR).<br><br>
+    <strong>Verbos irregulares</strong> no Imperfeito: SER, TER, VIR, PÔR. Todos os demais (inclusive ESTAR, IR, TRAZER, DIZER, VER, FAZER, OUVIR, PEDIR, QUERER, DAR) são <strong>regulares</strong> neste tempo.`,
+    tabela: {
+      cabecalho: ["Pessoa","SER","TER","VIR","PÔR"],
+      linhas: [
+        ["eu","era","tinha","vinha","punha"],
+        ["você/ele/ela","era","tinha","vinha","punha"],
+        ["nós","éramos","tínhamos","vínhamos","púnhamos"],
+        ["vocês/eles/elas","eram","tinham","vinham","punham"]
+      ]
+    },
+    exemplos: [
+      "Quando eu <strong>era</strong> criança, <strong>acreditava</strong> que as estrelas eram os olhos de Deus.",
+      "Antigamente, as letras das músicas <strong>tinham</strong> uma mensagem mais romântica.",
+      "Nessa época nós <strong>tínhamos</strong> muito dinheiro e uma casa no Guarujá."
+    ],
+    nota: "Contraste importante: Pretérito Perfeito (ação pontual e concluída) × Imperfeito (ação habitual, contínua ou descritiva no passado). Praticar as duas juntas ajuda a fixar a diferença.",
+    exercicio: {
+      titulo: "Complete com Pretérito Perfeito ou Imperfeito",
+      itens: [
+        "Eu ___ (querer) ir à praia no Carnaval, mas não ___ (poder), porque meu carro quebrou.",
+        "Na semana passada eu ___ (querer) ir à sua casa, mas não ___ (poder), porque não ___ (ter) com quem deixar os meus filhos.",
+        "Em 1985, eu ___ (ir) a pé para casa e as ruas ___ (ser) superseguras. No ano passado, eu ___ (ir) assaltada duas vezes.",
+        "Quando a Selma ___ (ter) 15 anos, ela não ___ (usar) minissaia. Ontem na festa da Susana, ela ___ (estar) com uma saia bem curtinha.",
+        "Todos os participantes ___ (ser) estrangeiros, e ninguém ___ (saber) espanhol."
+      ],
+      gabarito: "1) queria / pude · 2) queria / pude / tinha · 3) ia / eram / fui · 4) tinha / usava / estava · 5) eram / sabia"
+    }
+  },
+  {
+    id: "perfeito-x-imperfeito",
+    titulo: "Perfeito x Imperfeito",
+    icone: "🔹",
+    explicacao: `Os dois tempos falam do passado, mas com naturezas diferentes:<br><br>
+    <strong>Imperfeito</strong> — é um espaço de tempo no passado; um hábito no passado; você não percebe claramente o fim da ação; há um envolvimento maior com o passado.<br><br>
+    <strong>Perfeito</strong> — expressa tempo delimitado no passado; é um ponto no passado; você percebe claramente o fim da ação; a informação é mais objetiva.`,
+    tabela: {
+      cabecalho: ["Imperfeito", "Perfeito"],
+      linhas: [
+        ["espaço de tempo no passado", "tempo delimitado no passado"],
+        ["hábito no passado", "ponto no passado"],
+        ["fim da ação não é percebido claramente", "fim da ação é percebido claramente"],
+        ["maior envolvimento com o passado", "informação mais objetiva"]
+      ]
+    },
+    exemplos: [
+      "Quando eu <strong>era</strong> criança, <strong>acreditava</strong> que as estrelas eram os olhos de Deus. <em>(hábito/estado contínuo → Imperfeito)</em>",
+      "Ontem eu <strong>fui</strong> ao mercado e <strong>comprei</strong> pão. <em>(ação pontual e concluída → Perfeito)</em>",
+      "Em 1985, eu <strong>ia</strong> a pé para casa e as ruas <strong>eram</strong> superseguras. No ano passado, eu <strong>fui</strong> assaltada duas vezes. <em>(cenário de fundo no Imperfeito, evento pontual no Perfeito)</em>"
+    ],
+    nota: "Truque rápido: se dá pra trocar por 'sempre/costumava' sem mudar o sentido, é Imperfeito. Se a ação tem começo e fim marcados (ontem, em 1998, na semana passada + um evento específico), é Perfeito.",
+    exercicio: {
+      titulo: "Complete com o tempo certo (Perfeito ou Imperfeito)",
+      itens: [
+        "Quando eu ___ (trabalhar) aí, eu ___ (fazer) tudo o que ___ (poder) para agradar os clientes, mas o problema ___ (ser) os preços, que sempre ___ (ser) muito elevados.",
+        "Antigamente, as letras das músicas brasileiras ___ (ter) uma mensagem mais romântica. Há cinco anos tudo ___ (mudar).",
+        "Nessa época nós ___ (ter) muito dinheiro e uma casa no Guarujá. Faz 10 anos que meu pai ___ (ir) mandado embora e nossa vida se ___ (transformar).",
+        "Os policiais ___ (pôr) as faixas amarelas avisando que ninguém ___ (poder) entrar.",
+        "Eu não ___ (ir) convidá-lo, mas eu ___ (ficar) com dó porque ele ___ (dizer) para a Julia que ___ (querer) ir."
+      ],
+      gabarito: "1) trabalhava / fazia / podia / era / eram · 2) tinham / mudou · 3) tínhamos / foi / transformou · 4) puseram / podia · 5) ia / fiquei / disse / queria"
+    }
+  },
+  {
+    id: "indefinido",
+    titulo: "Pronome Indefinido",
+    icone: "🔹",
+    explicacao: `Pronomes indefinidos referem-se à 3ª pessoa gramatical de modo <strong>vago e indeterminado</strong>.<br><br>
+    <strong>Variáveis:</strong> algum, nenhum, todo, outro, certo, bastante, qualquer, quanto...<br>
+    <strong>Invariáveis:</strong> alguém, ninguém, tudo, nada, algo, cada, quem...<br>
+    <strong>Locuções:</strong> cada um, quem quer que, todo aquele que, seja quem for, seja qual for.`,
+    tabela: null,
+    exemplos: [
+      "Eu não tenho <strong>nenhum</strong> trocado para dar de gorjeta.",
+      "<strong>Alguém</strong> mais passe o tempo, mas ela vai ficar brava.",
+      "<strong>Cada um</strong> tem o direito de tomar suas próprias decisões nessa vida.",
+      "Seja <strong>qual</strong> for o resultado, é hora de saber."
+    ],
+    exercicio: {
+      titulo: "Complete com o pronome indefinido adequado",
+      itens: [
+        "O Henrique foi em ___ lugar comprar gelo, mas não sei aonde!",
+        "Você não deve gastar ___ o seu dinheiro hoje pois vai precisar amanhã.",
+        "___ coisa eu digo para ela te ligar ou te escrever um email.",
+        "Você conhece ___ que corte a grama do jardim e que possa vir amanhã?",
+        "___ um tem o direito de tomar suas próprias decisões nessa vida.",
+        "___ que você aprenda nessa vida será útil.",
+        "Cada ___ no seu lugar e assim não teremos encrenca de graça."
+      ],
+      gabarito: "1) algum · 2) todo · 3) alguma · 4) alguém · 5) cada · 6) tudo · 7) um"
+    }
+  },
+  {
+    id: "comparativos",
+    titulo: "Comparativos e Superlativos",
+    icone: "🔹",
+    explicacao: `Para comparar duas coisas, usamos três estruturas:<br><br>
+    <strong>Superioridade:</strong> mais + adjetivo + (do) que<br>
+    <strong>Inferioridade:</strong> menos + adjetivo + (do) que<br>
+    <strong>Igualdade:</strong> tão + adjetivo + quanto/como<br><br>
+    Alguns adjetivos têm forma comparativa <strong>irregular</strong> (não usam "mais"):`,
+    tabela: {
+      cabecalho: ["Estrutura", "Exemplo"],
+      linhas: [
+        ["Superioridade", "O João é <strong>mais</strong> alto (do) que o Rodrigo."],
+        ["Inferioridade", "O Fiat é <strong>menos</strong> caro (do) que o Audi."],
+        ["Igualdade", "A Paula é <strong>tão</strong> bonita quanto/como a Susana."],
+        ["Idade (superioridade)", "A Marina é <strong>mais nova</strong> que a Isabella. / A Isabella é <strong>mais velha</strong> que a Marina."]
+      ]
+    },
+    exemplos: [
+      "<strong>Bom</strong> → <strong>melhor</strong> (não se diz \"mais bom\"): Este creme é muito bom, porém este outro é muito <strong>melhor</strong>.",
+      "<strong>Mau/Ruim</strong> → <strong>pior</strong>: O Lelé é mau jogador, imagine o Zeca! É <strong>pior</strong> ainda!",
+      "<strong>Grande</strong> → <strong>maior</strong> / <strong>Pequeno</strong> → <strong>menor</strong>: A gasolina do Brasil é <strong>maior</strong> (em preço) do que a dos Estados Unidos.",
+      "Para comparar idades usa-se sempre <strong>mais novo(a)</strong> / <strong>mais velho(a)</strong>, nunca \"mais jovem que\" nesse contexto informal."
+    ],
+    nota: "Atenção: melhor, pior, maior e menor já são comparativos — não se combina com \"mais\" (evitar \"mais melhor\", \"mais pior\").",
+    exercicio: {
+      titulo: "Complete com o comparativo adequado (+superioridade, -inferioridade, =igualdade)",
+      itens: [
+        "A Sandra é ___ magra ___ ___ a Daniela. (superioridade)",
+        "O Luis é ___ competente ___ ___ o novo advogado. (inferioridade)",
+        "Esta loja é ___ cara ___ essa daí. (igualdade)",
+        "Este fornecedor é ___ competente ___ ___ o antigo. (superioridade)",
+        "Este creme para a pele é muito bom, porém este outro é muito ___. (+)",
+        "O Lelé é mau jogador, imagine o Zeca! É ___ ainda! (-)",
+        "A cama do meu quarto é ___ do que a cama do quarto do meu irmãozinho. (-)",
+        "Eu acho que o café brasileiro é ___ do que o café colombiano. (+)"
+      ],
+      gabarito: "1) tão / quanto/como · 2) menos / do que · 3) tão / quanto · 4) mais / do que · 5) melhor · 6) pior · 7) pior · 8) melhor"
+    }
+  },
+  {
+    id: "reflexivos",
+    titulo: "Pronomes Reflexivos e Recíprocos",
+    icone: "🔹",
+    explicacao: `<strong>Reflexivos:</strong> a ação do sujeito reflete nele mesmo (eu me visto).<br><br>
+    <strong>Recíprocos:</strong> a ação é mútua entre os sujeitos, geralmente no plural (nós nos abraçamos = um abraça o outro).`,
+    tabela: {
+      cabecalho: ["Pessoa","Reflexivo","Recíproco (exemplo)"],
+      linhas: [
+        ["eu","me visto","—"],
+        ["você/ele/ela","se veste","—"],
+        ["nós","nos vestimos","nos abraçamos / nos apaixonamos"],
+        ["vocês/eles/elas","se vestem","se abraçaram / se apaixonaram"]
+      ]
+    },
+    exemplos: [
+      "Eu <strong>me visto</strong> em cinco minutos e saio correndo!",
+      "A que horas você <strong>se levanta</strong>?",
+      "Fazia tanto tempo que a gente não <strong>se via</strong> que <strong>nos abraçamos</strong> como dez minutos.",
+      "Acho que estou <strong>me apaixonando</strong> por ela."
+    ],
+    exercicio: {
+      titulo: "Complete com o pronome reflexivo/recíproco + verbo",
+      itens: [
+        "– A que horas você ___? (levantar) – Eu ___ tarde, por isso chego atrasada!",
+        "Estamos de férias e as crianças ___ muito no parque! (divertir)",
+        "Fazia tanto tempo que a gente não ___ que ___ como dez minutos e ___ outros dez minutos sem parar. (ver, abraçar, beijar)",
+        "Eles ___ fixamente sem parar! (olhar — paquera)"
+      ],
+      gabarito: "1) se levanta / me levanto · 2) se divertem · 3) se via / nos abraçamos / nos beijamos · 4) se olharam"
+    }
+  },
+  {
+    id: "futuro-preterito",
+    titulo: "Futuro do Pretérito (Condicional)",
+    icone: "🔹",
+    explicacao: `Indica um fato <strong>hipotético/condicionado</strong>, consequência de outra situação (real ou imaginária). Corresponde ao "condicional" em espanhol.<br><br>
+    <strong>Formação regular:</strong> infinitivo + terminações -ia, -ia, -íamos, -iam.`,
+    tabela: {
+      cabecalho: ["Pessoa","ESTUDAR","APRENDER","PARTIR","DIZER (irreg.)","FAZER (irreg.)"],
+      linhas: [
+        ["eu","estudaria","aprenderia","partiria","diria","faria"],
+        ["você/ele/ela","estudaria","aprenderia","partiria","diria","faria"],
+        ["nós","estudaríamos","aprenderíamos","partiríamos","diríamos","faríamos"],
+        ["vocês/eles/elas","estudariam","aprenderiam","partiriam","diriam","fariam"]
+      ]
+    },
+    exemplos: [
+      "Ele <strong>poderia</strong> ir com vocês ao cinema.",
+      "Eu <strong>tocaria</strong> guitarra num conjunto se tivesse essa oportunidade.",
+      "Nós <strong>gostaríamos</strong> muito de estar presentes no evento.",
+      "Eu <strong>gostaria</strong> de ter asas para aos teus braços voar..."
+    ],
+    nota: "Irregulares importantes: dizer→diria, fazer→faria, trazer→traria (mesmo radical irregular do Futuro do Presente).",
+    exercicio: {
+      titulo: "Complete no Futuro do Pretérito",
+      itens: [
+        "Se você conhecesse a Jenifer Lopez e a Shakira... Com quem você ___? (sair)",
+        "Quando você ___ para o Brasil? (partir)",
+        "Se vocês fossem para a Itália... Quanto vocês ___? (gastar)",
+        "O Joel é um pouco orgulhoso. Eu acho que ele não ___ (assumir) o erro e muito menos ___ (pedir) desculpas.",
+        "Eu tenho certeza que o João ___ a esposa. (trazer)"
+      ],
+      gabarito: "1) sairia · 2) partiria · 3) gastariam · 4) assumiria / pediria · 5) traria"
+    }
+  },
+  {
+    id: "futuro-presente",
+    titulo: "Futuro do Presente",
+    icone: "🔹",
+    explicacao: `O Futuro do Presente expressa uma promessa ou previsão feita <strong>a partir do momento presente</strong>. Quando essa promessa é relatada depois (já no passado dela), transforma-se em Futuro do Pretérito.<br><br>
+    <strong>Exemplo de transformação:</strong> "Prometo que <em>levarei</em> você" (dito na 2ª-feira) → "Você prometeu que me <em>levaria</em>" (contado na 3ª-feira).`,
+    tabela: null,
+    exemplos: [
+      "Na segunda-feira: – Eu prometo que <strong>levarei</strong> você no supermercado.",
+      "Na terça-feira: – Você prometeu que me <strong>levaria</strong> no supermercado e não veio.",
+      "Eu concordo que ele <strong>será</strong> o melhor presidente. → Eu concordava que ele <strong>seria</strong> o melhor presidente."
+    ],
+    exercicio: {
+      titulo: "Transforme do Futuro do Presente para o Futuro do Pretérito",
+      itens: [
+        "Eles sabem que nós faremos o possível. → Eles sabiam que nós ___ o possível.",
+        "Eu garanto que entregarão a geladeira à tarde. → Eu garanti que ___ a geladeira à tarde.",
+        "Nós calculamos que a festa custará mais de 200 mil reais. → Nós calculávamos que a festa ___ mais de 200 mil reais.",
+        "Eu tenho certeza que o João trará a esposa. → Eu tinha certeza que o João ___ a esposa."
+      ],
+      gabarito: "1) faríamos · 2) entregariam · 3) custaria · 4) traria"
+    }
+  },
+  {
+    id: "conjuncoes",
+    titulo: "Conjunções e Locuções Conjuntivas",
+    icone: "🔹",
+    explicacao: `Conjunções e locuções conjuntivas ligam ideias entre frases, evitando repetição e dando coesão ao texto. Cada categoria expressa uma relação lógica diferente entre as ideias.`,
+    tabela: {
+      cabecalho: ["Categoria", "Conectivos", "Exemplo"],
+      linhas: [
+        ["Adversativas (oposição)", "mas, porém, contudo, entretanto, no entanto, todavia", "Sou tranquila, <em>porém</em> não tenho paciência com intrometidos."],
+        ["Conclusivas (conclusão)", "logo, portanto, assim, por isso, por conseguinte, então", "O garçom cobrou a mais, <em>portanto</em> fomos reclamar."],
+        ["Explicativas (explicação)", "pois, porque, porquanto", "Não fiz a tarefa <em>porquanto</em> estava de cama."],
+        ["Condicionais (condição)", "se, caso, contanto que, a menos que, desde que", "Irei ao casamento, <em>salvo se</em> ninguém me der carona."],
+        ["Causais (causa)", "porque, porquanto, visto que, de modo que", "Não vou buscá-la, <em>visto que</em> terá companhia."],
+        ["Finais (finalidade)", "para que, a fim de que", "Estou te ajudando <em>para que</em> você possa ir."],
+        ["Concessivas (concessão)", "embora, ainda que, já que, por muito que", "<em>Por muito que</em> se amem, a distância os separará."],
+        ["Conformativas (conformidade)", "conforme, segundo, consoante, como", "<em>Conforme</em> ele explicou, chegamos três horas antes."],
+        ["Aditivas (soma)", "além disso, ademais, além do mais, não só...mas também", "Preciso tirar foto, pagar a taxa e <em>ademais</em> ir buscá-lo."]
+      ]
+    },
+    exemplos: [
+      "Eu sou uma pessoa tranquila, <strong>porém</strong> não tenho paciência com pessoas que se metem na vida dos outros.",
+      "O garçom cobrou uma sobremesa a mais, <strong>portanto</strong> fomos reclamar com o gerente.",
+      "Eu não vou buscá-la no aeroporto, <strong>visto que</strong> terá a companhia do namorado para voltar."
+    ],
+    exercicio: {
+      titulo: "Complete cada frase usando o conectivo indicado",
+      itens: [
+        "mas — ______________________________________",
+        "contudo — ______________________________________",
+        "por isso — ______________________________________",
+        "caso — ______________________________________",
+        "a menos que — ______________________________________",
+        "embora — ______________________________________",
+        "além disso — ______________________________________"
+      ],
+      gabarito: "Não há resposta única — o objetivo é praticar cada conectivo em uma frase própria, mantendo a relação lógica indicada pela categoria (oposição, conclusão, condição, concessão ou soma)."
+    }
+  },
+  {
+    id: "palavroes",
+    titulo: "Expressões Coloquiais",
+    icone: "🔹",
+    explicacao: `Este tema vem do texto de Millôr Fernandes sobre o uso cotidiano de palavrões no português brasileiro. É um registro bastante informal — o material usa o texto para discutir como certas expressões funcionam na fala espontânea: aliviar tensão, dar ênfase a uma negação ou expressar frustração. Vale contextualizar com a Dana que esse é um registro coloquial/vulgar, não recomendado em ambientes formais.`,
+    tabela: null,
+    exemplosLabel: "Funções discutidas no texto",
+    exemplos: [
+      "Uma expressão de negação enfática reforça um \"não\" para fechar um assunto sem deixar margem para discussão.",
+      "Uma expressão de espanto ou frustração extrema marca que uma situação chegou ao limite do suportável.",
+      "Um intensificador de quantidade (equivalente informal a \"muitíssimo\") reforça um adjetivo com força coloquial.",
+      "O texto observa que essas expressões, mesmo vulgares, funcionam como válvula de escape emocional na fala espontânea dos brasileiros."
+    ],
+    nota: "Por ser conteúdo de registro vulgar, sugiro tratar este tema oralmente em sala, sem reproduzir os termos por escrito no material do aluno — o foco é o reconhecimento do registro e da função pragmática, não a memorização das palavras.",
+    exercicio: {
+      titulo: "Reflexão (discussão oral, sem gabarito fixo)",
+      itens: [
+        "Em que situações cotidianas você percebe que as pessoas soltam palavrões involuntários?",
+        "Existe um equivalente desse tipo de expressão no espanhol do México? Em que situações se usa?",
+        "Por que, segundo o texto, os palavrões podem funcionar como uma forma de alívio emocional?",
+        "Quais expressões desse tipo você já ouviu no dia a dia em português e não sabia o significado?"
+      ],
+      gabarito: "Discussão aberta — não há resposta certa/errada; o objetivo é comparar registros informais entre português e espanhol e refletir sobre a função social do palavrão."
+    }
+  },
+  {
+    id: "recursos",
+    titulo: "Vídeos, Músicas e Podcasts",
+    icone: "🎵",
+    explicacao: `Estes são os vídeos e músicas usados no material da Dana, organizados pelo tema gramatical que eles reforçam. Ouvir a língua em contexto real ajuda a fixar o que foi estudado nas aulas.`,
+    tabela: null,
+    exemplosLabel: "Vídeos e músicas da apostila",
+    exemplos: [
+      `<strong>Presente do Subjuntivo</strong> — Milton Nascimento, "Canção da América" (identificar os verbos no subjuntivo/imperativo na letra): <a href="https://www.youtube.com/results?search_query=Milton+Nascimento+Can%C3%A7%C3%A3o+da+Am%C3%A9rica+letra" target="_blank" rel="noopener">assistir no YouTube ↗</a>`,
+      `<strong>Presente do Subjuntivo</strong> — vídeo motivacional de Nando Pinheiro, "Você está precisando ouvir isso hoje" (identificar verbos no subjuntivo): <a href="https://www.youtube.com/results?search_query=Nando+Pinheiro+Voc%C3%AA+est%C3%A1+precisando+ouvir+isso+hoje" target="_blank" rel="noopener">assistir no YouTube ↗</a>`,
+      `<strong>Imperativo / Vamos Cantar</strong> — Eduardo Costa, "Os Dez Mandamentos do Amor" (ao vivo): <a href="https://www.youtube.com/results?search_query=Eduardo+Costa+Os+Dez+Mandamentos+do+Amor+ao+vivo" target="_blank" rel="noopener">assistir no YouTube ↗</a>`,
+      `<strong>Futuro do Pretérito (Condicional)</strong> — Thaís Gulin, "Se Eu Soubesse" (clipe oficial), completar a letra com os verbos: <a href="https://www.youtube.com/results?search_query=Tha%C3%ADs+Gulin+Se+Eu+Soubesse+clipe+oficial" target="_blank" rel="noopener">assistir no YouTube ↗</a>`,
+      `<strong>Futuro do Pretérito (Condicional)</strong> — "Te Amaria Outra Vez" (versão usada em sala: Raquel Rocha; também há a versão de Fernanda Brum na apostila impressa): <a href="https://www.youtube.com/results?search_query=Te+Amaria+Outra+Vez+Raquel+Rocha" target="_blank" rel="noopener">assistir no YouTube ↗</a>`,
+      `<strong>Pronome Indefinido</strong> — Vander Lee, "Nem Tudo..." (CD ao vivo), completar com "nem": <a href="https://www.youtube.com/results?search_query=Vander+Lee+Nem+tudo+fim+tem+come%C3%A7o+ao+vivo" target="_blank" rel="noopener">assistir no YouTube ↗</a>`,
+      `<strong>Encerramento / motivacional</strong> — música "Sorria", usada para fechar a apostila com uma mensagem de ânimo: <a href="https://www.youtube.com/watch?v=Zss0N8LsfwE" target="_blank" rel="noopener">assistir no YouTube ↗</a>`
+    ],
+    nota: `Os links acima abrem uma busca no YouTube (exceto "Sorria", com link direto) — confirme o vídeo exato antes de usar em aula, pois versões e disponibilidade podem mudar.`,
+    podcasts: [
+      { nome: "Português Pra Fora", nivel: "B1/B2", desc: "conversas sobre temas de vida real — combina bem com os textos de opinião desta apostila (mundo melhor, feminismo, A Gente Se Acostuma)" },
+      { nome: "Brasileiríssimo", nivel: "B1", desc: "padrão já usado como referência fixa no B1 — bom para praticar compreensão auditiva no mesmo nível" },
+      { nome: "5 Minutos de Português", nivel: "B1", desc: "episódios curtos, fáceis de encaixar entre um tema gramatical e outro" }
+    ]
+  }
+];
+
+const tabsEl = document.getElementById("tabs");
+const mainEl = document.getElementById("main");
+
+temas.forEach((tema, idx) => {
+  const btn = document.createElement("button");
+  btn.className = "tab-btn" + (idx === 0 ? " active" : "");
+  btn.textContent = tema.icone + " " + tema.titulo;
+  btn.onclick = () => showTopic(idx);
+  tabsEl.appendChild(btn);
+
+  const section = document.createElement("section");
+  section.className = "topic" + (idx === 0 ? " active" : "");
+  section.id = "topic-" + tema.id;
+
+  let tabelaHtml = "";
+  if (tema.tabela) {
+    tabelaHtml = "<table><tr>" + tema.tabela.cabecalho.map(h => `<th>${h}</th>`).join("") + "</tr>" +
+      tema.tabela.linhas.map(l => "<tr>" + l.map(c => `<td>${c}</td>`).join("") + "</tr>").join("") +
+      "</table>";
+  }
+
+  const exemplosHtml = tema.exemplos.map(e => `<p>• ${e}</p>`).join("");
+  const notaHtml = tema.nota ? `<div class="nota">💡 ${tema.nota}</div>` : "";
+
+  let exercicioHtml = "";
+  if (tema.exercicio) {
+    const itensHtml = tema.exercicio.itens.map(it => `<li>${it}</li>`).join("");
+    exercicioHtml = `
+    <div class="card exercicio">
+      <h2>✏️ ${tema.exercicio.titulo}</h2>
+      <ol>${itensHtml}</ol>
+      <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Ver gabarito</button>
+      <div class="gabarito">${tema.exercicio.gabarito}</div>
+    </div>`;
+  }
+
+  const exemplosLabel = tema.exemplosLabel || "Exemplos da apostila";
+
+  let podcastsHtml = "";
+  if (tema.podcasts) {
+    const linhas = tema.podcasts.map(p => `<p>🎧 <strong>${p.nome}</strong> <span class="badge" style="margin-left:6px;">${p.nivel}</span><br>${p.desc}</p>`).join("");
+    podcastsHtml = `
+    <div class="card">
+      <h3>Podcasts recomendados para este nível</h3>
+      <div class="exemplos">${linhas}</div>
+    </div>`;
+  }
+
+  section.innerHTML = `
+    <div class="card">
+      <span class="badge">Tema ${idx+1} de ${temas.length}</span>
+      <h2>${tema.icone} ${tema.titulo}</h2>
+      <p>${tema.explicacao}</p>
+      ${tabelaHtml}
+      <h3>${exemplosLabel}</h3>
+      <div class="exemplos">${exemplosHtml}</div>
+      ${notaHtml}
+    </div>
+    ${podcastsHtml}
+    ${exercicioHtml}
+  `;
+  mainEl.appendChild(section);
+});
+
+function showTopic(idx){
+  document.querySelectorAll(".tab-btn").forEach((b,i) => b.classList.toggle("active", i===idx));
+  document.querySelectorAll(".topic").forEach((s,i) => s.classList.toggle("active", i===idx));
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
